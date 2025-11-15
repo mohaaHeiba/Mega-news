@@ -1,0 +1,15 @@
+# usnig it 
+#  dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+flutter_native_splash:
+  color: "#F8F9FA"               
+  image: assets/images/logo.png  
+  color_dark: "#212121"            
+  image_dark: assets/images/logo.png
+
+  android_12:
+    color: "#F8F9FA"
+    image: assets/images/logo.png
+    color_dark: "#212121"
+    image_dark: assets/images/logo.png
+    
+  web: false                     
