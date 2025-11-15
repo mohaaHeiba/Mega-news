@@ -4,7 +4,7 @@ import 'package:mega_news/core/services/permission_service.dart';
 import 'package:mega_news/generated/l10n.dart';
 
 class WelcomeController extends GetxController {
-  final premission = PermissionService();
+  final PermissionService permission = Get.find<PermissionService>();
   // Controllers for PageViews
   final PageController imageController = PageController();
   final PageController textController = PageController();
@@ -58,8 +58,8 @@ class WelcomeController extends GetxController {
   }
 
   // GET PREMESSIONS
-  Future<void> getPermission() async {
-    await premission.requestAll();
+  Future<void> requestPermissions() async {
+    await permission.requestAll();
   }
 
   @override

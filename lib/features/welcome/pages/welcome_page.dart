@@ -183,7 +183,7 @@ class WelcomePage extends GetView<WelcomeController> {
                                       curve: Curves.easeInOut,
                                     );
                                   } else {
-                                    await controller.getPermission();
+                                    await controller.requestPermissions();
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

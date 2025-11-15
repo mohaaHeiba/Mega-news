@@ -30,6 +30,13 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            
+            <data
+                android:scheme="io.supabase.flutter"
+                android:host="login-callback" />
+            <data
+                android:scheme="io.supabase.flutter"
+                android:host="reset-password" />
         </activity>
 
         <!-- Background service -->
