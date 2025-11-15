@@ -23,14 +23,14 @@ class NetworkService {
   }
 
   // nah maybe mabye: timeout
-  static Future<bool> get isConnectedWithTimeout async {
-    try {
-      return await InternetConnection().hasInternetAccess.timeout(
-        const Duration(seconds: 5),
-        onTimeout: () => false,
-      );
-    } catch (_) {
-      return false;
-    }
-  }
+  // static Future<bool> get isConnectedWithTimeout async {
+  //   try {
+  //     return await InternetConnection().hasInternetAccess.timeout(
+  //       const Duration(seconds: 5),
+  //       onTimeout: () => false,
+  //     );
+  //   } catch (_) {
+  //     return false;
+  //   }
+  // }
 }
