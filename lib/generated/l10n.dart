@@ -53,13 +53,106 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Please enter your name.`
+  String get enterName {
+    return Intl.message(
+      'Please enter your name.',
+      name: 'enterName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name must be at least 3 characters.`
+  String get nameMinChars {
+    return Intl.message(
+      'Name must be at least 3 characters.',
+      name: 'nameMinChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email address.`
+  String get enterEmail {
+    return Intl.message(
+      'Please enter your email address.',
+      name: 'enterEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get invalidEmail {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password.`
+  String get enterPassword {
+    return Intl.message(
+      'Please enter your password.',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters.`
+  String get passwordMinChars {
+    return Intl.message(
+      'Password must be at least 6 characters.',
+      name: 'passwordMinChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must contain an uppercase letter and a number.`
+  String get passwordUpperNumber {
+    return Intl.message(
+      'Password must contain an uppercase letter and a number.',
+      name: 'passwordUpperNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm your password.`
+  String get confirmPassword {
+    return Intl.message(
+      'Please confirm your password.',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match.`
+  String get passwordsNotMatch {
+    return Intl.message(
+      'Passwords do not match.',
+      name: 'passwordsNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
-    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
+    return const <Locale>[
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
+    ];
   }
 
   @override

@@ -45,6 +45,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+  internet_connection_checker_plus: ^2.9.1
 
 dev_dependencies:
   flutter_test:

@@ -1,1 +1,13 @@
-{}
+{
+
+  "enterName": "Please enter your name.",
+  "nameMinChars": "Name must be at least 3 characters.",
+  "enterEmail": "Please enter your email address.",
+  "invalidEmail": "Please enter a valid email address.",
+  "enterPassword": "Please enter your password.",
+  "passwordMinChars": "Password must be at least 6 characters.",
+  "passwordUpperNumber": "Password must contain an uppercase letter and a number.",
+  "confirmPassword": "Please confirm your password.",
+  "passwordsNotMatch": "Passwords do not match."
+
+}

@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a ar locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,36 +18,34 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'ar';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
-      "Please confirm your password.",
+      "يرجى تأكيد كلمة المرور.",
     ),
     "enterEmail": MessageLookupByLibrary.simpleMessage(
-      "Please enter your email address.",
+      "يرجى إدخال عنوان بريدك الإلكتروني.",
     ),
-    "enterName": MessageLookupByLibrary.simpleMessage(
-      "Please enter your name.",
-    ),
+    "enterName": MessageLookupByLibrary.simpleMessage("يرجى إدخال اسمك."),
     "enterPassword": MessageLookupByLibrary.simpleMessage(
-      "Please enter your password.",
+      "يرجى إدخال كلمة المرور.",
     ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
-      "Please enter a valid email address.",
+      "يرجى إدخال عنوان بريد إلكتروني صالح.",
     ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
-      "Name must be at least 3 characters.",
+      "يجب أن يكون الاسم 3 أحرف على الأقل.",
     ),
     "passwordMinChars": MessageLookupByLibrary.simpleMessage(
-      "Password must be at least 6 characters.",
+      "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
     ),
     "passwordUpperNumber": MessageLookupByLibrary.simpleMessage(
-      "Password must contain an uppercase letter and a number.",
+      "يجب أن تحتوي كلمة المرور على حرف كبير ورقم.",
     ),
     "passwordsNotMatch": MessageLookupByLibrary.simpleMessage(
-      "Passwords do not match.",
+      "كلمات المرور غير متطابقة.",
     ),
   };
 }
