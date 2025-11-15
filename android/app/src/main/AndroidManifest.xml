@@ -33,10 +33,10 @@
         </activity>
 
         <!-- Background service -->
-        <service
-            android:name=".core/services/BackgroundService"
-            android:foregroundServiceType="dataSync|mediaPlayback"
-            android:exported="false"/>
+       <service
+    android:name="com.example.mega_news.core.services.BackgroundService"
+    android:foregroundServiceType="dataSync|mediaPlayback"
+    android:exported="false"/>
 
         <!-- Notification Channel -->
         <meta-data

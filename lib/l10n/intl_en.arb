@@ -8,6 +8,19 @@
   "passwordMinChars": "Password must be at least 6 characters.",
   "passwordUpperNumber": "Password must contain an uppercase letter and a number.",
   "confirmPassword": "Please confirm your password.",
-  "passwordsNotMatch": "Passwords do not match."
+  "passwordsNotMatch": "Passwords do not match.",
+
+    "welcomeTitle1": "News from Everywhere",
+  "welcomeSubtitle1": "Follow news from multiple reliable sources in one app",
+  "welcomeTitle2": "Smart Search & Instant Summaries",
+  "welcomeSubtitle2": "Search any topic and get a comprehensive summary of related news",
+  "welcomeTitle3": "Save What Matters",
+  "welcomeSubtitle3": "Add important news to favorites and read them anytime",
+  "welcomeTitle4": "Real-time Notifications",
+  "welcomeSubtitle4": "Be the first to know breaking news from all sources",
+  "skip": "Skip",
+  "next": "Next",
+  "getStarted": "Get Started"
+
 
 }

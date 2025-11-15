@@ -20,10 +20,11 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
 
+      // locale: Locale('en'),
       // theme
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
 
       // routes
       initialRoute: AppPages.welcomePage,

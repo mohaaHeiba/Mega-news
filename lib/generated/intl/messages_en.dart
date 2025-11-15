@@ -34,12 +34,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterPassword": MessageLookupByLibrary.simpleMessage(
       "Please enter your password.",
     ),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email address.",
     ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "Name must be at least 3 characters.",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("Next"),
     "passwordMinChars": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 6 characters.",
     ),
@@ -48,6 +50,29 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "passwordsNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match.",
+    ),
+    "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(
+      "Follow news from multiple reliable sources in one app",
+    ),
+    "welcomeSubtitle2": MessageLookupByLibrary.simpleMessage(
+      "Search any topic and get a comprehensive summary of related news",
+    ),
+    "welcomeSubtitle3": MessageLookupByLibrary.simpleMessage(
+      "Add important news to favorites and read them anytime",
+    ),
+    "welcomeSubtitle4": MessageLookupByLibrary.simpleMessage(
+      "Be the first to know breaking news from all sources",
+    ),
+    "welcomeTitle1": MessageLookupByLibrary.simpleMessage(
+      "News from Everywhere",
+    ),
+    "welcomeTitle2": MessageLookupByLibrary.simpleMessage(
+      "Smart Search & Instant Summaries",
+    ),
+    "welcomeTitle3": MessageLookupByLibrary.simpleMessage("Save What Matters"),
+    "welcomeTitle4": MessageLookupByLibrary.simpleMessage(
+      "Real-time Notifications",
     ),
   };
 }

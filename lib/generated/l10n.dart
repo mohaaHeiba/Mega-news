@@ -143,6 +143,101 @@ class S {
       args: [],
     );
   }
+
+  /// `News from Everywhere`
+  String get welcomeTitle1 {
+    return Intl.message(
+      'News from Everywhere',
+      name: 'welcomeTitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow news from multiple reliable sources in one app`
+  String get welcomeSubtitle1 {
+    return Intl.message(
+      'Follow news from multiple reliable sources in one app',
+      name: 'welcomeSubtitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smart Search & Instant Summaries`
+  String get welcomeTitle2 {
+    return Intl.message(
+      'Smart Search & Instant Summaries',
+      name: 'welcomeTitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search any topic and get a comprehensive summary of related news`
+  String get welcomeSubtitle2 {
+    return Intl.message(
+      'Search any topic and get a comprehensive summary of related news',
+      name: 'welcomeSubtitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save What Matters`
+  String get welcomeTitle3 {
+    return Intl.message(
+      'Save What Matters',
+      name: 'welcomeTitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add important news to favorites and read them anytime`
+  String get welcomeSubtitle3 {
+    return Intl.message(
+      'Add important news to favorites and read them anytime',
+      name: 'welcomeSubtitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Real-time Notifications`
+  String get welcomeTitle4 {
+    return Intl.message(
+      'Real-time Notifications',
+      name: 'welcomeTitle4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Be the first to know breaking news from all sources`
+  String get welcomeSubtitle4 {
+    return Intl.message(
+      'Be the first to know breaking news from all sources',
+      name: 'welcomeSubtitle4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message('Skip', name: 'skip', desc: '', args: []);
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message('Next', name: 'next', desc: '', args: []);
+  }
+
+  /// `Get Started`
+  String get getStarted {
+    return Intl.message('Get Started', name: 'getStarted', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

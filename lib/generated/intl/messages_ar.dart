@@ -32,12 +32,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterPassword": MessageLookupByLibrary.simpleMessage(
       "يرجى إدخال كلمة المرور.",
     ),
+    "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "يرجى إدخال عنوان بريد إلكتروني صالح.",
     ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الاسم 3 أحرف على الأقل.",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "passwordMinChars": MessageLookupByLibrary.simpleMessage(
       "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
     ),
@@ -47,5 +49,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsNotMatch": MessageLookupByLibrary.simpleMessage(
       "كلمات المرور غير متطابقة.",
     ),
+    "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(
+      "تابع الأخبار من مصادر موثوقة متعددة في تطبيق واحد",
+    ),
+    "welcomeSubtitle2": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن أي موضوع واحصل على ملخص شامل للأخبار المتعلقة به",
+    ),
+    "welcomeSubtitle3": MessageLookupByLibrary.simpleMessage(
+      "أضف الأخبار المهمة إلى المفضلة واقرأها في أي وقت",
+    ),
+    "welcomeSubtitle4": MessageLookupByLibrary.simpleMessage(
+      "كن أول من يعرف الأخبار العاجلة من كل المصادر",
+    ),
+    "welcomeTitle1": MessageLookupByLibrary.simpleMessage("أخبار من كل مكان"),
+    "welcomeTitle2": MessageLookupByLibrary.simpleMessage(
+      "بحث ذكي وملخصات فورية",
+    ),
+    "welcomeTitle3": MessageLookupByLibrary.simpleMessage("احفظ ما يهمك"),
+    "welcomeTitle4": MessageLookupByLibrary.simpleMessage("إشعارات لحظية"),
   };
 }
