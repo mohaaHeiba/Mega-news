@@ -9,19 +9,19 @@ import 'package:mega_news/features/auth/presentations/controller/auth_controller
 class AuthBinding extends Bindings {
   @override
   void dependencies() {
-    // 1) Register GetStorage instance
+    //  GetStorage instance
 
     Get.lazyPut<GetStorage>(() => GetStorage());
 
-    // 2) Register Local DataSource
+    //  Local DataSource
     Get.lazyPut<AuthLocalDataSource>(
       () => AuthLocalDataSourceImpl(Get.find<GetStorage>()),
     );
 
-    // 3) Register Remote DataSource
+    // Remote DataSource
     Get.lazyPut<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl());
 
-    // 4) Register Repository (implementation, not abstract)
+    //  Repository (implementation, not abstract)
     Get.lazyPut<AuthRepository>(
       () => AuthRepositoryImpl(
         Get.find<AuthRemoteDataSource>(),
@@ -29,7 +29,7 @@ class AuthBinding extends Bindings {
       ),
     );
 
-    // 5) Register Controller
+    //  Controller
     Get.lazyPut<AuthController>(() => AuthController());
   }
 }

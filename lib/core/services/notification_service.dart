@@ -15,9 +15,9 @@ class NotificationService {
     await _notificationsPlugin.initialize(settings);
   }
 
-  /// title = عنوان الإشعار
-  /// body = نص الإشعار
-  /// imageUrl = رابط الصورة أو path محلي
+  /// title = عنوان notifications
+  /// body = نص notifications
+  /// imageUrl = notifications image
   static Future<void> show(
     String title,
     String body, {

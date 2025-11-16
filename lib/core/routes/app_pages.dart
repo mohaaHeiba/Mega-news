@@ -13,13 +13,15 @@ class AppPages {
       name: welcomePage,
       page: () => WelcomePage(),
       binding: WelcomeBinding(),
-      // transition: Transition
+      // transition: Transition.fadeIn,
+      // transitionDuration: Duration(milliseconds: 400),
     ),
     GetPage(
       name: authPage,
       page: () => AuthPage(),
       binding: AuthBinding(),
-      // transition: Transition
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 400),
     ),
   ];
 }

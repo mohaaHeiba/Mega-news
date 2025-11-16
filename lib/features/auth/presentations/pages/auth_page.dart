@@ -29,10 +29,6 @@ class AuthPage extends GetView<AuthController> {
               onPressed: () async {
                 await GetStorage().write('loginBefore', true);
 
-                // --- 🚀 FIX #4: Set guest mode in AuthController
-                // controller.isGuest.value = true;
-                // controller.user.value = null;
-
                 // Get.offAllNamed(AppPages.loyoutPage);
               },
               icon: Icon(Icons.person_outline, color: appTheme.primary),

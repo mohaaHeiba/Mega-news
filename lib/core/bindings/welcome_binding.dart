@@ -5,7 +5,7 @@ import '../../features/welcome/controllers/welcome_controller.dart';
 class WelcomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(PermissionService(), permanent: true);
+    Get.put(PermissionService());
     Get.lazyPut<WelcomeController>(() => WelcomeController());
   }
 }

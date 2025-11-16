@@ -185,7 +185,7 @@ class WelcomePage extends GetView<WelcomeController> {
                                     );
                                   } else {
                                     await controller.requestPermissions();
-                                    await Get.toNamed(AppPages.authPage);
+                                    await Get.offNamed(AppPages.authPage);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

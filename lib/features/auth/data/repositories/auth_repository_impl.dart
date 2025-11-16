@@ -10,7 +10,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl(this.remote, this.local);
 
-  @override
+  @override // <-- Added @override
   Future<AuthEntity> login({
     required String email,
     required String password,
@@ -20,11 +20,10 @@ class AuthRepositoryImpl implements AuthRepository {
     return model;
   }
 
-  @override
+  @override // <-- Added @override
   Future<AuthEntity?> getCurrentUser() async {
-    // <-- FIX 2: Return type changed to AuthEntity?
     final model = local.getUser();
-    return model; // Model is an AuthModel?, which is compatible with AuthEntity?
+    return model;
   }
 
   @override // <-- Added @override
@@ -35,7 +34,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override // <-- Added @override
   Future<AuthEntity> signup({
-    // <-- FIX 3: Return type changed to AuthEntity
     required String name,
     required String email,
     required String password,
@@ -46,15 +44,14 @@ class AuthRepositoryImpl implements AuthRepository {
       password: password,
     );
     await local.saveUser(model);
-    return model; // Model is an AuthModel, which is compatible with AuthEntity
+    return model;
   }
 
   @override // <-- Added @override
   Future<AuthEntity> googleSignIn() async {
-    // <-- FIX 4: Return type changed to AuthEntity
     final model = await remote.googleSignIN();
     await local.saveUser(model);
-    return model; // Model is an AuthModel, which is compatible with AuthEntity
+    return model;
   }
 
   @override // <-- Added @override

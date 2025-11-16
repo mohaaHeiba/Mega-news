@@ -6,21 +6,21 @@ class NetworkService {
       await InternetConnection().hasInternetAccess;
 
   // Stream to listen to connectivity changes
-  static Stream<bool> get onStatusChange => InternetConnection().onStatusChange
-      .map((InternetStatus status) => status == InternetStatus.connected);
+  // static Stream<bool> get onStatusChange => InternetConnection().onStatusChange
+  //     .map((InternetStatus status) => status == InternetStatus.connected);
 
-  // Retry helper
-  static Future<T?> retry<T>(Future<T> Function() task, {int times = 3}) async {
-    for (int i = 0; i < times; i++) {
-      if (await isConnected) {
-        try {
-          return await task();
-        } catch (_) {}
-      }
-      await Future.delayed(const Duration(seconds: 2));
-    }
-    return null;
-  }
+  // // Retry helper
+  // static Future<T?> retry<T>(Future<T> Function() task, {int times = 3}) async {
+  //   for (int i = 0; i < times; i++) {
+  //     if (await isConnected) {
+  //       try {
+  //         return await task();
+  //       } catch (_) {}
+  //     }
+  //     await Future.delayed(const Duration(seconds: 2));
+  //   }
+  //   return null;
+  // }
 
   // nah maybe mabye: timeout
   // static Future<bool> get isConnectedWithTimeout async {

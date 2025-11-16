@@ -13,9 +13,16 @@ class PermissionService {
     }
   }
 
+  // Future<void> requestCamera() async {
+  //   if (!await Permission.camera.isGranted) {
+  //     await Permission.camera.request();
+  //   }
+  // }
+
   Future<void> requestAll() async {
     await requestMicrophone();
     await requestNotification();
+    // await requestCamera();
   }
 
   Future<bool> get isMicrophoneGranted async =>
@@ -23,4 +30,6 @@ class PermissionService {
 
   Future<bool> get isNotificationGranted async =>
       await Permission.notification.isGranted;
+
+  // Future<bool> get isCameraGranted async => await Permission.camera.isGranted;
 }
