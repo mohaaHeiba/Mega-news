@@ -2,15 +2,31 @@ import 'dart:io';
 
 import 'package:mega_news/core/errors/supabase_exception.dart';
 import 'package:mega_news/core/services/network_service.dart';
-import 'package:mega_news/features/auth/domain/model/auth_model.dart';
+import 'package:mega_news/features/auth/data/model/auth_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class AuthService {
+abstract class AuthRemoteDataSource {
+  Future<AuthModel> signUp({
+    required String name,
+    required String email,
+    required String password,
+  });
+  Future<AuthModel> signIn({required String email, required String password});
+  Future<void> resetPassword(String email);
+  Future<void> updatePassword(String newPassword);
+  Future<AuthModel> googleSignIN();
+  Future<void> logout();
+  Future<void> deleteAccount(String userId);
+  bool get isLoggedIn;
+}
+
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final supabase = Supabase.instance.client;
 
   // ================= Sign Up =================
+  @override
   Future<AuthModel> signUp({
     required String name,
     required String email,
@@ -71,6 +87,7 @@ class AuthService {
   }
 
   // ================= Sign In =================
+  @override
   Future<AuthModel> signIn({
     required String email,
     required String password,
@@ -110,6 +127,7 @@ class AuthService {
   }
 
   // ================= Reset Password =================
+  @override
   Future<void> resetPassword(String email) async {
     try {
       if (!await NetworkService.isConnected) {
@@ -134,6 +152,7 @@ class AuthService {
   }
 
   // ================= Update Password =================
+  @override
   Future<void> updatePassword(String newPassword) async {
     try {
       if (!await NetworkService.isConnected) {
@@ -150,6 +169,7 @@ class AuthService {
   }
 
   // google signIN
+  @override
   Future<AuthModel> googleSignIN() async {
     try {
       if (!await NetworkService.isConnected) {
@@ -211,6 +231,7 @@ class AuthService {
   }
 
   // ================= Sign Out =================
+  @override
   Future<void> logout() async {
     if (!await NetworkService.isConnected) {
       throw const NetworkException('No internet connection.');
@@ -230,6 +251,7 @@ class AuthService {
     dotenv.env['SUPABASE_SERVICEROLE']!,
   );
 
+  @override
   Future<void> deleteAccount(String userId) async {
     if (!await NetworkService.isConnected) {
       throw const NetworkException('No internet connection.');

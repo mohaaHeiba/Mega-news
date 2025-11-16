@@ -1,22 +1,19 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mega_news/core/common_widgets/snackbars/custom_snackbar.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/errors/supabase_exception.dart';
-import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/core/services/network_service.dart';
-import 'package:mega_news/features/auth/data/auth_local.dart';
-import 'package:mega_news/features/auth/data/auth_service.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
+import 'package:mega_news/features/auth/domain/repositories/auth_repository.dart';
 import 'package:mega_news/features/auth/presentations/pages/email_verification_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show Supabase, AuthChangeEvent;
 
 class AuthController extends GetxController {
-  final AuthService auth = AuthService();
-  final AuthLocalService localAuth = AuthLocalService();
+  final AuthRepository repo = Get.find<AuthRepository>();
 
   // ------------------ Form & Page ------------------
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -35,8 +32,8 @@ class AuthController extends GetxController {
   final isLoading = false.obs;
 
   // --- 🚀 FIX #3: Reactive User State - Expose user as observable for SettingsController sync
-  final user = Rxn<AuthEntity>();
-  final isGuest = false.obs; // Track guest mode
+  // final user = Rxn<AuthEntity>();
+  // final isGuest = false.obs; // Track guest mode
 
   // ================= Page Navigation =================
   Future<void> goToRegister() async {
@@ -93,23 +90,19 @@ class AuthController extends GetxController {
       }
       // ------------------------
 
-      final authModel = await auth.signUp(
+      // ✅ FIX: Call repo.signup. The repository handles saving.
+      // We still get the entity back in case we need it.
+      final authEntity = await repo.signup(
         name: name,
         email: email,
         password: password,
       );
 
-      final authEntity = AuthEntity(
-        id: authModel.id,
-        name: authModel.name,
-        email: authModel.email,
-        createdAt: authModel.createdAt ?? DateTime.now().toIso8601String(),
-      );
-
-      await localAuth.saveAuthData(authEntity);
+      // 🛑 FIX: Removed manual AuthEntity creation and saveAuthData call.
+      // The repository implementation already did this.
 
       // // --- 🚀 FIX #3: Update reactive user state immediately
-      // user.value = authEntity;
+      // user.value = authEntity; // Now this would work
       // isGuest.value = false;
 
       // // --- 🚀 FIX #3: Notify SettingsController if it exists
@@ -163,19 +156,14 @@ class AuthController extends GetxController {
       }
       // ------------------------
 
-      final authModel = await auth.signIn(email: email, password: password);
+      // ✅ FIX: Use repo.login instead of undefined 'auth.signIn'
+      final authEntity = await repo.login(email: email, password: password);
 
-      final authEntity = AuthEntity(
-        id: authModel.id,
-        name: authModel.name,
-        email: authModel.email,
-        createdAt: authModel.createdAt ?? DateTime.now().toIso8601String(),
-      );
-
-      await localAuth.saveAuthData(authEntity);
+      // 🛑 FIX: Removed manual AuthEntity creation and saveAuthData call.
+      // The repository implementation already did this.
 
       // --- 🚀 FIX #3: Update reactive user state immediately
-      // user.value = authEntity;
+      // user.value = authEntity; // Now this would work
       // isGuest.value = false;
 
       // // --- 🚀 FIX #3: Notify SettingsController if it exists
@@ -237,19 +225,14 @@ class AuthController extends GetxController {
       }
       // ------------------------
 
-      final authModel = await auth.googleSignIN();
+      // ✅ FIX: Use repo.googleSignIn instead of undefined 'auth.googleSignIN'
+      final authEntity = await repo.googleSignIn();
 
-      final authEntity = AuthEntity(
-        id: authModel.id,
-        name: authModel.name,
-        email: authModel.email,
-        createdAt: authModel.createdAt ?? DateTime.now().toIso8601String(),
-      );
-
-      await localAuth.saveAuthData(authEntity);
+      // 🛑 FIX: Removed manual AuthEntity creation and saveAuthData call.
+      // The repository implementation already did this.
 
       // --- 🚀 FIX #3: Update reactive user state immediately
-      // user.value = authEntity;
+      // user.value = authEntity; // Now this would work
       // isGuest.value = false;
 
       // // --- 🚀 FIX #3: Notify SettingsController if it exists
@@ -306,8 +289,10 @@ class AuthController extends GetxController {
       }
       // ------------------------
 
-      await auth.logout();
-      await localAuth.clearAuthData();
+      // ✅ FIX: Use repo.logout.
+      await repo.logout();
+      // 🛑 FIX: Removed localAuth.clearAuthData().
+      // The repo.logout() implementation should handle this.
 
       // // --- 🚀 FIX #3: Clear reactive user state
       // user.value = null;
@@ -372,13 +357,16 @@ class AuthController extends GetxController {
         throw const NetworkException('No internet connection.');
       }
 
-      final currentUser = await localAuth.getAuthData();
+      // ✅ FIX: Use repo.getCurrentUser()
+      final currentUser = await repo.getCurrentUser();
       if (currentUser == null) {
         throw const UserNotFoundException('No user is currently logged in.');
       }
 
-      await auth.deleteAccount(currentUser.id);
-      await localAuth.clearAuthData();
+      // ✅ FIX: Use repo.deleteAccount()
+      await repo.deleteAccount(currentUser.id);
+      // 🛑 FIX: Removed localAuth.clearAuthData().
+      // The repo.deleteAccount() implementation should handle this.
 
       // // --- 🚀 FIX #3: Clear reactive user state
       // user.value = null;
@@ -445,7 +433,8 @@ class AuthController extends GetxController {
       }
       // ------------------------
 
-      await auth.updatePassword(newPassword);
+      // ✅ FIX: Use repo.updatePassword()
+      await repo.updatePassword(newPassword);
 
       customSnackbar(
         title: 'Password Updated',
@@ -488,7 +477,8 @@ class AuthController extends GetxController {
 
       isLoading.value = true;
 
-      await auth.resetPassword(email);
+      // ✅ FIX: Use repo.resetPassword()
+      await repo.resetPassword(email);
 
       customSnackbar(
         title: 'Email Sent',
@@ -532,7 +522,7 @@ class AuthController extends GetxController {
     super.onInit();
 
     // --- 🚀 FIX #3: Load initial user data from local storage
-    _loadUserData();
+    // _loadUserData();
 
     supabase.auth.onAuthStateChange.listen((data) {
       final event = data.event;
@@ -558,8 +548,8 @@ class AuthController extends GetxController {
             email: sessionUser.email ?? '',
             createdAt: sessionUser.createdAt,
           );
-          user.value = authEntity;
-          isGuest.value = false;
+          // user.value = authEntity;
+          // isGuest.value = false;
 
           // --- 🚀 FIX #3: Notify SettingsController if it exists
           // try {
@@ -579,12 +569,12 @@ class AuthController extends GetxController {
           //   // Favorites controller might not be initialized yet, ignore
           //   print('Could not sync favorites on auth state change: $e');
           // }
-          Get.offAllNamed(AppPages.loyoutPage);
+          // Get.offAllNamed(AppPages.loyoutPage);
         }
       } else if (event == AuthChangeEvent.signedOut) {
         // --- 🚀 FIX #3: Clear user state on sign out
-        user.value = null;
-        isGuest.value = false;
+        // user.value = null;
+        // isGuest.value = false;
         try {
           // final settingsController = Get.find<SettingsController>();
           // settingsController.clearUserData();
@@ -596,18 +586,19 @@ class AuthController extends GetxController {
   }
 
   // --- 🚀 FIX #3: Load user data from local storage
-  void _loadUserData() {
-    final authData = localAuth.getAuthData();
-    if (authData != null) {
-      user.value = authData;
-      isGuest.value = false;
-    } else {
-      // Check if user is in guest mode
-      final storage = GetStorage();
-      final loginBefore = storage.read('loginBefore') ?? false;
-      isGuest.value = loginBefore && user.value == null;
-    }
-  }
+  // void _loadUserData() async { // Needs to be async
+  //   // ✅ FIX: Use repo.getCurrentUser()
+  //   final authData = await repo.getCurrentUser();
+  //   if (authData != null) {
+  //     user.value = authData;
+  //     isGuest.value = false;
+  //   } else {
+  //     // Check if user is in guest mode
+  //     final storage = GetStorage();
+  //     final loginBefore = storage.read('loginBefore') ?? false;
+  //     isGuest.value = loginBefore && user.value == null;
+  //   }
+  // }
 
   // ------------------ Helpers ------------------
   Future<void> clearControllers() async {

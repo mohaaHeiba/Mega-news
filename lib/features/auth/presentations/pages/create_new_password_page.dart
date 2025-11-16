@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/common_widgets/inputs/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 
 class CreateNewPasswordPage extends GetView<AuthController> {
@@ -53,7 +55,7 @@ class CreateNewPasswordPage extends GetView<AuthController> {
               hint: s.new_password,
               icon: Icons.lock_outline,
               isObsure: controller.isPasswordObscure,
-              validator: (value) => validator.validatePassword(value ?? ''),
+              validator: (value) => Validator.password(context, value ?? ''),
             ),
             AppGaps.h16,
 
@@ -63,7 +65,8 @@ class CreateNewPasswordPage extends GetView<AuthController> {
               hint: s.confirm_new_password,
               icon: Icons.lock_outline,
               isObsure: controller.isConfirmPasswordObscure,
-              validator: (value) => validator.validateConfirmPassword(
+              validator: (value) => Validator.confirmPassword(
+                context,
                 controller.passController.text,
                 controller.confirmPassController.text,
               ),

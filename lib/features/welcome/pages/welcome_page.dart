@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/welcome/controllers/welcome_controller.dart';
 
 class WelcomePage extends GetView<WelcomeController> {
@@ -184,6 +185,7 @@ class WelcomePage extends GetView<WelcomeController> {
                                     );
                                   } else {
                                     await controller.requestPermissions();
+                                    await Get.toNamed(AppPages.authPage);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/common_widgets/inputs/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 
 class ForgotPasswordPage extends GetView<AuthController> {
@@ -58,7 +60,7 @@ class ForgotPasswordPage extends GetView<AuthController> {
                 hint: s.hintEmail,
                 icon: Icons.email_outlined,
                 inputType: TextInputType.emailAddress,
-                validator: (value) => validator.validateEmail(value ?? ''),
+                validator: (value) => Validator.email(context, value ?? ''),
               ),
               AppGaps.h24,
 

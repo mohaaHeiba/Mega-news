@@ -22,34 +22,113 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "هل لديك حساب بالفعل؟",
+    ),
+    "auth": MessageLookupByLibrary.simpleMessage(
+      "______________________________________",
+    ),
+    "buttonLogin": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "buttonSendResetLink": MessageLookupByLibrary.simpleMessage(
+      "إرسال رابط إعادة التعيين",
+    ),
+    "buttonSignUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
-      "يرجى تأكيد كلمة المرور.",
+      "الرجاء تأكيد كلمة المرور",
+    ),
+    "confirm_new_password": MessageLookupByLibrary.simpleMessage(
+      "تأكيد كلمة المرور الجديدة",
+    ),
+    "create": MessageLookupByLibrary.simpleMessage("إنشاء كلمة مرور جديدة"),
+    "dont_have_account": MessageLookupByLibrary.simpleMessage(
+      "ليس لديك حساب؟ ",
+    ),
+    "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "emailVerificationInstruction": MessageLookupByLibrary.simpleMessage(
+      "يرجى التحقق من بريدك الإلكتروني للمتابعة...",
+    ),
+    "emailVerificationMessage": MessageLookupByLibrary.simpleMessage(
+      "لقد أرسلنا رابط التحقق إلى ",
     ),
     "enterEmail": MessageLookupByLibrary.simpleMessage(
-      "يرجى إدخال عنوان بريدك الإلكتروني.",
+      "الرجاء إدخال البريد الإلكتروني",
     ),
-    "enterName": MessageLookupByLibrary.simpleMessage("يرجى إدخال اسمك."),
+    "enterName": MessageLookupByLibrary.simpleMessage("الرجاء إدخال الاسم"),
     "enterPassword": MessageLookupByLibrary.simpleMessage(
-      "يرجى إدخال كلمة المرور.",
+      "الرجاء إدخال كلمة المرور",
+    ),
+    "enter_email": MessageLookupByLibrary.simpleMessage(
+      "أدخل بريدك الإلكتروني",
+    ),
+    "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "forgotPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
+      "أدخل بريدك الإلكتروني أدناه وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
+    ),
+    "forgotPasswordTitle": MessageLookupByLibrary.simpleMessage(
+      "هل نسيت كلمة المرور؟",
+    ),
+    "forgot_password": MessageLookupByLibrary.simpleMessage(
+      "نسيت كلمة المرور؟",
     ),
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "hintConfirmPassword": MessageLookupByLibrary.simpleMessage(
+      "أعد إدخال كلمة المرور",
+    ),
+    "hintEmail": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
+    "hintFullName": MessageLookupByLibrary.simpleMessage("أدخل اسمك الكامل"),
+    "hintPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
-      "يرجى إدخال عنوان بريد إلكتروني صالح.",
+      "الرجاء إدخال بريد إلكتروني صالح",
+    ),
+    "labelConfirmPassword": MessageLookupByLibrary.simpleMessage(
+      "تأكيد كلمة المرور",
+    ),
+    "labelEmail": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "labelFullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+    "labelPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "login_to_continue": MessageLookupByLibrary.simpleMessage(
+      "سجّل الدخول إلى حسابك للمتابعة",
     ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
-      "يجب أن يكون الاسم 3 أحرف على الأقل.",
+      "يجب أن يكون الاسم 3 أحرف على الأقل",
     ),
+    "new_password": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "or_continue_with": MessageLookupByLibrary.simpleMessage(
+      "أو تابع باستخدام",
+    ),
+    "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordMinChars": MessageLookupByLibrary.simpleMessage(
-      "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
+      "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
     ),
     "passwordUpperNumber": MessageLookupByLibrary.simpleMessage(
-      "يجب أن تحتوي كلمة المرور على حرف كبير ورقم.",
+      "يجب أن تحتوي كلمة المرور على حرف كبير ورقم واحد على الأقل",
     ),
     "passwordsNotMatch": MessageLookupByLibrary.simpleMessage(
-      "كلمات المرور غير متطابقة.",
+      "كلمات المرور غير متطابقة",
     ),
+    "registerSubtitle": MessageLookupByLibrary.simpleMessage(
+      "انضم إلينا وابدأ في استكشاف كل المميزات الرائعة التي نقدمها!",
+    ),
+    "registerTitle": MessageLookupByLibrary.simpleMessage("أنشئ حسابك"),
+    "rememberPassword": MessageLookupByLibrary.simpleMessage(
+      "هل تتذكر كلمة المرور؟",
+    ),
+    "remembered_password": MessageLookupByLibrary.simpleMessage(
+      "تذكّرت كلمة المرور؟",
+    ),
+    "set_strong_password": MessageLookupByLibrary.simpleMessage(
+      "أنشئ كلمة مرور قوية لحماية حسابك.",
+    ),
+    "sign_in_with_google": MessageLookupByLibrary.simpleMessage(
+      "تسجيل الدخول باستخدام Google",
+    ),
+    "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "update_password": MessageLookupByLibrary.simpleMessage(
+      "تحديث كلمة المرور",
+    ),
     "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(
       "تابع الأخبار من مصادر موثوقة متعددة في تطبيق واحد",
     ),
@@ -68,5 +147,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "welcomeTitle3": MessageLookupByLibrary.simpleMessage("احفظ ما يهمك"),
     "welcomeTitle4": MessageLookupByLibrary.simpleMessage("إشعارات لحظية"),
+    "welcome_back": MessageLookupByLibrary.simpleMessage("مرحبًا بعودتك!"),
   };
 }

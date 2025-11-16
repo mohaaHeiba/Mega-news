@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/common_widgets/inputs/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 
 class RegisterPage extends GetView<AuthController> {
@@ -54,7 +56,7 @@ class RegisterPage extends GetView<AuthController> {
             label: s.labelFullName,
             icon: Icons.person_outline,
             validator: (value) =>
-                validator.validateName(controller.nameController.text),
+                Validator.name(context, controller.nameController.text),
           ),
           AppGaps.h16,
 
@@ -66,7 +68,7 @@ class RegisterPage extends GetView<AuthController> {
             icon: Icons.email_outlined,
             inputType: TextInputType.emailAddress,
             validator: (value) =>
-                validator.validateEmail(controller.emailController.text),
+                Validator.email(context, controller.emailController.text),
           ),
           AppGaps.h16,
 
@@ -78,7 +80,7 @@ class RegisterPage extends GetView<AuthController> {
             icon: Icons.lock_outline,
             isObsure: controller.isPasswordObscure,
             validator: (value) =>
-                validator.validatePassword(controller.passController.text),
+                Validator.password(context, controller.passController.text),
           ),
           AppGaps.h16,
 
@@ -89,7 +91,8 @@ class RegisterPage extends GetView<AuthController> {
             label: s.labelConfirmPassword,
             icon: Icons.lock_outline,
             isObsure: controller.isConfirmPasswordObscure,
-            validator: (value) => validator.validateConfirmPassword(
+            validator: (value) => Validator.confirmPassword(
+              context,
               controller.passController.text,
               controller.confirmPassController.text,
             ),

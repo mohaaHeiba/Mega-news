@@ -20,7 +20,67 @@
   "welcomeSubtitle4": "Be the first to know breaking news from all sources",
   "skip": "Skip",
   "next": "Next",
-  "getStarted": "Get Started"
+  "getStarted": "Get Started",
+
+
+
+  "auth":"______________________________________",
+
+    "enterName": "Please enter your name",
+  "nameMinChars": "Name must be at least 3 characters",
+  "enterEmail": "Please enter your email address",
+  "invalidEmail": "Please enter a valid email",
+  "enterPassword": "Please enter your password",
+  "passwordMinChars": "Password must be at least 6 characters",
+  "passwordUpperNumber": "Password must contain at least one uppercase letter and one number",
+  "confirmPassword": "Please confirm your password",
+  "passwordsNotMatch": "Passwords do not match",
+
+
+  "create": "Create New Password",
+  "set_strong_password": "Set a strong new password to secure your account.",
+  "new_password": "New Password",
+  "confirm_new_password": "Confirm New Password",
+  "update_password": "Update Password",
+  "remembered_password": "Remembered your password?",
+
+
+   "welcome_back": "Welcome Back!",
+  "login_to_continue": "Log in to your account to continue",
+  "email": "Email Address",
+  "enter_email": "Enter your email",
+  "password": "Password",
+  "enter_password": "Enter your password",
+  "forgot_password": "Forgot Password?",
+  "log_in": "Log In",
+  "or_continue_with": "or continue with",
+  "sign_in_with_google": "Sign in with Google",
+  "dont_have_account": "Don’t have an account? ",
+  "sign_up": "Sign Up",
+
+
+   "registerTitle": "Create Your Account",
+  "registerSubtitle": "Join us and start exploring all the amazing features we offer!",
+  "hintFullName": "Enter your full name",
+  "labelFullName": "Full Name",
+  "hintEmail": "Enter your email address",
+  "labelEmail": "Email Address",
+  "hintPassword": "Enter your password",
+  "labelPassword": "Password",
+  "hintConfirmPassword": "Re-enter your password",
+  "labelConfirmPassword": "Confirm Password",
+  "buttonSignUp": "Sign Up",
+  "alreadyHaveAccount": "Already have an account?",
+  "buttonLogin": "Log In",
+
+  "forgotPasswordTitle": "Forgot Password?",
+  "forgotPasswordSubtitle": "Enter your email below and we’ll send you a link to reset your password.",
+  "buttonSendResetLink": "Send Reset Link",
+  "rememberPassword": "Remember your password?",
+
+
+    "emailVerificationInstruction": "Please verify your email to continue...",
+      "emailVerificationMessage": "We've sent a verification link to "
 
 
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/common_widgets/inputs/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 
 class LoginPage extends GetView<AuthController> {
@@ -47,7 +49,7 @@ class LoginPage extends GetView<AuthController> {
               color: appTheme.textTheme.bodyMedium?.color?.withOpacity(0.7),
             ),
           ),
-          AppGaps.h40,
+          AppGaps.h32,
 
           // Email Field
           textFieldWidget(
@@ -56,7 +58,7 @@ class LoginPage extends GetView<AuthController> {
             hint: s.enter_email,
             icon: Icons.email_outlined,
             inputType: TextInputType.emailAddress,
-            validator: (value) => validator.validateEmail(value ?? ''),
+            validator: (value) => Validator.email(context, value ?? ''),
           ),
           AppGaps.h16,
 
@@ -67,7 +69,7 @@ class LoginPage extends GetView<AuthController> {
             hint: s.enter_password,
             icon: Icons.lock_outline,
             isObsure: controller.isPasswordObscure,
-            validator: (value) => validator.validatePassword(value ?? ''),
+            validator: (value) => Validator.password(context, value ?? ''),
           ),
 
           // Forgot Password
