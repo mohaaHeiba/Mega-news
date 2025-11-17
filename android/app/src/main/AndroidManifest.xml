@@ -26,16 +26,26 @@
               android:resource="@style/NormalTheme"
               />
 
+
+            <!-- فلتر ده عشان الايقون -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
-            <data
-                android:scheme="io.supabase.flutter"
-                android:host="login-callback" />
-            <data
-                android:scheme="io.supabase.flutter"
-                android:host="reset-password" />
+            <!-- ديب لينكينك بتعا سوبابيز-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- بيانات Supabase -->
+                <data
+                    android:scheme="io.supabase.flutter"
+                    android:host="login-callback" />
+                <data
+                    android:scheme="io.supabase.flutter"
+                    android:host="reset-password" />
             </intent-filter>
             
 
