@@ -23,15 +23,15 @@ class AppPages {
       name: authPage,
       page: () => AuthPage(),
       binding: AuthBinding(),
-      // transition: Transition.fadeIn,
-      // transitionDuration: Duration(milliseconds: 400),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 400),
     ),
     GetPage(
       name: layoutPage,
       page: () => MainLayout(),
       binding: LayoutBinding(),
-      // transition: Transition.fadeIn,
-      // transitionDuration: Duration(milliseconds: 400),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 400),
     ),
   ];
 }

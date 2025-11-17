@@ -220,6 +220,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         );
 
         await supabase.from('profiles').insert(userProfile.toMap());
+      } else {
+        userProfile = AuthModel.fromMap(profileResponse);
       }
 
       return userProfile;

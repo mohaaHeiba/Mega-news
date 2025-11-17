@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/errors/supabase_exception.dart';
+import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/core/services/network_service.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 import 'package:mega_news/features/auth/domain/repositories/auth_repository.dart';
@@ -420,6 +421,8 @@ class AuthController extends GetxController {
             createdAt: sessionUser.createdAt,
           );
         }
+
+        Get.toNamed(AppPages.layoutPage);
       } else if (event == AuthChangeEvent.signedOut) {
         try {} catch (e) {
           // SettingsController might not be initialized yet, ignore

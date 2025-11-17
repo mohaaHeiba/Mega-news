@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
@@ -186,6 +187,11 @@ class WelcomePage extends GetView<WelcomeController> {
                                   } else {
                                     await controller.requestPermissions();
                                     await Get.offNamed(AppPages.authPage);
+
+                                    await GetStorage().write(
+                                      'seenWelcome',
+                                      true,
+                                    );
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
