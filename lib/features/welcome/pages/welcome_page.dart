@@ -185,13 +185,12 @@ class WelcomePage extends GetView<WelcomeController> {
                                       curve: Curves.easeInOut,
                                     );
                                   } else {
-                                    await controller.requestPermissions();
-                                    await Get.offNamed(AppPages.authPage);
-
                                     await GetStorage().write(
                                       'seenWelcome',
                                       true,
                                     );
+                                    await controller.requestPermissions();
+                                    await Get.offNamed(AppPages.authPage);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

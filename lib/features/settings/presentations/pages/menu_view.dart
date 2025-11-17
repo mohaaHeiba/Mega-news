@@ -12,7 +12,7 @@ class MenuView extends GetView<MenuViewController> {
     return Scaffold(
       body: PageView(
         controller: controller.pageController,
-        children: const [SettingsPage(), ProfilePage()],
+        children: const [ProfilePage(), SettingsPage()],
       ),
     );
   }

@@ -78,7 +78,7 @@ class AuthController extends GetxController {
 
   /// ------------------ Auth Actions ------------------
 
-  // final Rxn<AuthEntity> user = Rxn<AuthEntity>();
+  final Rxn<AuthEntity> user = Rxn<AuthEntity>();
 
   Future<void> signUp(String name, String email, String password) async {
     try {
@@ -182,6 +182,9 @@ class AuthController extends GetxController {
       // ------------------------
 
       final authEntity = await repo.googleSignIn();
+      user.value = authEntity;
+      print(user.value!.name);
+      await GetStorage().write('loginBefore', true);
 
       customSnackbar(
         title: 'Welcome!',
@@ -422,6 +425,7 @@ class AuthController extends GetxController {
             email: sessionUser.email ?? '',
             createdAt: sessionUser.createdAt,
           );
+          user.value = authEntity;
         }
 
         Get.toNamed(AppPages.layoutPage);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/features/settings/presentations/widgets/about_section.dart';
-import 'package:mega_news/features/settings/presentations/widgets/language_section.dart';
-import 'package:mega_news/features/settings/presentations/widgets/logout_button.dart';
-import 'package:mega_news/features/settings/presentations/widgets/notifications_section.dart';
-import 'package:mega_news/features/settings/presentations/widgets/storage_sections.dart';
-import 'package:mega_news/features/settings/presentations/widgets/theme_section.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/about_section.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/language_section.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/logout_button.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/notifications_section.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/storage_sections.dart';
+import 'package:mega_news/features/settings/presentations/widgets/settings_widgets/theme_section.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

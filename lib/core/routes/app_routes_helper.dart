@@ -7,8 +7,8 @@ class AppRoutesHelper {
     final seenWelcome = box.read('seenWelcome') ?? false;
     final isLoggedIn = box.read('loginBefore') ?? false;
 
-    return !seenWelcome
+    return !isLoggedIn
         ? AppPages.welcomePage
-        : (!isLoggedIn ? AppPages.authPage : AppPages.layoutPage);
+        : (!seenWelcome ? AppPages.authPage : AppPages.layoutPage);
   }
 }

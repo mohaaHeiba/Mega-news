@@ -25,7 +25,7 @@ Future<void> main() async {
   // init getStorage(json)
   await GetStorage.init();
 
-  //
+  // for language and theme
   Get.putAsync(() async => MenuViewController());
 
   runApp(const MyApp());

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mega_news/features/auth/data/model/auth_model.dart';
+import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
+import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 
 enum ThemeModeSelection { light, dark, system }
 
 class MenuViewController extends GetxController {
   final storage = GetStorage();
+  final Rxn<AuthEntity> user = Rxn<AuthEntity>();
 
   //=============== PageView ================
   final PageController pageController = PageController(initialPage: 0);
@@ -36,6 +40,29 @@ class MenuViewController extends GetxController {
     loadTheme();
     _loadOtherSettings();
     _applyLocale();
+
+    final AuthController authController = Get.find<AuthController>();
+
+    ever(authController.user, (AuthEntity? authUser) {
+      user.value = authUser;
+    });
+
+    user.value = authController.user.value;
+  }
+
+  Future<void> loadUser() async {
+    try {
+      final dynamic rawData = storage.read('auth_data');
+
+      if (rawData != null && rawData is Map<String, dynamic>) {
+        user.value = AuthModel.fromMap(rawData);
+      } else {
+        user.value = null;
+      }
+    } catch (e) {
+      storage.remove('auth_data');
+      user.value = null;
+    }
   }
 
   void loadTheme() {
@@ -117,12 +144,10 @@ class MenuViewController extends GetxController {
 
   Future<void> clearCache() async {
     final keptData = <String, dynamic>{
-      'loginBefore': storage.read('loginBefore'),
       'savedTheme': storage.read('savedTheme'),
       'language': storage.read('language'),
       'notifications': storage.read('notifications'),
       'breakingNews': storage.read('breakingNews'),
-      'fontSize': storage.read('fontSize'),
     };
 
     await storage.erase();
