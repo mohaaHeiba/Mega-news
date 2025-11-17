@@ -159,9 +159,9 @@ class MenuViewController extends GetxController {
     });
   }
 
-  void logout() {
-    storage.remove('loginBefore');
-    Get.offAllNamed('/welcome');
+  Future<void> logout() async {
+    await storage.erase();
+    await Get.offAllNamed('/welcome');
   }
 
   String getAppVersion() {

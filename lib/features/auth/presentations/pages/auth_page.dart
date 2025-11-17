@@ -27,9 +27,7 @@ class AuthPage extends GetView<AuthController> {
             padding: const EdgeInsets.only(right: 12),
             child: TextButton.icon(
               onPressed: () async {
-                await GetStorage().write('loginBefore', true);
-
-                Get.offAllNamed(AppPages.layoutPage);
+                controller.loginGuest();
               },
               icon: Icon(Icons.person_outline, color: appTheme.primary),
               label: Text(

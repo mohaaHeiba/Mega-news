@@ -4,12 +4,11 @@ import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart';
 
-class LogoutButton extends StatelessWidget {
+class LogoutButton extends GetView<MenuViewController> {
   const LogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<MenuViewController>();
     final s = context.s;
 
     return SizedBox(

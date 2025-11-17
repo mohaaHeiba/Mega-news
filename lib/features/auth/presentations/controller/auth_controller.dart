@@ -183,7 +183,7 @@ class AuthController extends GetxController {
 
       final authEntity = await repo.googleSignIn();
       user.value = authEntity;
-      print(user.value!.name);
+      // print(user.value!.name);
       await GetStorage().write('loginBefore', true);
 
       customSnackbar(
@@ -397,6 +397,25 @@ class AuthController extends GetxController {
     }
   }
 
+  void loginGuest() {
+    user.value = AuthEntity(
+      id: 'guest_${DateTime.now().millisecondsSinceEpoch}',
+      name: 'Guest',
+      email: 'guest@Mega.news',
+      createdAt: DateTime.now().toIso8601String(),
+    );
+
+    GetStorage().write('loginBefore', true);
+
+    customSnackbar(
+      title: 'Welcome Guest!',
+      message: 'You are now browsing as a guest.',
+      color: AppColors.success,
+    );
+
+    Get.offAllNamed(AppPages.layoutPage);
+  }
+
   final supabase = Supabase.instance.client;
 
   @override
@@ -428,7 +447,7 @@ class AuthController extends GetxController {
           user.value = authEntity;
         }
 
-        Get.toNamed(AppPages.layoutPage);
+        Get.offAllNamed(AppPages.layoutPage);
       } else if (event == AuthChangeEvent.signedOut) {
         try {} catch (e) {
           // SettingsController might not be initialized yet, ignore
