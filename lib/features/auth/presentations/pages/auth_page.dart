@@ -19,9 +19,8 @@ class AuthPage extends GetView<AuthController> {
 
       // AppBar contains Guest button only
       appBar: AppBar(
-        backgroundColor: appTheme.background,
+        backgroundColor: appTheme.primary.withOpacity(0.5),
         elevation: 0,
-        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
@@ -35,7 +34,7 @@ class AuthPage extends GetView<AuthController> {
               label: Text(
                 'Guest',
                 style: appTheme.textTheme.titleMedium?.copyWith(
-                  color: appTheme.primary,
+                  color: appTheme.onSurface,
                   fontWeight: FontWeight.w600,
                 ),
               ),

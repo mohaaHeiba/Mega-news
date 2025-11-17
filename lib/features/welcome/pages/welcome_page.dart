@@ -52,7 +52,7 @@ class WelcomePage extends GetView<WelcomeController> {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
-                          color: appTheme.primary,
+                          color: appTheme.onSurface,
                         ),
                       ),
                     ),

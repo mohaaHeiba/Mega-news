@@ -15,112 +15,125 @@ class ForgotPasswordPage extends GetView<AuthController> {
     final s = context.s;
     final appTheme = context;
 
-    return SingleChildScrollView(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Icon
-              Icon(
-                Icons.lock_reset_rounded,
-                color: appTheme.primary,
-                size: appTheme.screenWidth * 0.18,
-              ),
-              AppGaps.h24,
-
-              // Title
-              Text(
-                s.forgotPasswordTitle,
-                textAlign: TextAlign.center,
-                style: appTheme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                  color: appTheme.onBackground,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            context.primary.withOpacity(0.5),
+            context.background,
+            context.background,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Icon
+                Icon(
+                  Icons.lock_reset_rounded,
+                  color: appTheme.primary,
+                  size: appTheme.screenWidth * 0.18,
                 ),
-              ),
-              AppGaps.h12,
+                AppGaps.h24,
 
-              // Description
-              Text(
-                s.forgotPasswordSubtitle,
-                textAlign: TextAlign.center,
-                style: appTheme.textTheme.bodyMedium?.copyWith(
-                  color: appTheme.onSurface.withOpacity(0.8),
+                // Title
+                Text(
+                  s.forgotPasswordTitle,
+                  textAlign: TextAlign.center,
+                  style: appTheme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                    color: appTheme.onBackground,
+                  ),
                 ),
-              ),
-              AppGaps.h32,
+                AppGaps.h12,
 
-              // Email Field
-              textFieldWidget(
-                controller: controller.emailController,
-                label: s.labelEmail,
-                hint: s.hintEmail,
-                icon: Icons.email_outlined,
-                inputType: TextInputType.emailAddress,
-                validator: (value) => Validator.email(context, value ?? ''),
-              ),
-              AppGaps.h24,
+                // Description
+                Text(
+                  s.forgotPasswordSubtitle,
+                  textAlign: TextAlign.center,
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
+                    color: appTheme.onSurface.withOpacity(0.8),
+                  ),
+                ),
+                AppGaps.h32,
 
-              // Send Reset Link Button
-              Obx(
-                () => SizedBox(
-                  height: 54,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: appTheme.primary,
+                // Email Field
+                textFieldWidget(
+                  controller: controller.emailController,
+                  label: s.labelEmail,
+                  hint: s.hintEmail,
+                  icon: Icons.email_outlined,
+                  inputType: TextInputType.emailAddress,
+                  validator: (value) => Validator.email(context, value ?? ''),
+                ),
+                AppGaps.h24,
+
+                // Send Reset Link Button
+                Obx(
+                  () => SizedBox(
+                    height: 54,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: appTheme.primary,
+                      ),
+                      onPressed: controller.isLoading.value
+                          ? null
+                          : () async {
+                              if (controller.formKey.currentState!.validate()) {
+                                controller.isLoading.value = true;
+                                await controller.resetPassword();
+                                controller.isLoading.value = false;
+                              }
+                            },
+                      child: controller.isLoading.value
+                          ? CircularProgressIndicator(color: appTheme.onPrimary)
+                          : Text(
+                              s.buttonSendResetLink,
+                              style: appTheme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.background,
+                                fontSize: 18,
+                              ),
+                            ),
                     ),
-                    onPressed: controller.isLoading.value
-                        ? null
-                        : () async {
-                            if (controller.formKey.currentState!.validate()) {
-                              controller.isLoading.value = true;
-                              await controller.resetPassword();
-                              controller.isLoading.value = false;
-                            }
-                          },
-                    child: controller.isLoading.value
-                        ? CircularProgressIndicator(color: appTheme.onPrimary)
-                        : Text(
-                            s.buttonSendResetLink,
-                            style: appTheme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.background,
-                              fontSize: 18,
+                  ),
+                ),
+                AppGaps.h24,
+
+                // Back to Login
+                Center(
+                  child: GestureDetector(
+                    onTap: controller.backFromForgotPass,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "${s.rememberPassword} ",
+                        style: appTheme.textTheme.bodyMedium?.copyWith(
+                          color: appTheme.onSurface.withOpacity(0.7),
+                        ),
+                        children: [
+                          TextSpan(
+                            text: s.buttonLogin,
+                            style: appTheme.textTheme.bodyMedium?.copyWith(
+                              color: appTheme.primary,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-                  ),
-                ),
-              ),
-              AppGaps.h24,
-
-              // Back to Login
-              Center(
-                child: GestureDetector(
-                  onTap: controller.backFromForgotPass,
-                  child: RichText(
-                    text: TextSpan(
-                      text: "${s.rememberPassword} ",
-                      style: appTheme.textTheme.bodyMedium?.copyWith(
-                        color: appTheme.onSurface.withOpacity(0.7),
+                        ],
                       ),
-                      children: [
-                        TextSpan(
-                          text: s.buttonLogin,
-                          style: appTheme.textTheme.bodyMedium?.copyWith(
-                            color: appTheme.primary,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -11,7 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      //localization
+      // because flutter upgrade i hate this version
+      // Fix for Flutter upgrade issue: Get.snackbar() can't find an Overlay.
+      // Adding a manual Overlay here restores normal GetX snackbar behavior.
+      builder: (context, child) {
+        return Overlay(
+          initialEntries: [OverlayEntry(builder: (context) => child!)],
+        );
+      },
+
+      // localization
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -20,11 +29,10 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
 
-      // locale: Locale('en'),
       // theme
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
 
       // routes
       initialRoute: AppPages.welcomePage,

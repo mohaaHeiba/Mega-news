@@ -6,6 +6,6 @@ class WelcomeBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(PermissionService());
-    Get.lazyPut<WelcomeController>(() => WelcomeController());
+    Get.put<WelcomeController>(WelcomeController());
   }
 }
