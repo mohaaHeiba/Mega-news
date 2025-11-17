@@ -593,6 +593,566 @@ class S {
   String get menu {
     return Intl.message('Menu', name: 'menu', desc: '', args: []);
   }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Appearance`
+  String get appearance {
+    return Intl.message('Appearance', name: 'appearance', desc: '', args: []);
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message('Theme', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get light {
+    return Intl.message('Light', name: 'light', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message('Dark', name: 'dark', desc: '', args: []);
+  }
+
+  /// `System`
+  String get system {
+    return Intl.message('System', name: 'system', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message('Arabic', name: 'arabic', desc: '', args: []);
+  }
+
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Notifications`
+  String get enableNotifications {
+    return Intl.message(
+      'Enable Notifications',
+      name: 'enableNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Breaking News`
+  String get breakingNews {
+    return Intl.message(
+      'Breaking News',
+      name: 'breakingNews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Breaking News Alerts`
+  String get enableBreakingNews {
+    return Intl.message(
+      'Enable Breaking News Alerts',
+      name: 'enableBreakingNews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get general {
+    return Intl.message('General', name: 'general', desc: '', args: []);
+  }
+
+  /// `Font Size`
+  String get fontSize {
+    return Intl.message('Font Size', name: 'fontSize', desc: '', args: []);
+  }
+
+  /// `Small`
+  String get small {
+    return Intl.message('Small', name: 'small', desc: '', args: []);
+  }
+
+  /// `Medium`
+  String get medium {
+    return Intl.message('Medium', name: 'medium', desc: '', args: []);
+  }
+
+  /// `Large`
+  String get large {
+    return Intl.message('Large', name: 'large', desc: '', args: []);
+  }
+
+  /// `Clear Cache`
+  String get clearCache {
+    return Intl.message('Clear Cache', name: 'clearCache', desc: '', args: []);
+  }
+
+  /// `Clear cached data to free up space`
+  String get clearCacheDescription {
+    return Intl.message(
+      'Clear cached data to free up space',
+      name: 'clearCacheDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message('About', name: 'about', desc: '', args: []);
+  }
+
+  /// `App Version`
+  String get appVersion {
+    return Intl.message('App Version', name: 'appVersion', desc: '', args: []);
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Service`
+  String get termsOfService {
+    return Intl.message(
+      'Terms of Service',
+      name: 'termsOfService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get logout {
+    return Intl.message('Log Out', name: 'logout', desc: '', args: []);
+  }
+
+  /// `Are you sure you want to log out?`
+  String get logoutConfirmation {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'logoutConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+  }
+
+  /// `Cache Cleared`
+  String get cacheCleared {
+    return Intl.message(
+      'Cache Cleared',
+      name: 'cacheCleared',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cache has been cleared successfully`
+  String get cacheClearedMessage {
+    return Intl.message(
+      'Cache has been cleared successfully',
+      name: 'cacheClearedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
+
+  /// `Full Name`
+  String get fullName {
+    return Intl.message('Full Name', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `Member Since`
+  String get memberSince {
+    return Intl.message(
+      'Member Since',
+      name: 'memberSince',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get editProfile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'editProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved Articles`
+  String get savedArticles {
+    return Intl.message(
+      'Saved Articles',
+      name: 'savedArticles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Saved Articles`
+  String get noSavedArticles {
+    return Intl.message(
+      'No Saved Articles',
+      name: 'noSavedArticles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Articles you save will appear here`
+  String get articlesYouSaveWillAppearHere {
+    return Intl.message(
+      'Articles you save will appear here',
+      name: 'articlesYouSaveWillAppearHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All`
+  String get clearAll {
+    return Intl.message('Clear All', name: 'clearAll', desc: '', args: []);
+  }
+
+  /// `Clear All Favorites?`
+  String get clearAllFavorites {
+    return Intl.message(
+      'Clear All Favorites?',
+      name: 'clearAllFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to remove all saved articles? This action cannot be undone.`
+  String get clearAllFavoritesMessage {
+    return Intl.message(
+      'Are you sure you want to remove all saved articles? This action cannot be undone.',
+      name: 'clearAllFavoritesMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove from favorites`
+  String get removeFromFavorites {
+    return Intl.message(
+      'Remove from favorites',
+      name: 'removeFromFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to favorites`
+  String get addToFavorites {
+    return Intl.message(
+      'Add to favorites',
+      name: 'addToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Removed from Favorites`
+  String get removedFromFavorites {
+    return Intl.message(
+      'Removed from Favorites',
+      name: 'removedFromFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Article removed from your favorites`
+  String get articleRemovedFromFavorites {
+    return Intl.message(
+      'Article removed from your favorites',
+      name: 'articleRemovedFromFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Added to Favorites`
+  String get addedToFavorites {
+    return Intl.message(
+      'Added to Favorites',
+      name: 'addedToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Article saved to your favorites`
+  String get articleSavedToFavorites {
+    return Intl.message(
+      'Article saved to your favorites',
+      name: 'articleSavedToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Removed`
+  String get removed {
+    return Intl.message('Removed', name: 'removed', desc: '', args: []);
+  }
+
+  /// `Article removed from favorites`
+  String get articleRemovedFromFavoritesShort {
+    return Intl.message(
+      'Article removed from favorites',
+      name: 'articleRemovedFromFavoritesShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cleared`
+  String get cleared {
+    return Intl.message('Cleared', name: 'cleared', desc: '', args: []);
+  }
+
+  /// `All favorites have been cleared`
+  String get allFavoritesCleared {
+    return Intl.message(
+      'All favorites have been cleared',
+      name: 'allFavoritesCleared',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user data found`
+  String get noUserDataFound {
+    return Intl.message(
+      'No user data found',
+      name: 'noUserDataFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mega News`
+  String get megaNews {
+    return Intl.message('Mega News', name: 'megaNews', desc: '', args: []);
+  }
+
+  /// `Featured`
+  String get featured {
+    return Intl.message('Featured', name: 'featured', desc: '', args: []);
+  }
+
+  /// `Latest`
+  String get latest {
+    return Intl.message('Latest', name: 'latest', desc: '', args: []);
+  }
+
+  /// `See all`
+  String get seeAll {
+    return Intl.message('See all', name: 'seeAll', desc: '', args: []);
+  }
+
+  /// `No news found`
+  String get noNewsFound {
+    return Intl.message(
+      'No news found',
+      name: 'noNewsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sports`
+  String get sports {
+    return Intl.message('Sports', name: 'sports', desc: '', args: []);
+  }
+
+  /// `Technology`
+  String get technology {
+    return Intl.message('Technology', name: 'technology', desc: '', args: []);
+  }
+
+  /// `Business`
+  String get business {
+    return Intl.message('Business', name: 'business', desc: '', args: []);
+  }
+
+  /// `Health`
+  String get health {
+    return Intl.message('Health', name: 'health', desc: '', args: []);
+  }
+
+  /// `Science`
+  String get science {
+    return Intl.message('Science', name: 'science', desc: '', args: []);
+  }
+
+  /// `Entertainment`
+  String get entertainment {
+    return Intl.message(
+      'Entertainment',
+      name: 'entertainment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Loading News`
+  String get errorLoadingNews {
+    return Intl.message(
+      'Error Loading News',
+      name: 'errorLoadingNews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred`
+  String get anErrorOccurred {
+    return Intl.message(
+      'An error occurred',
+      name: 'anErrorOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Searching`
+  String get errorSearching {
+    return Intl.message(
+      'Error Searching',
+      name: 'errorSearching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Results`
+  String get noResults {
+    return Intl.message('No Results', name: 'noResults', desc: '', args: []);
+  }
+
+  /// `Search for articles first to summarize them.`
+  String get searchForArticlesFirst {
+    return Intl.message(
+      'Search for articles first to summarize them.',
+      name: 'searchForArticlesFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Summarization Failed`
+  String get summarizationFailed {
+    return Intl.message(
+      'Summarization Failed',
+      name: 'summarizationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message('Error', name: 'error', desc: '', args: []);
+  }
+
+  /// `Failed to generate briefings`
+  String get failedToGenerateBriefings {
+    return Intl.message(
+      'Failed to generate briefings',
+      name: 'failedToGenerateBriefings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No recent news found to summarize for this topic.`
+  String get noRecentNewsFound {
+    return Intl.message(
+      'No recent news found to summarize for this topic.',
+      name: 'noRecentNewsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to generate summary`
+  String get failedToGenerateSummary {
+    return Intl.message(
+      'Failed to generate summary',
+      name: 'failedToGenerateSummary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View AI Summary`
+  String get viewAiSummary {
+    return Intl.message(
+      'View AI Summary',
+      name: 'viewAiSummary',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

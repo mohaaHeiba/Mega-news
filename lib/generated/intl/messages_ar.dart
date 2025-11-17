@@ -22,18 +22,65 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("حول"),
+    "addToFavorites": MessageLookupByLibrary.simpleMessage("إضافة إلى المفضلة"),
+    "addedToFavorites": MessageLookupByLibrary.simpleMessage(
+      "تمت الإضافة إلى المفضلة",
+    ),
+    "allFavoritesCleared": MessageLookupByLibrary.simpleMessage(
+      "تم مسح جميع المفضلة",
+    ),
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
+    ),
+    "anErrorOccurred": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
+    "appVersion": MessageLookupByLibrary.simpleMessage("إصدار التطبيق"),
+    "appearance": MessageLookupByLibrary.simpleMessage("المظهر"),
+    "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "articleRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "تمت إزالة المقال من مفضلتك",
+    ),
+    "articleRemovedFromFavoritesShort": MessageLookupByLibrary.simpleMessage(
+      "تمت إزالة المقال من المفضلة",
+    ),
+    "articleSavedToFavorites": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ المقال في مفضلتك",
+    ),
+    "articlesYouSaveWillAppearHere": MessageLookupByLibrary.simpleMessage(
+      "المقالات التي تحفظها ستظهر هنا",
     ),
     "auth": MessageLookupByLibrary.simpleMessage(
       "______________________________________",
     ),
+    "breakingNews": MessageLookupByLibrary.simpleMessage("الأخبار العاجلة"),
     "briefing": MessageLookupByLibrary.simpleMessage("الملخص"),
+    "business": MessageLookupByLibrary.simpleMessage("الأعمال"),
     "buttonLogin": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "buttonSendResetLink": MessageLookupByLibrary.simpleMessage(
       "إرسال رابط إعادة التعيين",
     ),
     "buttonSignUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "cacheCleared": MessageLookupByLibrary.simpleMessage(
+      "تم مسح الذاكرة المؤقتة",
+    ),
+    "cacheClearedMessage": MessageLookupByLibrary.simpleMessage(
+      "تم مسح الذاكرة المؤقتة بنجاح",
+    ),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
+    "clearAll": MessageLookupByLibrary.simpleMessage("مسح الكل"),
+    "clearAllFavorites": MessageLookupByLibrary.simpleMessage(
+      "مسح جميع المفضلة؟",
+    ),
+    "clearAllFavoritesMessage": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف جميع المقالات المحفوظة؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
+    "clearCache": MessageLookupByLibrary.simpleMessage("مسح الذاكرة المؤقتة"),
+    "clearCacheDescription": MessageLookupByLibrary.simpleMessage(
+      "مسح البيانات المؤقتة لتوفير مساحة",
+    ),
+    "cleared": MessageLookupByLibrary.simpleMessage("تم المسح"),
+    "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "الرجاء تأكيد كلمة المرور",
     ),
@@ -41,9 +88,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "تأكيد كلمة المرور الجديدة",
     ),
     "create": MessageLookupByLibrary.simpleMessage("إنشاء كلمة مرور جديدة"),
+    "dark": MessageLookupByLibrary.simpleMessage("داكن"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ ",
     ),
+    "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailVerificationInstruction": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من بريدك الإلكتروني للمتابعة...",
@@ -51,6 +100,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailVerificationMessage": MessageLookupByLibrary.simpleMessage(
       "لقد أرسلنا رابط التحقق إلى ",
     ),
+    "enableBreakingNews": MessageLookupByLibrary.simpleMessage(
+      "تفعيل تنبيهات الأخبار العاجلة",
+    ),
+    "enableNotifications": MessageLookupByLibrary.simpleMessage(
+      "تفعيل الإشعارات",
+    ),
+    "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
     "enterEmail": MessageLookupByLibrary.simpleMessage(
       "الرجاء إدخال البريد الإلكتروني",
     ),
@@ -62,6 +118,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل بريدك الإلكتروني",
     ),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "entertainment": MessageLookupByLibrary.simpleMessage("الترفيه"),
+    "error": MessageLookupByLibrary.simpleMessage("خطأ"),
+    "errorLoadingNews": MessageLookupByLibrary.simpleMessage(
+      "خطأ في تحميل الأخبار",
+    ),
+    "errorSearching": MessageLookupByLibrary.simpleMessage("خطأ في البحث"),
+    "failedToGenerateBriefings": MessageLookupByLibrary.simpleMessage(
+      "فشل في إنشاء الملخصات",
+    ),
+    "failedToGenerateSummary": MessageLookupByLibrary.simpleMessage(
+      "فشل في إنشاء الملخص",
+    ),
+    "featured": MessageLookupByLibrary.simpleMessage("مميز"),
+    "fontSize": MessageLookupByLibrary.simpleMessage("حجم الخط"),
     "forgotPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
       "أدخل بريدك الإلكتروني أدناه وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
     ),
@@ -71,7 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "نسيت كلمة المرور؟",
     ),
+    "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+    "general": MessageLookupByLibrary.simpleMessage("عام"),
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "health": MessageLookupByLibrary.simpleMessage("الصحة"),
     "hintConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "أعد إدخال كلمة المرور",
     ),
@@ -88,16 +161,41 @@ class MessageLookup extends MessageLookupByLibrary {
     "labelEmail": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "labelFullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+    "large": MessageLookupByLibrary.simpleMessage("كبير"),
+    "latest": MessageLookupByLibrary.simpleMessage("الأحدث"),
+    "light": MessageLookupByLibrary.simpleMessage("فاتح"),
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "login_to_continue": MessageLookupByLibrary.simpleMessage(
       "سجّل الدخول إلى حسابك للمتابعة",
     ),
+    "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "logoutConfirmation": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    ),
+    "medium": MessageLookupByLibrary.simpleMessage("متوسط"),
+    "megaNews": MessageLookupByLibrary.simpleMessage("ميجا نيوز"),
+    "memberSince": MessageLookupByLibrary.simpleMessage("عضو منذ"),
     "menu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الاسم 3 أحرف على الأقل",
     ),
     "new_password": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "noNewsFound": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على أخبار",
+    ),
+    "noRecentNewsFound": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على أخبار حديثة لتلخيصها لهذا الموضوع.",
+    ),
+    "noResults": MessageLookupByLibrary.simpleMessage("لا توجد نتائج"),
+    "noSavedArticles": MessageLookupByLibrary.simpleMessage(
+      "لا توجد مقالات محفوظة",
+    ),
+    "noUserDataFound": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على بيانات المستخدم",
+    ),
+    "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "or_continue_with": MessageLookupByLibrary.simpleMessage(
       "أو تابع باستخدام",
     ),
@@ -111,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsNotMatch": MessageLookupByLibrary.simpleMessage(
       "كلمات المرور غير متطابقة",
     ),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
+    "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "registerSubtitle": MessageLookupByLibrary.simpleMessage(
       "انضم إلينا وابدأ في استكشاف كل المميزات الرائعة التي نقدمها!",
     ),
@@ -121,17 +221,39 @@ class MessageLookup extends MessageLookupByLibrary {
     "remembered_password": MessageLookupByLibrary.simpleMessage(
       "تذكّرت كلمة المرور؟",
     ),
+    "removeFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "إزالة من المفضلة",
+    ),
+    "removed": MessageLookupByLibrary.simpleMessage("تمت الإزالة"),
+    "removedFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "تمت الإزالة من المفضلة",
+    ),
+    "savedArticles": MessageLookupByLibrary.simpleMessage("المقالات المحفوظة"),
+    "science": MessageLookupByLibrary.simpleMessage("العلوم"),
+    "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن المقالات أولاً لتلخيصها.",
+    ),
+    "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
     "set_strong_password": MessageLookupByLibrary.simpleMessage(
       "أنشئ كلمة مرور قوية لحماية حسابك.",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "sign_in_with_google": MessageLookupByLibrary.simpleMessage(
       "تسجيل الدخول باستخدام Google",
     ),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "small": MessageLookupByLibrary.simpleMessage("صغير"),
+    "sports": MessageLookupByLibrary.simpleMessage("الرياضة"),
+    "summarizationFailed": MessageLookupByLibrary.simpleMessage("فشل التلخيص"),
+    "system": MessageLookupByLibrary.simpleMessage("النظام"),
+    "technology": MessageLookupByLibrary.simpleMessage("التكنولوجيا"),
+    "termsOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
+    "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
     "update_password": MessageLookupByLibrary.simpleMessage(
       "تحديث كلمة المرور",
     ),
+    "viewAiSummary": MessageLookupByLibrary.simpleMessage("عرض الملخص الذكي"),
     "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(
       "تابع الأخبار من مصادر موثوقة متعددة في تطبيق واحد",
     ),

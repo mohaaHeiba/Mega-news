@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 SnackbarController customSnackbar({
   required String title,
   required String message,
-  color = Colors.green,
+  Color? color,
+  SnackPosition position = SnackPosition.TOP,
+  Duration duration = const Duration(seconds: 3),
 }) {
   return Get.showSnackbar(
     GetSnackBar(
@@ -20,15 +22,24 @@ SnackbarController customSnackbar({
       ),
       messageText: Text(
         message,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14),
       ),
-      backgroundColor: color,
-      snackPosition: SnackPosition.TOP,
-      duration: const Duration(seconds: 4),
-      borderRadius: 8,
+      backgroundColor: color ?? Colors.green,
+      snackPosition: position,
+      duration: duration,
+      borderRadius: 12,
       isDismissible: true,
       dismissDirection: DismissDirection.horizontal,
       forwardAnimationCurve: Curves.linearToEaseOut,
+      boxShadows: [
+        BoxShadow(
+          color: (color ?? Colors.green).withOpacity(0.3),
+          blurRadius: 12,
+          spreadRadius: 1,
+        ),
+      ],
     ),
   );
 }

@@ -78,6 +78,8 @@ class AuthController extends GetxController {
 
   /// ------------------ Auth Actions ------------------
 
+  // final Rxn<AuthEntity> user = Rxn<AuthEntity>();
+
   Future<void> signUp(String name, String email, String password) async {
     try {
       isLoading.value = true;
