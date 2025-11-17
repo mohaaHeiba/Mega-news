@@ -54,96 +54,6 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Please enter your name`
-  String get enterName {
-    return Intl.message(
-      'Please enter your name',
-      name: 'enterName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Name must be at least 3 characters`
-  String get nameMinChars {
-    return Intl.message(
-      'Name must be at least 3 characters',
-      name: 'nameMinChars',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please enter your email address`
-  String get enterEmail {
-    return Intl.message(
-      'Please enter your email address',
-      name: 'enterEmail',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please enter a valid email`
-  String get invalidEmail {
-    return Intl.message(
-      'Please enter a valid email',
-      name: 'invalidEmail',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please enter your password`
-  String get enterPassword {
-    return Intl.message(
-      'Please enter your password',
-      name: 'enterPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Password must be at least 6 characters`
-  String get passwordMinChars {
-    return Intl.message(
-      'Password must be at least 6 characters',
-      name: 'passwordMinChars',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Password must contain at least one uppercase letter and one number`
-  String get passwordUpperNumber {
-    return Intl.message(
-      'Password must contain at least one uppercase letter and one number',
-      name: 'passwordUpperNumber',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please confirm your password`
-  String get confirmPassword {
-    return Intl.message(
-      'Please confirm your password',
-      name: 'confirmPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Passwords do not match`
-  String get passwordsNotMatch {
-    return Intl.message(
-      'Passwords do not match',
-      name: 'passwordsNotMatch',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `News from Everywhere`
   String get welcomeTitle1 {
     return Intl.message(
@@ -244,6 +154,96 @@ class S {
     return Intl.message(
       '______________________________________',
       name: 'auth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your name`
+  String get enterName {
+    return Intl.message(
+      'Please enter your name',
+      name: 'enterName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name must be at least 3 characters`
+  String get nameMinChars {
+    return Intl.message(
+      'Name must be at least 3 characters',
+      name: 'nameMinChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email address`
+  String get enterEmail {
+    return Intl.message(
+      'Please enter your email address',
+      name: 'enterEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email`
+  String get invalidEmail {
+    return Intl.message(
+      'Please enter a valid email',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password`
+  String get enterPassword {
+    return Intl.message(
+      'Please enter your password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters`
+  String get passwordMinChars {
+    return Intl.message(
+      'Password must be at least 6 characters',
+      name: 'passwordMinChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must contain at least one uppercase letter and one number`
+  String get passwordUpperNumber {
+    return Intl.message(
+      'Password must contain at least one uppercase letter and one number',
+      name: 'passwordUpperNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm your password`
+  String get confirmPassword {
+    return Intl.message(
+      'Please confirm your password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwordsNotMatch {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwordsNotMatch',
       desc: '',
       args: [],
     );
@@ -577,6 +577,21 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Briefing`
+  String get briefing {
+    return Intl.message('Briefing', name: 'briefing', desc: '', args: []);
+  }
+
+  /// `Menu`
+  String get menu {
+    return Intl.message('Menu', name: 'menu', desc: '', args: []);
   }
 }
 

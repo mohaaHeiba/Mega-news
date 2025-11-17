@@ -1,16 +1,5 @@
 {
 
-  "enterName": "يرجى إدخال اسمك.",
-  "nameMinChars": "يجب أن يكون الاسم 3 أحرف على الأقل.",
-  "enterEmail": "يرجى إدخال عنوان بريدك الإلكتروني.",
-  "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح.",
-  "enterPassword": "يرجى إدخال كلمة المرور.",
-  "passwordMinChars": "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
-  "passwordUpperNumber": "يجب أن تحتوي كلمة المرور على حرف كبير ورقم.",
-  "confirmPassword": "يرجى تأكيد كلمة المرور.",
-  "passwordsNotMatch": "كلمات المرور غير متطابقة.",
-  
-
     "welcomeTitle1": "أخبار من كل مكان",
   "welcomeSubtitle1": "تابع الأخبار من مصادر موثوقة متعددة في تطبيق واحد",
   "welcomeTitle2": "بحث ذكي وملخصات فورية",
@@ -78,6 +67,11 @@
   "rememberPassword": "هل تتذكر كلمة المرور؟",
 
   "emailVerificationMessage": "لقد أرسلنا رابط التحقق إلى ",
-  "emailVerificationInstruction": "يرجى التحقق من بريدك الإلكتروني للمتابعة..."
+  "emailVerificationInstruction": "يرجى التحقق من بريدك الإلكتروني للمتابعة...",
+
+
+    "home": "الرئيسية",
+  "briefing": "الملخص",
+  "menu": "القائمة"
 
 }

@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth": MessageLookupByLibrary.simpleMessage(
       "______________________________________",
     ),
+    "briefing": MessageLookupByLibrary.simpleMessage("الملخص"),
     "buttonLogin": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "buttonSendResetLink": MessageLookupByLibrary.simpleMessage(
       "إرسال رابط إعادة التعيين",
@@ -77,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "hintEmail": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
     "hintFullName": MessageLookupByLibrary.simpleMessage("أدخل اسمك الكامل"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "الرجاء إدخال بريد إلكتروني صالح",
     ),
@@ -90,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_to_continue": MessageLookupByLibrary.simpleMessage(
       "سجّل الدخول إلى حسابك للمتابعة",
     ),
+    "menu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الاسم 3 أحرف على الأقل",
     ),

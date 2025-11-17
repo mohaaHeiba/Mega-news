@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth": MessageLookupByLibrary.simpleMessage(
       "______________________________________",
     ),
+    "briefing": MessageLookupByLibrary.simpleMessage("Briefing"),
     "buttonLogin": MessageLookupByLibrary.simpleMessage("Log In"),
     "buttonSendResetLink": MessageLookupByLibrary.simpleMessage(
       "Send Reset Link",
@@ -79,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your full name",
     ),
     "hintPassword": MessageLookupByLibrary.simpleMessage("Enter your password"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email",
     ),
@@ -92,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_to_continue": MessageLookupByLibrary.simpleMessage(
       "Log in to your account to continue",
     ),
+    "menu": MessageLookupByLibrary.simpleMessage("Menu"),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "Name must be at least 3 characters",
     ),

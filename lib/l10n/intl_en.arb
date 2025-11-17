@@ -1,14 +1,5 @@
 {
 
-  "enterName": "Please enter your name.",
-  "nameMinChars": "Name must be at least 3 characters.",
-  "enterEmail": "Please enter your email address.",
-  "invalidEmail": "Please enter a valid email address.",
-  "enterPassword": "Please enter your password.",
-  "passwordMinChars": "Password must be at least 6 characters.",
-  "passwordUpperNumber": "Password must contain an uppercase letter and a number.",
-  "confirmPassword": "Please confirm your password.",
-  "passwordsNotMatch": "Passwords do not match.",
 
     "welcomeTitle1": "News from Everywhere",
   "welcomeSubtitle1": "Follow news from multiple reliable sources in one app",
@@ -80,7 +71,13 @@
 
 
     "emailVerificationInstruction": "Please verify your email to continue...",
-      "emailVerificationMessage": "We've sent a verification link to "
+      "emailVerificationMessage": "We've sent a verification link to ",
 
+
+
+
+  "home": "Home",
+  "briefing": "Briefing",
+  "menu": "Menu"
 
 }
