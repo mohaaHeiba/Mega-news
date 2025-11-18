@@ -43,21 +43,34 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
         'max': '20',
       };
 
-      // GNews page starts effectively from page 2
       if (page > 1) {
         queryParams['page'] = page.toString();
       }
 
-      final response = await apiClient.get(
+      print('🔹 GNews Search Query Params: $queryParams');
+
+      final responseData = await apiClient.get(
         '$_baseUrl/search',
         queryParameters: queryParams,
       );
 
-      final model = GnewsResponseModel.fromJson(response);
+      print('🔹 GNews Search Response: $responseData');
+
+      if (responseData is! Map<String, dynamic>) {
+        throw UnknownException(
+          message: 'Invalid response format from GNews API',
+        );
+      }
+
+      final model = GnewsResponseModel.fromJson(responseData);
+
+      print('🔹 Parsed Articles Count: ${model.articles.length}');
+
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
+      print('❌ Error in searchNews: $e');
       throw UnknownException(
         message: 'Failed to parse GNews search response: $e',
       );
@@ -76,7 +89,7 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
       final queryParams = <String, dynamic>{
         'lang': lang,
         'apikey': _apiKey,
-        'topic': category, // category mapped to topic
+        'topic': category,
         'max': '20',
       };
 
@@ -84,16 +97,30 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
         queryParams['page'] = page.toString();
       }
 
-      final response = await apiClient.get(
+      print('🔹 GNews TopHeadlines Query Params: $queryParams');
+
+      final responseData = await apiClient.get(
         '$_baseUrl/top-headlines',
         queryParameters: queryParams,
       );
 
-      final model = GnewsResponseModel.fromJson(response);
+      print('🔹 GNews TopHeadlines Response: $responseData');
+
+      if (responseData is! Map<String, dynamic>) {
+        throw UnknownException(
+          message: 'Invalid response format from GNews API',
+        );
+      }
+
+      final model = GnewsResponseModel.fromJson(responseData);
+
+      print('🔹 Parsed TopHeadlines Articles Count: ${model.articles.length}');
+
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
+      print('❌ Error in getTopHeadlines: $e');
       throw UnknownException(
         message: 'Failed to parse GNews headlines response: $e',
       );

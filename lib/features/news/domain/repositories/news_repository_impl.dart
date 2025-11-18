@@ -1,9 +1,8 @@
-import 'package:mega_news/features/news/data/datasources/currentsnewsapi_remote_datasources.dart';
+import 'package:mega_news/features/news/data/datasources/currents_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/gnews_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/mappers/article_mapper.dart';
 import 'package:mega_news/features/news/data/datasources/newsapi_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/newsdata_remote_datasource.dart';
-import 'package:mega_news/features/news/data/model/currentsnewsapi_remote_model.dart';
 import 'package:mega_news/features/news/data/model/gnews_response_model.dart';
 import 'package:mega_news/features/news/data/model/newsapi_response_model.dart';
 import 'package:mega_news/features/news/data/model/newsdata_response_model.dart';
@@ -43,8 +42,8 @@ class NewsRepositoryImpl implements INewsRepository {
             .getTopHeadlines(category: category, language: language, page: page)
             .catchError((_) => <NewsDataArticleModel>[]),
         currentsSource
-            .getTopHeadlines(category: category, language: language, page: page)
-            .catchError((_) => <News>[]),
+            .getLatestNews(category: category, language: language ?? 'ar')
+            .catchError((_) => <Article>[]),
       ], eagerError: false);
 
       final List<Article> articles = [
@@ -55,7 +54,7 @@ class NewsRepositoryImpl implements INewsRepository {
         ...(results[2] as List<NewsDataArticleModel>).map(
           mapper.fromNewsDataModel,
         ),
-        ...(results[3] as List<News>).map(mapper.fromCurrentsModel),
+        ...(results[3] as List<Article>), // Currents articles
       ];
 
       articles.sort((a, b) => b.publishedAt.compareTo(a.publishedAt));
@@ -83,8 +82,8 @@ class NewsRepositoryImpl implements INewsRepository {
             .searchNews(query, language: language, page: page)
             .catchError((_) => <NewsDataArticleModel>[]),
         currentsSource
-            .searchNews(query, language: language, page: page)
-            .catchError((_) => <News>[]),
+            .getLatestNews(language: language ?? 'ar')
+            .catchError((_) => <Article>[]),
       ], eagerError: false);
 
       final List<Article> articles = [
@@ -95,7 +94,7 @@ class NewsRepositoryImpl implements INewsRepository {
         ...(results[2] as List<NewsDataArticleModel>).map(
           mapper.fromNewsDataModel,
         ),
-        ...(results[3] as List<News>).map(mapper.fromCurrentsModel),
+        ...(results[3] as List<Article>), // Currents articles
       ];
 
       articles.sort((a, b) => b.publishedAt.compareTo(a.publishedAt));

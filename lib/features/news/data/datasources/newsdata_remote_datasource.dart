@@ -42,18 +42,18 @@ class NewsDataRemoteDataSourceImpl implements INewsDataRemoteDataSource {
         'language': lang,
         'country': 'eg',
         'apikey': _apiKey,
+        if (page > 1) 'page': page.toString(),
       };
-
-      if (page > 1) {
-        queryParams['page'] = page.toString();
-      }
 
       final response = await apiClient.get(
         '$_baseUrl/news',
         queryParameters: queryParams,
       );
 
-      final model = NewsdataResponseModel.fromJson(response);
+      // التأكد من تحويل response.data إذا كان response هو Response من Dio
+      final data = response is Map<String, dynamic> ? response : response.data;
+
+      final model = NewsdataResponseModel.fromJson(data);
       return model.results;
     } on ApiException {
       rethrow;
@@ -73,7 +73,9 @@ class NewsDataRemoteDataSourceImpl implements INewsDataRemoteDataSource {
     String? language,
     int page = 1,
   }) async {
-    final String apiCategory = (category == 'general') ? 'top' : category;
+    final String apiCategory = (category.toLowerCase() == 'general')
+        ? 'top'
+        : category;
     final lang = language ?? 'ar';
 
     try {
@@ -82,18 +84,17 @@ class NewsDataRemoteDataSourceImpl implements INewsDataRemoteDataSource {
         'country': 'eg',
         'apikey': _apiKey,
         'category': apiCategory,
+        if (page > 1) 'page': page.toString(),
       };
-
-      if (page > 1) {
-        queryParams['page'] = page.toString();
-      }
 
       final response = await apiClient.get(
         '$_baseUrl/news',
         queryParameters: queryParams,
       );
 
-      final model = NewsdataResponseModel.fromJson(response);
+      final data = response is Map<String, dynamic> ? response : response.data;
+
+      final model = NewsdataResponseModel.fromJson(data);
       return model.results;
     } on ApiException {
       rethrow;

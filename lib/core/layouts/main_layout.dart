@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/layouts/bottom_nav_bar.dart';
 import 'package:mega_news/core/layouts/layout_controller.dart';
+import 'package:mega_news/features/home/pages/home_page.dart';
 import 'package:mega_news/features/settings/presentations/pages/menu_view.dart';
 
 class MainLayout extends GetView<LayoutController> {
@@ -11,7 +12,7 @@ class MainLayout extends GetView<LayoutController> {
   Widget build(BuildContext context) {
     // final controller = Get.put(LayoutController());
 
-    final pages = const [Center(), Center(), MenuView()];
+    final pages = const [HomePage(), Center(), MenuView()];
 
     return Obx(
       () => Scaffold(

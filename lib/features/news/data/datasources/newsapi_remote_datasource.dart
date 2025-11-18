@@ -21,7 +21,6 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
   final ApiClient apiClient;
 
   final String _apiKey = dotenv.env['NEWS_API']!;
-
   final String _baseUrl = 'https://newsapi.org/v2';
 
   NewsApiRemoteDataSourceImpl({required this.apiClient});
@@ -40,22 +39,33 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
 
       final queryParams = <String, dynamic>{
         'q': query,
-        'language': lang,
+        'language': 'ar',
         'apiKey': _apiKey,
         'page': page.toString(),
-        'pageSize': '20',
+        'pageSize': '20', // عدد أكبر
       };
+
+      print('🔹 NewsAPI Search Query Params: $queryParams');
 
       final response = await apiClient.get(
         '$_baseUrl/everything',
         queryParameters: queryParams,
       );
 
+      print('✅ NewsAPI Search Response: $response');
+
       final model = NewsapiResponseModel.fromJson(response);
+
+      print('🔹 Parsed Articles Count: ${model.articles.length}');
+      for (var article in model.articles) {
+        print('${article.title} - ${article.source.name}');
+      }
+
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
+      print('❌ Error in searchNews: $e');
       throw UnknownException(
         message: 'Failed to parse NewsAPI search response: $e',
       );
@@ -63,7 +73,7 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
   }
 
   // ----------------------------------------------------------------------
-  // TOP HEADLINES (CATEGORY)
+  // TOP HEADLINES (CATEGORY) بالعربي
   // ----------------------------------------------------------------------
   @override
   Future<List<NewsApiArticleModel>> getTopHeadlines({
@@ -74,25 +84,36 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
     try {
       final lang = language ?? 'ar';
 
+      // بدون country لضمان محتوى عربي أوسع
       final queryParams = <String, dynamic>{
-        'country': 'eg',
         'category': category,
         'language': lang,
         'apiKey': _apiKey,
         'page': page.toString(),
-        'pageSize': '20',
+        'pageSize': '20', // عدد أكبر
       };
+
+      print('🔹 NewsAPI TopHeadlines Query Params: $queryParams');
 
       final response = await apiClient.get(
         '$_baseUrl/top-headlines',
         queryParameters: queryParams,
       );
 
+      print('✅ NewsAPI TopHeadlines Response: $response');
+
       final model = NewsapiResponseModel.fromJson(response);
+
+      print('🔹 Parsed Articles Count: ${model.articles.length}');
+      for (var article in model.articles) {
+        print('${article.title} - ${article.source.name}');
+      }
+
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
+      print('❌ Error in getTopHeadlines: $e');
       throw UnknownException(
         message: 'Failed to parse NewsAPI headlines response: $e',
       );
