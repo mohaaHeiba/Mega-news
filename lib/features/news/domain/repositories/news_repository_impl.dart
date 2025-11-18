@@ -33,27 +33,19 @@ class NewsRepositoryImpl implements INewsRepository {
   }) async {
     try {
       final results = await Future.wait<List<dynamic>>([
-        gNewsSource.getTopHeadlines(
-          category: category,
-          language: language,
-          page: page,
-        ),
-        newsApiSource.getTopHeadlines(
-          category: category,
-          language: language,
-          page: page,
-        ),
-        newsDataSource.getTopHeadlines(
-          category: category,
-          language: language,
-          page: page,
-        ),
-        currentsSource.getTopHeadlines(
-          category: category,
-          language: language,
-          page: page,
-        ),
-      ]);
+        gNewsSource
+            .getTopHeadlines(category: category, language: language, page: page)
+            .catchError((_) => <GNewsArticleModel>[]),
+        newsApiSource
+            .getTopHeadlines(category: category, language: language, page: page)
+            .catchError((_) => <NewsApiArticleModel>[]),
+        newsDataSource
+            .getTopHeadlines(category: category, language: language, page: page)
+            .catchError((_) => <NewsDataArticleModel>[]),
+        currentsSource
+            .getTopHeadlines(category: category, language: language, page: page)
+            .catchError((_) => <News>[]),
+      ], eagerError: false);
 
       final List<Article> articles = [
         ...(results[0] as List<GNewsArticleModel>).map(mapper.fromGNewsModel),
@@ -81,11 +73,19 @@ class NewsRepositoryImpl implements INewsRepository {
   }) async {
     try {
       final results = await Future.wait<List<dynamic>>([
-        gNewsSource.searchNews(query, language: language, page: page),
-        newsApiSource.searchNews(query, language: language, page: page),
-        newsDataSource.searchNews(query, language: language, page: page),
-        currentsSource.searchNews(query, language: language, page: page),
-      ]);
+        gNewsSource
+            .searchNews(query, language: language, page: page)
+            .catchError((_) => <GNewsArticleModel>[]),
+        newsApiSource
+            .searchNews(query, language: language, page: page)
+            .catchError((_) => <NewsApiArticleModel>[]),
+        newsDataSource
+            .searchNews(query, language: language, page: page)
+            .catchError((_) => <NewsDataArticleModel>[]),
+        currentsSource
+            .searchNews(query, language: language, page: page)
+            .catchError((_) => <News>[]),
+      ], eagerError: false);
 
       final List<Article> articles = [
         ...(results[0] as List<GNewsArticleModel>).map(mapper.fromGNewsModel),
