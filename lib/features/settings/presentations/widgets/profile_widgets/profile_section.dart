@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 
+// ignore: non_constant_identifier_names
 Widget ProfileHeader(ThemeData theme, dynamic s, AuthEntity user) {
   return Container(
     padding: const EdgeInsets.all(24),
@@ -37,7 +38,6 @@ Widget ProfileHeader(ThemeData theme, dynamic s, AuthEntity user) {
           ),
           textAlign: TextAlign.center,
         ),
-        // [تصليح 4] شيلنا الـ if (isGuest)
         const SizedBox(height: 4),
         Text(
           user.email,

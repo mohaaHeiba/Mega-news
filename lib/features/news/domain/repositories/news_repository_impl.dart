@@ -1,6 +1,6 @@
 import 'package:mega_news/features/news/data/datasources/currents_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/gnews_remote_datasource.dart';
-import 'package:mega_news/features/news/data/datasources/mappers/article_mapper.dart';
+import 'package:mega_news/features/news/data/mappers/article_mapper.dart';
 import 'package:mega_news/features/news/data/datasources/newsapi_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/newsdata_remote_datasource.dart';
 import 'package:mega_news/features/news/data/model/gnews_response_model.dart';

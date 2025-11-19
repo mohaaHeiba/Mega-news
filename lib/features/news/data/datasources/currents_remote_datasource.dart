@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mega_news/core/errors/api_exception.dart';
-import 'package:mega_news/features/news/data/datasources/mappers/article_mapper.dart';
+import 'package:mega_news/features/news/data/mappers/article_mapper.dart';
 import 'package:mega_news/features/news/data/model/currentsnewsapi_remote_model.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 

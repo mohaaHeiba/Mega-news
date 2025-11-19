@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class HomeController extends GetxController {
   final INewsRepository newsRepository;
@@ -17,7 +18,7 @@ class HomeController extends GetxController {
   final articles = <Article>[].obs;
 
   int _currentPage = 1;
-  String _currentLanguage = 'en';
+  String currentLanguage = 'en';
 
   // ====================================================
   // Categories
@@ -50,7 +51,7 @@ class HomeController extends GetxController {
       _currentPage = 1;
       final fetched = await newsRepository.getTopHeadlines(
         category: selectedCategory.value,
-        language: _currentLanguage,
+        language: currentLanguage,
         page: _currentPage,
       );
 
@@ -63,6 +64,13 @@ class HomeController extends GetxController {
 
       articles.value = fetched;
       hasMorePages(fetched.length >= 20);
+      // print(
+      //   '-----------------------------------------------------------------------',
+      // );
+
+      // for (int i = 0; i <= 20; i++) {
+      //   print(articles[i].imageUrl);
+      // }
     } catch (e) {
       print('Error fetching news: $e');
     } finally {
@@ -78,7 +86,7 @@ class HomeController extends GetxController {
       _currentPage++;
       final fetched = await newsRepository.getTopHeadlines(
         category: selectedCategory.value,
-        language: _currentLanguage,
+        language: currentLanguage,
         page: _currentPage,
       );
       if (fetched.isEmpty) {
@@ -100,6 +108,10 @@ class HomeController extends GetxController {
     } finally {
       isLoadingMore(false);
     }
+  }
+
+  String getTimeAgo(DateTime dateTime) {
+    return timeago.format(dateTime, locale: 'ar');
   }
 
   // ====================================================

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart';
+import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart'
+    hide ThemeModeSelection;
+import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
 
 class ThemeSection extends StatelessWidget {
   const ThemeSection({super.key});
@@ -72,7 +74,7 @@ class _ThemeOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<MenuViewController>();
+    final controller = Get.find<ThemeController>();
     final theme = Theme.of(context);
 
     return InkWell(

@@ -94,6 +94,11 @@ class AuthController extends GetxController {
         password: password,
       );
 
+      user.value = authEntity;
+
+      // Save user to storage
+      _saveUserToStorage(authEntity);
+
       customSnackbar(
         title: 'Account Created Successfully!',
         message: 'A verification link has been sent to your email.',
@@ -138,6 +143,11 @@ class AuthController extends GetxController {
       // ------------------------
 
       final authEntity = await repo.login(email: email, password: password);
+      user.value = authEntity;
+
+      // Save user data to storage
+      _saveUserToStorage(authEntity);
+      await GetStorage().write('loginBefore', true);
 
       customSnackbar(
         title: 'Welcome Back!',
@@ -183,7 +193,9 @@ class AuthController extends GetxController {
 
       final authEntity = await repo.googleSignIn();
       user.value = authEntity;
-      // print(user.value!.name);
+
+      // Save user to storage
+      _saveUserToStorage(authEntity);
       await GetStorage().write('loginBefore', true);
 
       customSnackbar(
@@ -405,6 +417,8 @@ class AuthController extends GetxController {
       createdAt: DateTime.now().toIso8601String(),
     );
 
+    // Save guest user to storage
+    _saveUserToStorage(user.value!);
     GetStorage().write('loginBefore', true);
 
     customSnackbar(
@@ -417,6 +431,21 @@ class AuthController extends GetxController {
   }
 
   final supabase = Supabase.instance.client;
+
+  void _saveUserToStorage(AuthEntity authEntity) {
+    try {
+      final userMap = {
+        'id': authEntity.id,
+        'name': authEntity.name,
+        'email': authEntity.email,
+        'createdAt': authEntity.createdAt,
+      };
+      GetStorage().write('auth_data', userMap);
+      print('User saved to storage: ${authEntity.name}');
+    } catch (e) {
+      print('Error saving user to storage: $e');
+    }
+  }
 
   @override
   void onInit() {
@@ -445,10 +474,15 @@ class AuthController extends GetxController {
             createdAt: sessionUser.createdAt,
           );
           user.value = authEntity;
+
+          // Save user to storage
+          _saveUserToStorage(authEntity);
         }
 
         Get.offAllNamed(AppPages.layoutPage);
       } else if (event == AuthChangeEvent.signedOut) {
+        user.value = null;
+        GetStorage().remove('auth_data');
         try {} catch (e) {
           // SettingsController might not be initialized yet, ignore
         }

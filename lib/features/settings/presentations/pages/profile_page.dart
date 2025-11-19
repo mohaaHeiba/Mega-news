@@ -72,20 +72,35 @@ class ProfilePage extends GetView<MenuViewController> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            AppGaps.h8,
-            ProfileHeader(theme, s, controller.user.value!),
-            AppGaps.h24,
-            StatsRow(theme, s),
-            AppGaps.h24,
-            InfoSection(theme, s, controller.user.value!),
-            AppGaps.h16,
-            QuickActions(theme, s),
-            AppGaps.h16,
-          ],
-        ),
+        child: Obx(() {
+          if (controller.user.value == null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: context.primary),
+                  const SizedBox(height: 16),
+                  Text(s.noUserDataFound),
+                ],
+              ),
+            );
+          }
+
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              AppGaps.h8,
+              ProfileHeader(theme, s, controller.user.value!),
+              AppGaps.h24,
+              StatsRow(theme, s),
+              AppGaps.h24,
+              InfoSection(theme, s, controller.user.value!),
+              AppGaps.h16,
+              QuickActions(theme, s),
+              AppGaps.h16,
+            ],
+          );
+        }),
       ),
     );
   }

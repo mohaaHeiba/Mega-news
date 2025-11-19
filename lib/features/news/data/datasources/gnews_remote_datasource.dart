@@ -63,6 +63,7 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
       }
 
       final model = GnewsResponseModel.fromJson(responseData);
+      print('🔹 GNews a7aaa Response: ${model.articles[5].image}');
 
       print('🔹 Parsed Articles Count: ${model.articles.length}');
 

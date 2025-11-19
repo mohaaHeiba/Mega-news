@@ -4,7 +4,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/app.dart';
-import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart';
+import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -26,7 +26,7 @@ Future<void> main() async {
   await GetStorage.init();
 
   // for language and theme
-  Get.putAsync(() async => MenuViewController());
+  Get.putAsync(() async => ThemeController());
 
   runApp(const MyApp());
 }
