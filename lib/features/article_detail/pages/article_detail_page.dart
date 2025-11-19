@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/article_detail/controller/article_detail_controller.dart';
-import 'package:mega_news/features/article_detail/widgets/build_article_view.dart';
-import 'package:mega_news/features/news/domain/entities/article.dart';
+import 'package:mega_news/features/article_detail/widgets/build_ai_view.dart';
+import 'package:mega_news/features/article_detail/widgets/build_normal_article_view.dart';
+import 'package:mega_news/features/article_detail/widgets/button_article_link.dart';
 
 class ArticleDetailPage extends GetView<ArticleDetailController> {
   const ArticleDetailPage({super.key});
@@ -10,15 +12,25 @@ class ArticleDetailPage extends GetView<ArticleDetailController> {
   @override
   Widget build(BuildContext context) {
     final theme = context;
-    final data = Get.arguments as Article;
 
-    // final bool isSummaryMode = article == null;
+    final bool isAiMode = controller.aiSummary != null;
 
-    return buildArticleView(context, theme, controller, data);
+    return Scaffold(
+      backgroundColor: theme.surface,
 
-    // if (isSummaryMode) {
-    // } else {
-    //   return buildArticleView(context, theme, controller, article);
-    // }
+      bottomNavigationBar: isAiMode
+          ? null
+          : buttonArticleLink(theme, controller),
+
+      body: Obx(() {
+        final dynamicColor = controller.vibrantColor.value;
+
+        if (isAiMode) {
+          return buildAiView(theme, dynamicColor, controller);
+        }
+
+        return buildNormalArticleView(theme, dynamicColor, controller);
+      }),
+    );
   }
 }

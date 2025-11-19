@@ -4,11 +4,11 @@ import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
-import 'package:mega_news/features/article_detail/pages/article_detail_page.dart';
 import 'package:mega_news/features/home/controller/home_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:mega_news/features/home/widgets/build_carousel_shimmer.dart';
+import 'package:mega_news/features/search/presentations/pages/show_search_page.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -17,10 +17,9 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.background,
-      // **تمت إزالة الـ AppBar العادي من هنا**
       body: Obx(() {
         // =================================
-        // Empty State (when not loading) - تبقى كما هي
+        // Empty State (when not loading)
         // =================================
         if (!controller.isLoading.value && controller.articles.isEmpty) {
           // ... (Empty State Code remains unchanged) ...
@@ -54,7 +53,7 @@ class HomePage extends GetView<HomeController> {
         }
 
         // =================================
-        // Main Content: استخدام CustomScrollView بدلاً من SingleChildScrollView
+        // Main Content:
         // =================================
         return RefreshIndicator(
           color: context.primary,
@@ -62,7 +61,7 @@ class HomePage extends GetView<HomeController> {
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              // 1. Sliver AppBar (يحتوي على الترحيب وشريط البحث)
+              // 1. Sliver AppBar
               SliverAppBar(
                 backgroundColor: context.background,
                 elevation: 0,
@@ -71,7 +70,6 @@ class HomePage extends GetView<HomeController> {
                 snap: true,
                 expandedHeight: 160,
 
-                // Leading: يظهر فقط عند الـ collapse
                 leading: LayoutBuilder(
                   builder: (context, constraints) {
                     final settings = context
@@ -95,7 +93,6 @@ class HomePage extends GetView<HomeController> {
                   },
                 ),
 
-                // Actions: يظهر زر البحث فقط عند الـ collapse (مع زر الإشعار)
                 actions: [
                   // Search shows ONLY when collapsed
                   LayoutBuilder(
@@ -117,7 +114,9 @@ class HomePage extends GetView<HomeController> {
                                 Icons.search_rounded,
                                 color: context.onBackground,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => const ShowSearchPage());
+                              },
                             ),
 
                           // Notifications - always visible
@@ -202,7 +201,9 @@ class HomePage extends GetView<HomeController> {
                                   ),
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(12),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.to(() => const ShowSearchPage());
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 16,

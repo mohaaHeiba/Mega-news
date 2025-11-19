@@ -1,65 +1,68 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mega_news/features/home/controller/home_controller.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ================= Enums =================
 enum TtsState { playing, stopped, paused, continued }
 
 class ArticleDetailController extends GetxController {
-  // إذا كنت تحتاج للوصول للكنترولر الرئيسي (اختياري)
-  // final homeController = Get.find<HomeController>();
+  // ================= Variables & State =================
+  Article? article;
 
-  late final Article article;
+  // AI Summary Data
+  String? aiSummary;
+  String? aiTopic;
+  List<String>? aiImages;
 
-  var vibrantColor = Rx<Color>(Colors.transparent);
+  // UI Observables
+  var vibrantColor = Rx<Color>(Colors.blue);
   var vibrantTextColor = Rx<Color>(Colors.white);
-
-  // 🔹 1. تعريف متغير الإعجاب هنا بشكل صحيح
   var isLiked = false.obs;
-
-  // متغير لمتابعة حالة الـ TTS
   var ttsState = TtsState.stopped.obs;
 
+  // Services
   final FlutterTts _flutterTts = FlutterTts();
 
+  // ================= Initialization =================
   @override
   void onInit() {
     super.onInit();
-    article = Get.arguments as Article;
+    final args = Get.arguments;
 
-    // 🔹 يمكن هنا التحقق مما إذا كان المقال محفوظاً مسبقاً
-    // isLiked.value = homeController.checkIfLiked(article);
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      _generatePalette();
-    });
+    // Handle Standard Article
+    if (args is Article) {
+      article = args;
+      // Delay slightly to ensure UI is ready before calculating colors
+      Future.delayed(const Duration(milliseconds: 100), () {
+        _generatePalette();
+      });
+    }
+    // Handle AI Generated Content
+    else if (args is Map<String, dynamic>) {
+      aiTopic = args['topic'];
+      aiSummary = args['summary'];
+      aiImages = args['images'];
+      vibrantColor.value = Colors.deepPurple;
+    }
 
     _initTts();
   }
 
-  // 🔹 2. دالة لعمل Toggle (إعجاب / إلغاء إعجاب)
+  // ================= User Actions =================
   void toggleLike() {
     isLiked.value = !isLiked.value;
-    // هنا يمكنك إضافة كود لحفظ المقال في قاعدة البيانات أو قائمة المفضلة
   }
 
-  @override
-  void onClose() {
-    _flutterTts.stop();
-    super.onClose();
-  }
-
-  // --- TTS Logic ---
+  // ================= Text-to-Speech (TTS) Logic =================
   void _initTts() {
     _flutterTts.setSpeechRate(0.45);
-    _flutterTts.setVolume(1.0);
-    _flutterTts.setPitch(1.0);
     _flutterTts.setLanguage("en-US");
 
+    // Status Listeners
     _flutterTts.setStartHandler(() => ttsState.value = TtsState.playing);
     _flutterTts.setCompletionHandler(() => ttsState.value = TtsState.stopped);
     _flutterTts.setCancelHandler(() => ttsState.value = TtsState.stopped);
@@ -69,38 +72,42 @@ class ArticleDetailController extends GetxController {
   }
 
   Future<void> speak() async {
-    final text = article.description ?? article.title;
-    if (text.isNotEmpty) await _flutterTts.speak(text);
+    String textToSpeak =
+        aiSummary ?? article?.description ?? article?.title ?? "";
+    if (textToSpeak.isNotEmpty) await _flutterTts.speak(textToSpeak);
   }
 
   Future<void> pauseTts() async => await _flutterTts.pause();
   Future<void> stopTts() async => await _flutterTts.stop();
 
-  // --- Colors & Links ---
+  // ================= External Navigation =================
   Future<void> openArticleLink() async {
-    final uri = Uri.parse(article.articleUrl);
-    try {
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        Get.snackbar('Error', 'Could not open the link.');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Could not open the link: $e');
+    if (article == null) return;
+    final uri = Uri.parse(article!.articleUrl);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 
+  // ================= Dynamic UI & Color Logic =================
+
+  /// Extracts the dominant vibrant color from the article image
   Future<void> _generatePalette() async {
-    if (article.imageUrl == null || article.imageUrl!.isEmpty) return;
+    if (article?.imageUrl == null) return;
+
     try {
-      final provider = NetworkImage(article.imageUrl!);
+      final ImageProvider provider = NetworkImage(article!.imageUrl!);
+
       final palette = await PaletteGenerator.fromImageProvider(
         provider,
-        size: const Size(100, 100),
+        size: const Size(100, 100), // Low res for faster calculation
       );
+
       if (palette.vibrantColor != null) {
         final targetColor = palette.vibrantColor!.color;
         final targetTextColor = palette.vibrantColor!.titleTextColor;
+
+        // Animate to the new color smoothly
         _graduallyChangeColor(vibrantColor.value, targetColor);
         vibrantTextColor.value = targetTextColor;
       }
@@ -109,18 +116,23 @@ class ArticleDetailController extends GetxController {
     }
   }
 
+  /// Manually animates color change for smoother visual effect than standard tween
   void _graduallyChangeColor(Color from, Color to) {
     const int steps = 100;
     const Duration stepDuration = Duration(milliseconds: 15);
+
     double r = from.red.toDouble();
     double g = from.green.toDouble();
     double b = from.blue.toDouble();
     double a = from.opacity;
+
     double dr = (to.red - r) / steps;
     double dg = (to.green - g) / steps;
     double db = (to.blue - b) / steps;
     double da = (to.opacity - a) / steps;
+
     int currentStep = 0;
+
     Timer.periodic(stepDuration, (timer) {
       if (currentStep >= steps) {
         timer.cancel();

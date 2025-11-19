@@ -4,8 +4,6 @@ import 'package:mega_news/features/article_detail/controller/article_detail_cont
 class ArticleDetailBinding extends Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies
-
     Get.put(ArticleDetailController());
   }
 }
