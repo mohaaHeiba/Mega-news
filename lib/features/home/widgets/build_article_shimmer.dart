@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget buildArticleShimmer(final context) {
+Widget buildArticleShimmer(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
-      color: context.surface,
+      color: context.colors.surface,
       boxShadow: [
         BoxShadow(
           color: context.primary.withOpacity(0.08),

@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
+import 'package:mega_news/core/routes/app_pages.dart';
+import 'package:mega_news/features/article_detail/pages/article_detail_page.dart';
 import 'package:mega_news/features/home/controller/home_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:mega_news/features/home/widgets/build_carousel_shimmer.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -290,7 +293,12 @@ class HomePage extends GetView<HomeController> {
                           items: controller.articles.take(5).map((article) {
                             // ... (Carousel Item Code remains unchanged) ...
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.toNamed(
+                                  AppPages.articleDetailPage,
+                                  arguments: article,
+                                );
+                              },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
@@ -499,7 +507,7 @@ class HomePage extends GetView<HomeController> {
                                 ? controller.articles.length - 5
                                 : 0,
                             separatorBuilder: (_, __) =>
-                                const SizedBox(height: 16),
+                                const SizedBox(height: 0),
                             itemBuilder: (_, index) {
                               final article = controller.articles[index + 5];
 
@@ -508,7 +516,10 @@ class HomePage extends GetView<HomeController> {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   onTap: () {
-                                    // Navigate to article details
+                                    Get.toNamed(
+                                      AppPages.articleDetailPage,
+                                      arguments: article,
+                                    );
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -648,7 +659,11 @@ class HomePage extends GetView<HomeController> {
                                                     color: context.onBackground
                                                         .withOpacity(0.5),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Share.share(
+                                                      "${article.title}\n${article.articleUrl}",
+                                                    );
+                                                  },
                                                   padding: EdgeInsets.zero,
                                                   constraints:
                                                       const BoxConstraints(
@@ -658,13 +673,19 @@ class HomePage extends GetView<HomeController> {
                                                 ),
                                                 IconButton(
                                                   icon: Icon(
-                                                    Icons
-                                                        .bookmark_border_rounded,
-                                                    size: 20,
-                                                    color: context.onBackground
-                                                        .withOpacity(0.5),
+                                                    controller.isLiked.value
+                                                        ? Icons.favorite
+                                                        : Icons.favorite_border,
+                                                    color:
+                                                        controller.isLiked.value
+                                                        ? Colors.redAccent
+                                                        : Colors.white,
+                                                    size: 18,
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () => controller
+                                                      .isLiked
+                                                      .toggle(),
+
                                                   padding: EdgeInsets.zero,
                                                   constraints:
                                                       const BoxConstraints(

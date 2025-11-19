@@ -19,6 +19,7 @@ class HomeController extends GetxController {
 
   int _currentPage = 1;
   String currentLanguage = 'en';
+  var isLiked = false.obs;
 
   // ====================================================
   // Categories

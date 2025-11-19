@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
-import 'package:mega_news/core/bindings/auth_binding.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/core/routes/app_routes_helper.dart';
 import 'package:mega_news/core/theme/app_theme.dart';
