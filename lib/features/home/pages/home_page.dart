@@ -147,94 +147,107 @@ class HomePage extends GetView<HomeController> {
 
                     return FlexibleSpaceBar(
                       titlePadding: EdgeInsets.zero,
-                      background: SafeArea(
-                        bottom: false,
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 200),
-                          opacity: collapsed ? 0 : 1,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 12),
+                      background: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              context.primary.withOpacity(0.5),
+                              context.primary.withOpacity(0.5),
+                              context.background,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                        child: SafeArea(
+                          bottom: false,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 200),
+                            opacity: collapsed ? 0 : 1,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 12),
 
-                                // Greeting
-                                Text(
-                                  'Welcome Back,',
-                                  style: context.textStyles.labelSmall
-                                      ?.copyWith(
-                                        color: context.onBackground.withOpacity(
-                                          0.6,
+                                  // Greeting
+                                  Text(
+                                    'Welcome Back,',
+                                    style: context.textStyles.labelSmall
+                                        ?.copyWith(
+                                          color: context.onBackground
+                                              .withOpacity(0.6),
+                                          fontWeight: FontWeight.w500,
                                         ),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  'Mega News.',
-                                  style: context.textStyles.headlineLarge
-                                      ?.copyWith(
-                                        color: context.onBackground,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: -0.8,
-                                      ),
-                                ),
-
-                                const SizedBox(height: 16),
-
-                                // BIG Search Bar
-                                Container(
-                                  height: 46,
-                                  decoration: BoxDecoration(
-                                    color: context.surface,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: context.onBackground.withOpacity(
-                                          0.08,
-                                        ),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
                                   ),
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(12),
-                                    onTap: () {
-                                      Get.to(() => const ShowSearchPage());
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.search_rounded,
-                                            color: context.primary.withOpacity(
-                                              0.8,
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'Mega News.',
+                                    style: context.textStyles.headlineLarge
+                                        ?.copyWith(
+                                          color: context.onBackground,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: -0.8,
+                                        ),
+                                  ),
+
+                                  const SizedBox(height: 16),
+
+                                  // BIG Search Bar
+                                  Container(
+                                    height: 46,
+                                    decoration: BoxDecoration(
+                                      color: context.surface,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: context.onBackground
+                                              .withOpacity(0.08),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(12),
+                                      onTap: () {
+                                        Get.to(() => const ShowSearchPage());
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.search_rounded,
+                                              color: context.primary
+                                                  .withOpacity(0.8),
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Expanded(
-                                            child: Text(
-                                              'Search over 1,000,000 articles...',
-                                              style: context
-                                                  .textStyles
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                    color: context.onBackground
-                                                        .withOpacity(0.6),
-                                                  ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: Text(
+                                                'Search over 1,000,000 articles...',
+                                                style: context
+                                                    .textStyles
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color: context
+                                                          .onBackground
+                                                          .withOpacity(0.6),
+                                                    ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

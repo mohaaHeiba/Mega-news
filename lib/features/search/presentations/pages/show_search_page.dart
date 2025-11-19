@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart' hide SearchController;
 
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
@@ -18,7 +19,6 @@ class ShowSearchPage extends GetView<SearchController> {
     return Scaffold(
       backgroundColor: context.background,
 
-      // --- 🚀 زر التلخيص العائم ---
       floatingActionButton: Obx(() {
         if (controller.articles.isNotEmpty &&
             !controller.isLoading.value &&
@@ -51,7 +51,6 @@ class ShowSearchPage extends GetView<SearchController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // 1. شريط البحث
             SliverAppBar(
               elevation: 0,
               backgroundColor: context.background,
@@ -178,7 +177,7 @@ class ShowSearchPage extends GetView<SearchController> {
                           size: 80,
                           color: context.onBackground.withOpacity(0.2),
                         ),
-                        const SizedBox(height: 16),
+                        AppGaps.h16,
                         Text(
                           'No results found',
                           style: context.textStyles.headlineSmall?.copyWith(
@@ -212,7 +211,7 @@ class ShowSearchPage extends GetView<SearchController> {
                             color: context.primary,
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        AppGaps.h24,
                         Text(
                           'Discover News',
                           style: context.textStyles.headlineSmall?.copyWith(
@@ -329,8 +328,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                         ),
                                       ),
                                     ),
-                                  if (article.imageUrl != null)
-                                    const SizedBox(width: 12),
+                                  if (article.imageUrl != null) AppGaps.h12,
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -347,7 +345,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                                 color: context.onBackground,
                                               ),
                                         ),
-                                        const SizedBox(height: 4),
+                                        AppGaps.h4,
                                         Text(
                                           article.sourceName,
                                           style: context.textStyles.labelMedium
@@ -362,7 +360,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 12),
+                              AppGaps.h12,
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -374,7 +372,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                         size: 14,
                                         color: context.primary.withOpacity(0.8),
                                       ),
-                                      const SizedBox(width: 4),
+                                      AppGaps.h4,
                                       Text(
                                         controller.getTimeAgo(
                                           article.publishedAt,
@@ -423,7 +421,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 8),
+                              AppGaps.h8,
                               Divider(
                                 color: context.onBackground.withOpacity(0.1),
                                 height: 1,

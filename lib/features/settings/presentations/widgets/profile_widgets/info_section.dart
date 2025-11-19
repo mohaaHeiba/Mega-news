@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 Widget InfoSection(ThemeData theme, dynamic s, final user) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

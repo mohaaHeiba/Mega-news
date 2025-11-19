@@ -3,6 +3,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/layouts/layout_controller.dart';
 import 'package:mega_news/core/network/api_cleint.dart';
+import 'package:mega_news/features/briefing/controller/briefing_controller.dart';
 import 'package:mega_news/features/gemini/data/datasources/gemini_remote_datasource.dart';
 import 'package:mega_news/features/gemini/data/repositories/gemini_repository_impl.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
@@ -56,6 +57,14 @@ class LayoutBinding extends Bindings {
 
     Get.lazyPut<SearchController>(
       () => SearchController(
+        newsRepository: newsRepository,
+        getAiSummaryUseCase: getAiSummaryUseCase,
+      ),
+      fenix: true,
+    );
+
+    Get.lazyPut<AiBriefingController>(
+      () => AiBriefingController(
         newsRepository: newsRepository,
         getAiSummaryUseCase: getAiSummaryUseCase,
       ),

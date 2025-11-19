@@ -94,17 +94,17 @@ class SearchController extends GetxController {
 
       articles.value = fetched;
       hasMorePages(fetched.length >= 20);
-    } catch (e) {
-      // 🛠️ Added Catch Block: Prevents crash if API fails
-      print("Search Error: $e");
     } finally {
       isLoading(false);
     }
   }
 
   Future<void> loadMore() async {
-    if (isLoadingMore.value || !hasMorePages.value || searchQuery.value.isEmpty)
+    if (isLoadingMore.value ||
+        !hasMorePages.value ||
+        searchQuery.value.isEmpty) {
       return;
+    }
 
     try {
       isLoadingMore(true);
@@ -123,7 +123,6 @@ class SearchController extends GetxController {
         if (fetched.length < 20) hasMorePages(false);
       }
     } catch (e) {
-      print('Error loading more search: $e');
       _currentPage--;
     } finally {
       isLoadingMore(false);

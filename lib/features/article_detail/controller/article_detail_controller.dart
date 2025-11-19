@@ -19,7 +19,7 @@ class ArticleDetailController extends GetxController {
   List<String>? aiImages;
 
   // UI Observables
-  var vibrantColor = Rx<Color>(Colors.blue);
+  var vibrantColor = Rx<Color>(Colors.transparent);
   var vibrantTextColor = Rx<Color>(Colors.white);
   var isLiked = false.obs;
   var ttsState = TtsState.stopped.obs;
@@ -100,7 +100,7 @@ class ArticleDetailController extends GetxController {
 
       final palette = await PaletteGenerator.fromImageProvider(
         provider,
-        size: const Size(100, 100), // Low res for faster calculation
+        size: const Size(100, 100),
       );
 
       if (palette.vibrantColor != null) {

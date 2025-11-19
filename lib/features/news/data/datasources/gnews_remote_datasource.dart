@@ -47,14 +47,10 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
         queryParams['page'] = page.toString();
       }
 
-      print('🔹 GNews Search Query Params: $queryParams');
-
       final responseData = await apiClient.get(
         '$_baseUrl/search',
         queryParameters: queryParams,
       );
-
-      print('🔹 GNews Search Response: $responseData');
 
       if (responseData is! Map<String, dynamic>) {
         throw UnknownException(
@@ -63,15 +59,11 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
       }
 
       final model = GnewsResponseModel.fromJson(responseData);
-      print('🔹 GNews a7aaa Response: ${model.articles[5].image}');
-
-      print('🔹 Parsed Articles Count: ${model.articles.length}');
 
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
-      print('❌ Error in searchNews: $e');
       throw UnknownException(
         message: 'Failed to parse GNews search response: $e',
       );
@@ -98,14 +90,10 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
         queryParams['page'] = page.toString();
       }
 
-      print('🔹 GNews TopHeadlines Query Params: $queryParams');
-
       final responseData = await apiClient.get(
         '$_baseUrl/top-headlines',
         queryParameters: queryParams,
       );
-
-      print('🔹 GNews TopHeadlines Response: $responseData');
 
       if (responseData is! Map<String, dynamic>) {
         throw UnknownException(
@@ -115,13 +103,10 @@ class GNewsRemoteDataSourceImpl implements IGNewsRemoteDataSource {
 
       final model = GnewsResponseModel.fromJson(responseData);
 
-      print('🔹 Parsed TopHeadlines Articles Count: ${model.articles.length}');
-
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
-      print('❌ Error in getTopHeadlines: $e');
       throw UnknownException(
         message: 'Failed to parse GNews headlines response: $e',
       );

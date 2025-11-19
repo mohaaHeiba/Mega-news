@@ -2,7 +2,6 @@
 //
 //     final currentsNewsApiResponseModel = currentsNewsApiResponseModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CurrentsNewsApiResponseModel currentsNewsApiResponseModelFromJson(String str) =>

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart'
-    hide ThemeModeSelection;
+
 import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
 
 class ThemeSection extends StatelessWidget {
@@ -100,7 +100,7 @@ class _ThemeOption extends StatelessWidget {
                     : theme.colorScheme.onSurface.withOpacity(0.6),
                 size: 28,
               ),
-              const SizedBox(height: 6),
+              AppGaps.h8,
               Text(
                 label,
                 style: TextStyle(

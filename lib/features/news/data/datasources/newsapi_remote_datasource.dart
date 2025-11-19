@@ -35,37 +35,27 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
     int page = 1,
   }) async {
     try {
-      final lang = language ?? 'ar';
+      // final lang = language ?? 'ar';
 
       final queryParams = <String, dynamic>{
         'q': query,
         'language': 'ar',
         'apiKey': _apiKey,
         'page': page.toString(),
-        'pageSize': '20', // عدد أكبر
+        'pageSize': '20',
       };
-
-      print('🔹 NewsAPI Search Query Params: $queryParams');
 
       final response = await apiClient.get(
         '$_baseUrl/everything',
         queryParameters: queryParams,
       );
 
-      print('✅ NewsAPI Search Response: $response');
-
       final model = NewsapiResponseModel.fromJson(response);
-
-      print('🔹 Parsed Articles Count: ${model.articles.length}');
-      for (var article in model.articles) {
-        print('${article.title} - ${article.source.name}');
-      }
 
       return model.articles;
     } on ApiException {
       rethrow;
     } catch (e) {
-      print('❌ Error in searchNews: $e');
       throw UnknownException(
         message: 'Failed to parse NewsAPI search response: $e',
       );
@@ -84,27 +74,21 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
     try {
       final lang = language ?? 'ar';
 
-      // بدون country لضمان محتوى عربي أوسع
       final queryParams = <String, dynamic>{
         'category': category,
         'language': lang,
         'apiKey': _apiKey,
         'page': page.toString(),
-        'pageSize': '20', // عدد أكبر
+        'pageSize': '20',
       };
-
-      print('🔹 NewsAPI TopHeadlines Query Params: $queryParams');
 
       final response = await apiClient.get(
         '$_baseUrl/top-headlines',
         queryParameters: queryParams,
       );
 
-      print('✅ NewsAPI TopHeadlines Response: $response');
-
       final model = NewsapiResponseModel.fromJson(response);
 
-      print('🔹 Parsed Articles Count: ${model.articles.length}');
       for (var article in model.articles) {
         print('${article.title} - ${article.source.name}');
       }
@@ -113,7 +97,6 @@ class NewsApiRemoteDataSourceImpl implements INewsApiRemoteDataSource {
     } on ApiException {
       rethrow;
     } catch (e) {
-      print('❌ Error in getTopHeadlines: $e');
       throw UnknownException(
         message: 'Failed to parse NewsAPI headlines response: $e',
       );

@@ -39,27 +39,20 @@ class CurrentsRemoteDataSourceImpl
         'apiKey': _apiKey,
       };
 
-      print('🔹 CurrentsAPI Query Params: $queryParams');
-
       final response = await dio.get(
         '$_baseUrl/latest-news',
         queryParameters: queryParams,
       );
 
-      print('✅ CurrentsAPI Raw Response: ${response.data}');
-
-      // Parse the response
       final model = CurrentsNewsApiResponseModel.fromJson(response.data);
-
-      print('🔹 Number of articles received: ${model.news.length}');
 
       // Handle empty fields and convert to Article entities
       final articles = model.news.map((newsItem) {
-        final sourceName = (newsItem.author ?? '').isEmpty
+        final sourceName = (newsItem.author).isEmpty
             ? 'Currents'
             : newsItem.author;
 
-        final imageUrl = (newsItem.image ?? '').isEmpty
+        final imageUrl = (newsItem.image).isEmpty
             ? _placeholder
             : newsItem.image;
 
@@ -78,16 +71,12 @@ class CurrentsRemoteDataSourceImpl
         return articleMapper.fromCurrentsModel(correctedNews);
       }).toList();
 
-      print('🔹 Parsed Articles Count after mapping: ${articles.length}');
-
       return articles;
     } on DioException catch (e) {
-      print('❌ DioException: ${e.message}');
       throw NetworkException(
         message: 'Failed to fetch Currents latest news: ${e.message}',
       );
     } catch (e) {
-      print('❌ Unknown error during parsing: $e');
       return [];
     }
   }

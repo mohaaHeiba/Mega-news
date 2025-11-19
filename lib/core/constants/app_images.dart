@@ -7,6 +7,12 @@ class AppImages {
   static const String notifications = "assets/images/notifications.png";
 
   static const String searchSummary = "assets/images/search_summary.png";
+  static const String general = "assets/images/general.png";
+  static const String technology = "assets/images/Technology.png";
+  static const String sports = "assets/images/Sports.png";
+  static const String business = "assets/images/Business.png";
+  static const String health = "assets/images/Health.png";
+  static const String science = "assets/images/Science.png";
 
   AppImages._();
 }

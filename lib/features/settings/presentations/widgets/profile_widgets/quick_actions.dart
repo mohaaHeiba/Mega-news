@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
+// ignore: non_constant_identifier_names
 Widget QuickActions(ThemeData theme, dynamic s) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
