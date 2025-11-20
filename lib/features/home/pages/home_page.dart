@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
@@ -302,9 +303,10 @@ class HomePage extends GetView<HomeController> {
                   // Featured Carousel
                   controller.isLoading.value
                       ? buildCarouselShimmer(context)
-                      : CarouselSlider(
+                      :
+                        // ... باقي الكود
+                        CarouselSlider(
                           items: controller.articles.take(5).map((article) {
-                            // ... (Carousel Item Code remains unchanged) ...
                             return GestureDetector(
                               onTap: () {
                                 Get.toNamed(
@@ -317,14 +319,7 @@ class HomePage extends GetView<HomeController> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(0),
                                   color: Colors.grey.shade300,
-                                  image: article.imageUrl != null
-                                      ? DecorationImage(
-                                          image: NetworkImage(
-                                            article.imageUrl ?? '',
-                                          ),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : null,
+                                  // شيلنا الصورة من هنا عشان نستخدم CachedNetworkImage كـ Widget
                                 ),
                                 child: article.imageUrl == null
                                     ? Center(
@@ -343,6 +338,28 @@ class HomePage extends GetView<HomeController> {
                                     : Stack(
                                         fit: StackFit.expand,
                                         children: [
+                                          CachedNetworkImage(
+                                            imageUrl: article.imageUrl!,
+                                            fit: BoxFit.cover,
+                                            // placeholder: (context, url) =>
+                                            //     Container(
+                                            //       color: Colors.grey.shade300,
+                                            //       child: const Center(
+                                            //         child:
+                                            //             CircularProgressIndicator(),
+                                            //       ),
+                                            //     ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(
+                                                      color:
+                                                          Colors.grey.shade300,
+                                                      child: const Icon(
+                                                        Icons.broken_image,
+                                                      ),
+                                                    ),
+                                          ),
+
                                           Container(
                                             decoration: BoxDecoration(
                                               gradient: LinearGradient(
@@ -357,6 +374,7 @@ class HomePage extends GetView<HomeController> {
                                               ),
                                             ),
                                           ),
+
                                           Positioned(
                                             bottom: 0,
                                             left: 0,

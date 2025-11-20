@@ -10,20 +10,35 @@ class LogoutButton extends GetView<MenuViewController> {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
+    final theme = Theme.of(context);
 
-    return SizedBox(
+    return Container(
       width: double.infinity,
-      height: 50,
+      height: 56,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.error.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: ElevatedButton.icon(
         onPressed: () async {
           final confirmed = await Get.dialog<bool>(
             AlertDialog(
+              backgroundColor: theme.cardColor,
               title: Text(s.logout),
               content: Text(s.logoutConfirmation),
               actions: [
                 TextButton(
                   onPressed: () => Get.back(result: false),
-                  child: Text(s.cancel),
+                  child: Text(
+                    s.cancel,
+                    style: TextStyle(color: theme.colorScheme.onSurface),
+                  ),
                 ),
                 TextButton(
                   onPressed: () => Get.back(result: true),
@@ -37,13 +52,17 @@ class LogoutButton extends GetView<MenuViewController> {
             controller.logout();
           }
         },
-        icon: const Icon(Icons.logout),
-        label: Text(s.logout),
+        icon: const Icon(Icons.logout_rounded),
+        label: Text(
+          s.logout,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.error,
           foregroundColor: Colors.white,
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),

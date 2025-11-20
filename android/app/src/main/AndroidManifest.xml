@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:label="mega_news"
+        android:label="Mega News"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

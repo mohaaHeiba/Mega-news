@@ -18,8 +18,14 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.primary.withOpacity(0.5),
+
         elevation: 0,
-        title: Text(s.settings),
+        title: Text(
+          s.settings,
+          style: context.textStyles.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Container(
@@ -35,7 +41,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           children: [
             const ThemeSection(),
             AppGaps.h24,
@@ -48,7 +54,7 @@ class SettingsPage extends StatelessWidget {
             const AboutSection(),
             AppGaps.h32,
             const LogoutButton(),
-            AppGaps.h16,
+            AppGaps.h32, // مسافة أمان في الأسفل
           ],
         ),
       ),

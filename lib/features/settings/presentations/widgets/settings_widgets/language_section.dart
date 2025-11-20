@@ -9,7 +9,7 @@ class LanguageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = context;
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,14 +19,22 @@ class LanguageSection extends StatelessWidget {
           child: Text(
             s.language,
             style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
         Container(
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: theme.surface,
-            borderRadius: BorderRadius.circular(12),
+            color: theme.cardColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -51,17 +59,27 @@ class _LanguageOption extends GetView<MenuViewController> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context;
+    final theme = Theme.of(context);
     final isSelected = controller.language.value == code;
 
-    return InkWell(
+    return GestureDetector(
       onTap: () => controller.setLanguage(code),
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected ? theme.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
+          color: isSelected ? theme.colorScheme.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: theme.colorScheme.primary.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [],
         ),
         child: Center(
           child: Text(
@@ -69,7 +87,7 @@ class _LanguageOption extends GetView<MenuViewController> {
             style: TextStyle(
               color: isSelected
                   ? Colors.white
-                  : theme.onSurface.withOpacity(0.7),
+                  : theme.colorScheme.onSurface.withOpacity(0.7),
               fontWeight: FontWeight.w600,
               fontSize: 15,
             ),

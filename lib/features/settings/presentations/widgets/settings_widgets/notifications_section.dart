@@ -10,7 +10,7 @@ class NotificationsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<MenuViewController>();
     final s = context.s;
-    final theme = context;
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,46 +20,81 @@ class NotificationsSection extends StatelessWidget {
           child: Text(
             s.notifications,
             style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
         Container(
           decoration: BoxDecoration(
-            color: theme.surface,
-            borderRadius: BorderRadius.circular(12),
+            color: theme.cardColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Obx(
             () => Column(
               children: [
-                SwitchListTile(
+                _buildSwitchTile(
+                  theme,
+                  title: s.enableNotifications,
                   value: controller.notificationsEnabled.value,
-                  onChanged: (value) {
-                    controller.toggleNotifications();
-                  },
-                  title: Text(s.enableNotifications),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
+                  onChanged: (_) => controller.toggleNotifications(),
+                  icon: Icons.notifications_active_rounded,
+                  iconColor: Colors.amber,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(
+                    height: 1,
+                    color: theme.dividerColor.withOpacity(0.1),
                   ),
                 ),
-                Divider(height: 1, indent: 16, endIndent: 16),
-                SwitchListTile(
+                _buildSwitchTile(
+                  theme,
+                  title: s.enableBreakingNews,
                   value: controller.breakingNewsEnabled.value,
-                  onChanged: (value) {
-                    controller.toggleBreakingNews();
-                  },
-                  title: Text(s.enableBreakingNews),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
+                  onChanged: (_) => controller.toggleBreakingNews(),
+                  icon: Icons.flash_on_rounded,
+                  iconColor: Colors.redAccent,
                 ),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSwitchTile(
+    ThemeData theme, {
+    required String title,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+    required IconData icon,
+    required Color iconColor,
+  }) {
+    return SwitchListTile(
+      value: value,
+      onChanged: onChanged,
+      activeColor: theme.colorScheme.primary,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      title: Text(
+        title,
+        style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+      ),
+      secondary: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: iconColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(icon, color: iconColor, size: 22),
+      ),
     );
   }
 }

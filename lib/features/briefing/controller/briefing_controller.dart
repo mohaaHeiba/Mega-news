@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_images.dart';
+import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
@@ -16,9 +17,10 @@ class AiBriefingController extends GetxController {
     required this.getAiSummaryUseCase,
   });
 
-  // Key: topic value (e.g., 'sports'), Value: The Article object
+  // 1. Caching:
   final RxMap<String, Article> cachedSummaries = <String, Article>{}.obs;
 
+  // 2. Concurrency:
   final RxSet<String> loadingTopicIds = <String>{}.obs;
 
   // --- Static Topics Data ---
@@ -65,25 +67,23 @@ class AiBriefingController extends GetxController {
   }) async {
     final topicId = topic['value']!;
 
-    // 1. for spam
+    // 1. Check Loading:
     if (loadingTopicIds.contains(topicId)) return;
 
-    // 2. Check Cache:
-    if (!forceRefresh && cachedSummaries.containsKey(topicId)) {
-      Get.toNamed(
-        AppPages.articleDetailPage,
-        arguments: cachedSummaries[topicId],
-      );
+    // 2. Check Cache Safe Retrieval:
+    final cachedArticle = cachedSummaries[topicId];
+    if (!forceRefresh && cachedArticle != null) {
+      Get.toNamed(AppPages.articleDetailPage, arguments: cachedArticle);
       return;
     }
 
-    // 3. Start Loading:
+    // 3. Start Loading
     loadingTopicIds.add(topicId);
 
     try {
       final Article result = await _fetchAndSummarizeTopic(topic);
 
-      // 4. Save to Cache:
+      // 4. Save to Cache
       cachedSummaries[topicId] = result;
 
       loadingTopicIds.remove(topicId);
@@ -91,12 +91,11 @@ class AiBriefingController extends GetxController {
       Get.toNamed(AppPages.articleDetailPage, arguments: result);
     } catch (e) {
       loadingTopicIds.remove(topicId);
-      Get.snackbar(
-        "Generation Failed",
-        'Could not generate summary. Please try again.',
-        backgroundColor: Colors.red.withOpacity(0.1),
-        colorText: Colors.red,
-        snackPosition: SnackPosition.BOTTOM,
+
+      customSnackbar(
+        title: "Generation Failed",
+        message: 'Could not generate summary. Please try again.',
+        color: AppColors.error,
       );
     }
   }

@@ -92,11 +92,18 @@ class ArticleDetailController extends GetxController {
   // ================= Dynamic UI & Color Logic =================
 
   /// Extracts the dominant vibrant color from the article image
+
   Future<void> _generatePalette() async {
     if (article?.imageUrl == null) return;
 
     try {
-      final ImageProvider provider = NetworkImage(article!.imageUrl!);
+      final String imagePath = article!.imageUrl!;
+      final bool isNetworkImage = imagePath.startsWith('http');
+
+      final ImageProvider provider = isNetworkImage
+          ? NetworkImage(imagePath)
+          : AssetImage(imagePath) as ImageProvider;
+      // ------------------------------------
 
       final palette = await PaletteGenerator.fromImageProvider(
         provider,
@@ -107,7 +114,6 @@ class ArticleDetailController extends GetxController {
         final targetColor = palette.vibrantColor!.color;
         final targetTextColor = palette.vibrantColor!.titleTextColor;
 
-        // Animate to the new color smoothly
         _graduallyChangeColor(vibrantColor.value, targetColor);
         vibrantTextColor.value = targetTextColor;
       }

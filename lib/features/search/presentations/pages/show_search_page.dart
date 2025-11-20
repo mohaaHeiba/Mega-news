@@ -1,13 +1,11 @@
-// 👇 1. التعديل الأول والأهم: استخدام hide SearchController
 import 'package:flutter/material.dart' hide SearchController;
-
 import 'package:get/get.dart';
-import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:mega_news/features/home/widgets/build_articles_list.dart';
-
 import 'package:mega_news/features/search/presentations/controller/search_controller.dart';
+import 'package:mega_news/features/search/presentations/widgets/build_empty_state.dart';
+import 'package:mega_news/features/search/presentations/widgets/build_floating_action_button.dart';
+import 'package:mega_news/features/search/presentations/widgets/build_search_bar.dart';
 
 class ShowSearchPage extends GetView<SearchController> {
   const ShowSearchPage({super.key});
@@ -16,280 +14,192 @@ class ShowSearchPage extends GetView<SearchController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.background,
-
-      floatingActionButton: Obx(() {
-        if (controller.articles.isNotEmpty &&
-            !controller.isLoading.value &&
-            !controller.isSummarizing.value) {
-          return FloatingActionButton.extended(
-            onPressed: () => controller.summarizeSearchResults(),
-            backgroundColor: context.primary,
-            foregroundColor: Colors.white,
-            label: const Text('Summarize Results'),
-            icon: const Icon(Icons.auto_awesome_rounded),
-          );
-        } else if (controller.isSummarizing.value) {
-          return FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: context.onBackground.withOpacity(0.1),
-            child: const SizedBox(
-              width: 24,
-              height: 24,
-              child: CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 2.5,
-              ),
-            ),
-          );
-        } else {
-          return const SizedBox.shrink();
-        }
-      }),
-
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              elevation: 0,
-              backgroundColor: context.background,
-              floating: true,
-              snap: true,
-              pinned: false,
-              expandedHeight: 0,
-              toolbarHeight: 80,
-              automaticallyImplyLeading: false,
-              title: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: context.surface,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Icon(
-                        Icons.search_rounded,
-                        color: context.onBackground.withOpacity(0.5),
-                        size: 24,
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: controller.textController,
-                        autofocus: true,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: context.onBackground,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: 'Search news, topics...',
-                          hintStyle: TextStyle(
-                            color: context.onBackground.withOpacity(0.5),
-                            fontSize: 16,
-                          ),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Obx(
-                      () => controller.searchQuery.value.isNotEmpty
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.clear_rounded,
-                                color: context.onBackground.withOpacity(0.5),
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                controller.clearSearch();
-                              },
-                            )
-                          : const SizedBox.shrink(),
-                    ),
-                    Obx(
-                      () => Container(
-                        margin: const EdgeInsets.only(right: 4),
-                        decoration: BoxDecoration(
-                          color: controller.isListening.value
-                              ? Colors.redAccent.withOpacity(0.1)
-                              : Colors.transparent,
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            controller.isListening.value
-                                ? Icons.mic_rounded
-                                : Icons.mic_none_rounded,
-                            color: controller.isListening.value
-                                ? Colors.redAccent
-                                : context.onBackground.withOpacity(0.5),
-                            size: 24,
-                          ),
-                          onPressed: controller.isListening.value
-                              ? controller.stopListening
-                              : controller.startListening,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // 2. المحتوى
-            Obx(() {
-              if (controller.isLoading.value) {
-                return SliverPadding(
-                  padding: const EdgeInsets.all(16),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => buildArticleShimmer(context),
-                      childCount: 6,
-                    ),
+      floatingActionButton: buildFloatingActionButton(context, controller),
+      body: Stack(
+        children: [
+          // 1. Main Content
+          SafeArea(
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (!controller.isLoadingMore.value &&
+                    controller.hasMorePages.value &&
+                    scrollInfo.metrics.pixels >=
+                        scrollInfo.metrics.maxScrollExtent - 200) {
+                  controller.loadMore();
+                }
+                return false;
+              },
+              child: CustomScrollView(
+                slivers: [
+                  // AppBar
+                  SliverAppBar(
+                    elevation: 0,
+                    backgroundColor: context.background,
+                    floating: true,
+                    snap: true,
+                    pinned: false,
+                    expandedHeight: 0,
+                    toolbarHeight: 90,
+                    automaticallyImplyLeading: false,
+                    title: buildSearchBar(context, controller),
                   ),
-                );
-              }
 
-              if (controller.articles.isEmpty &&
-                  controller.textController.text.isNotEmpty) {
-                return SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.search_off_rounded,
-                          size: 80,
-                          color: context.onBackground.withOpacity(0.2),
-                        ),
-                        AppGaps.h16,
-                        Text(
-                          'No results found',
-                          style: context.textStyles.headlineSmall?.copyWith(
-                            color: context.onBackground,
-                            fontWeight: FontWeight.w600,
+                  // Content Body
+                  Obx(() {
+                    // 1. Loading State
+                    if (controller.isLoading.value) {
+                      return SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: buildArticlesList(
+                            controller,
+                            context,
+                            skipFirstFive: false,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-
-              if (controller.articles.isEmpty &&
-                  controller.textController.text.isEmpty) {
-                return SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: context.primary.withOpacity(0.1),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.travel_explore_rounded,
-                            size: 50,
-                            color: context.primary,
-                          ),
-                        ),
-                        AppGaps.h24,
-                        Text(
-                          'Discover News',
-                          style: context.textStyles.headlineSmall?.copyWith(
-                            color: context.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-
-              return SliverPadding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    if (index == 0) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 12,
-                          left: 4,
-                          right: 4,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              '${controller.articles.length} Results',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: context.primary,
-                              ),
-                            ),
-                            const Spacer(),
-                            Expanded(
-                              child: Text(
-                                'for "${controller.searchQuery.value}"',
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: context.onBackground.withOpacity(0.6),
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
                         ),
                       );
                     }
 
-                    final itemIndex = index - 1;
-
-                    if (itemIndex >= controller.articles.length) {
-                      if (controller.isLoadingMore.value) {
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      }
-                      return const SizedBox.shrink();
+                    // 2. Initial State (Discover - Search Query is Empty)
+                    if (controller.searchQuery.value.isEmpty) {
+                      return SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: buildEmptyState(
+                          context,
+                          icon: Icons.travel_explore_rounded,
+                          message: 'Discover News',
+                          iconColor: context.primary,
+                        ),
+                      );
                     }
 
-                    if (itemIndex >= controller.articles.length - 3 &&
-                        !controller.isLoadingMore.value &&
-                        controller.hasMorePages.value) {
-                      controller.loadMore();
+                    // 3. Empty State (No Results found when searching)
+                    if (controller.articles.isEmpty &&
+                        controller.searchQuery.value.isNotEmpty) {
+                      return SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: buildEmptyState(
+                          context,
+                          icon: Icons.search_off_rounded,
+                          message: 'No results found',
+                        ),
+                      );
                     }
 
-                    return buildArticlesList(controller, context);
-                  }, childCount: controller.articles.length + 2),
+                    // 4. Results List
+                    return SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '${controller.articles.length} Results',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: context.primary,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Expanded(
+                                  child: Text(
+                                    'for "${controller.searchQuery.value}"',
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: context.onBackground.withOpacity(
+                                        0.6,
+                                      ),
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          buildArticlesList(
+                            controller,
+                            context,
+                            skipFirstFive: false,
+                          ),
+                          if (controller.isLoadingMore.value)
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24),
+                              child: Center(child: CircularProgressIndicator()),
+                            )
+                          else
+                            const SizedBox(height: 24),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ),
+
+          // 2. Mic Overlay
+          Obx(() {
+            if (controller.isListening.value) {
+              return Positioned.fill(
+                child: GestureDetector(
+                  onTap: controller.stopListening,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.85),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(35),
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.redAccent.withOpacity(0.6),
+                                blurRadius: 50,
+                                spreadRadius: 15,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.mic_rounded,
+                            color: Colors.white,
+                            size: 70,
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        const Text(
+                          "Listening...",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          "Try saying 'Sports' or 'Technology'",
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.6),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
-            }),
-          ],
-        ),
+            }
+            return const SizedBox.shrink();
+          }),
+        ],
       ),
     );
   }

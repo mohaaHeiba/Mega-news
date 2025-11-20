@@ -1,15 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // تأكد من استيراد get
+import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
-import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart'; // 1. استيراد الكنترولر
+import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:share_plus/share_plus.dart';
 
-Widget buildArticlesList(final controller, BuildContext context) {
-  // 2. البحث عن FavoritesController (تم حقنه مسبقاً في LayoutBinding)
+Widget buildArticlesList(
+  final controller,
+  BuildContext context, {
+  bool skipFirstFive = true,
+}) {
   final favoritesController = Get.find<FavoritesController>();
+
+  final int skipCount = skipFirstFive ? 5 : 0;
 
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -24,13 +30,12 @@ Widget buildArticlesList(final controller, BuildContext context) {
         : ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            // الحساب هنا صحيح لتخطي أول 5 مقالات (لو ده المقصود)
-            itemCount: (controller.articles.length > 5)
-                ? controller.articles.length - 5
+            itemCount: (controller.articles.length > skipCount)
+                ? controller.articles.length - skipCount
                 : 0,
             separatorBuilder: (_, __) => const SizedBox(height: 0),
             itemBuilder: (_, index) {
-              final article = controller.articles[index + 5];
+              final article = controller.articles[index + skipCount];
 
               return Material(
                 color: Colors.transparent,
@@ -50,24 +55,38 @@ Widget buildArticlesList(final controller, BuildContext context) {
                             if (article.imageUrl != null)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  article.imageUrl ?? '',
+                                child: CachedNetworkImage(
+                                  imageUrl: article.imageUrl!,
                                   width: 100,
                                   height: 90,
                                   fit: BoxFit.cover,
-                                  errorBuilder: (_, __, ___) => Container(
+
+                                  placeholder: (context, url) => Container(
                                     width: 100,
                                     height: 90,
-                                    decoration: BoxDecoration(
-                                      color: context.primary.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Icon(
-                                      Icons.image_not_supported_rounded,
-                                      color: context.primary.withOpacity(0.5),
-                                      size: 30,
-                                    ),
+                                    color: context.surface.withOpacity(0.1),
                                   ),
+
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                        width: 100,
+                                        height: 90,
+                                        decoration: BoxDecoration(
+                                          color: context.primary.withOpacity(
+                                            0.1,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.image_not_supported_rounded,
+                                          color: context.primary.withOpacity(
+                                            0.5,
+                                          ),
+                                          size: 30,
+                                        ),
+                                      ),
                                 ),
                               ),
 
@@ -156,10 +175,8 @@ Widget buildArticlesList(final controller, BuildContext context) {
                                   ),
                                 ),
 
-                                // 3. زر المفضلة الجديد (Favorite Button)
-                                // استخدمنا Obx عشان نراقب التغييرات في قائمة المفضلة
+                                // Favorite Button
                                 Obx(() {
-                                  // بنشيك هل المقال ده بالذات موجود في الليستة ولا لأ
                                   final isFav = favoritesController.isFavorite(
                                     article.id,
                                   );
@@ -167,20 +184,17 @@ Widget buildArticlesList(final controller, BuildContext context) {
                                   return IconButton(
                                     icon: Icon(
                                       isFav
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      // لو مفضلة يبقى أحمر، لو لأ يبقى رمادي شفاف
+                                          ? Icons.bookmark_rounded
+                                          : Icons.bookmark_border_rounded,
                                       color: isFav
                                           ? Colors.redAccent
                                           : context.onBackground.withOpacity(
                                               0.5,
                                             ),
-                                      size: 20, // حجم متناسق مع زر الشير
+                                      size: 20,
                                     ),
-                                    // عند الضغط ننادي دالة toggle الموجودة في الكنترولر
                                     onPressed: () => favoritesController
                                         .toggleFavorite(article),
-
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(
                                       minWidth: 32,
@@ -193,7 +207,6 @@ Widget buildArticlesList(final controller, BuildContext context) {
                           ],
                         ),
 
-                        // Divider
                         Divider(
                           color: context.onBackground.withOpacity(0.1),
                           height: 1,

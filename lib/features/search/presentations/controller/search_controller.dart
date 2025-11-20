@@ -17,34 +17,26 @@ class SearchController extends GetxController {
     required this.getAiSummaryUseCase,
   });
 
-  // ====================================================
-  // Reactive State Variables
-  // ====================================================
+  // Reactive State
   final isLoading = false.obs;
   final isLoadingMore = false.obs;
   final hasMorePages = true.obs;
   final articles = <Article>[].obs;
-  final isLiked = false.obs;
 
-  // AI & Voice Status
   final isSummarizing = false.obs;
   final isListening = false.obs;
 
-  // Search Control
   final searchTextController = TextEditingController();
   final searchQuery = ''.obs;
   Timer? _debounce;
 
+  String? _cachedSummary;
   int _currentPage = 1;
   String currentLanguage = 'en';
 
-  // Voice Helper
   final SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
 
-  // ====================================================
-  // Lifecycle Methods
-  // ====================================================
   @override
   void onInit() {
     super.onInit();
@@ -60,15 +52,10 @@ class SearchController extends GetxController {
     super.onClose();
   }
 
-  // ====================================================
-  // Search Logic
-  // ====================================================
   void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-
     _debounce = Timer(const Duration(milliseconds: 600), () {
       final query = searchTextController.text.trim();
-
       if (query != searchQuery.value) {
         searchQuery.value = query;
         if (query.isNotEmpty) {
@@ -85,6 +72,7 @@ class SearchController extends GetxController {
       isLoading(true);
       _currentPage = 1;
       articles.clear();
+      _cachedSummary = null;
 
       final fetched = await newsRepository.searchNews(
         searchQuery.value,
@@ -105,17 +93,14 @@ class SearchController extends GetxController {
         searchQuery.value.isEmpty) {
       return;
     }
-
     try {
       isLoadingMore(true);
       _currentPage++;
-
       final fetched = await newsRepository.searchNews(
         searchQuery.value,
         language: currentLanguage,
         page: _currentPage,
       );
-
       if (fetched.isEmpty) {
         hasMorePages(false);
       } else {
@@ -129,34 +114,37 @@ class SearchController extends GetxController {
     }
   }
 
-  // ====================================================
-  // AI Summary Logic (UPDATED)
-  // ====================================================
-
   Future<void> summarizeSearchResults() async {
     if (articles.isEmpty) {
       Get.snackbar('Info', 'Search for articles first');
       return;
     }
+    List<String> images = articles
+        .map((e) => e.imageUrl)
+        .where((url) => url != null && url.isNotEmpty)
+        .take(4)
+        .cast<String>()
+        .toList();
+
+    if (_cachedSummary != null) {
+      Get.toNamed(
+        AppPages.articleDetailPage,
+        arguments: {
+          'topic': searchQuery.value,
+          'summary': _cachedSummary,
+          'images': images,
+        },
+      );
+      return;
+    }
 
     isSummarizing(true);
-
     try {
-      // 1. Extract Images (UI Logic)
-      List<String> images = articles
-          .map((e) => e.imageUrl)
-          .where((url) => url != null && url.isNotEmpty)
-          .take(4)
-          .cast<String>()
-          .toList();
-
-      // 2. Call the UseCase (Business Logic)
       final summary = await getAiSummaryUseCase(
         topic: searchQuery.value,
         articles: articles,
       );
-
-      // 3. Navigate
+      _cachedSummary = summary;
       Get.toNamed(
         AppPages.articleDetailPage,
         arguments: {
@@ -172,15 +160,10 @@ class SearchController extends GetxController {
     }
   }
 
-  // ====================================================
-  // Voice Search Logic
-  // ====================================================
   void _initSpeech() {
     _speechToText.initialize().then((val) => _speechEnabled = val);
     _speechToText.statusListener = (status) {
-      if (status == 'notListening' || status == 'done') {
-        isListening(false);
-      }
+      if (status == 'notListening' || status == 'done') isListening(false);
     };
   }
 
@@ -204,17 +187,14 @@ class SearchController extends GetxController {
     isListening(false);
   }
 
-  // ====================================================
-  // Helpers
-  // ====================================================
-  String getTimeAgo(DateTime dateTime) {
-    return timeago.format(dateTime, locale: 'ar');
-  }
+  String getTimeAgo(DateTime dateTime) =>
+      timeago.format(dateTime, locale: 'ar');
 
   void clearSearch() {
     searchTextController.clear();
     searchQuery.value = '';
     articles.clear();
+    _cachedSummary = null;
     isLoading(false);
     hasMorePages(false);
   }

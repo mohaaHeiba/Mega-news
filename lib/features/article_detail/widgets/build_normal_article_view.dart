@@ -80,18 +80,7 @@ Widget buildNormalArticleView(
               // 1. The Main Image
               Hero(
                 tag: article.imageUrl ?? article.title,
-                child: Image.network(
-                  article.imageUrl ?? '',
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
-                    color: context.surface,
-                    child: Icon(
-                      Icons.broken_image_rounded,
-                      size: 50,
-                      color: context.onSurface.withOpacity(0.2),
-                    ),
-                  ),
-                ),
+                child: _buildSmartImage(context, article.imageUrl),
               ),
 
               // 2. Gradient Overlay (For text readability)
@@ -249,4 +238,37 @@ Widget _buildGlassActionButton({
       ),
     ),
   );
+}
+
+Widget _buildSmartImage(BuildContext context, String? imagePath) {
+  if (imagePath == null || imagePath.isEmpty) {
+    return Container(
+      color: context.surface,
+      child: Icon(
+        Icons.broken_image_rounded,
+        size: 50,
+        color: context.onSurface.withOpacity(0.2),
+      ),
+    );
+  }
+
+  if (imagePath.startsWith('http')) {
+    return Image.network(
+      imagePath,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: context.surface,
+        child: Icon(Icons.broken_image_rounded),
+      ),
+    );
+  } else {
+    return Image.asset(
+      imagePath,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: context.surface,
+        child: Icon(Icons.image_not_supported),
+      ),
+    );
+  }
 }

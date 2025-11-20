@@ -11,7 +11,7 @@ class AboutSection extends GetView<MenuViewController> {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = context;
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,41 +21,59 @@ class AboutSection extends GetView<MenuViewController> {
           child: Text(
             s.about,
             style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
         Container(
           decoration: BoxDecoration(
-            color: theme.surface,
-            borderRadius: BorderRadius.circular(12),
+            color: theme.cardColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Column(
             children: [
-              ListTile(
-                leading: const Icon(Icons.info_outline),
-                title: Text(s.appVersion),
-                trailing: Text(
-                  controller.getAppVersion(),
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.primary,
-                    fontWeight: FontWeight.w600,
+              _buildAboutTile(
+                theme,
+                icon: Icons.info_outline_rounded,
+                iconColor: Colors.blue,
+                title: s.appVersion,
+                trailing: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    controller.getAppVersion(),
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  height: 1,
+                  color: theme.dividerColor.withOpacity(0.1),
                 ),
               ),
-              Divider(height: 1, indent: 16, endIndent: 16),
-              ListTile(
-                leading: const Icon(Icons.privacy_tip_outlined),
-                title: Text(s.privacyPolicy),
-                trailing: const Icon(Icons.chevron_right),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
+              _buildAboutTile(
+                theme,
+                icon: Icons.privacy_tip_outlined,
+                iconColor: Colors.purple,
+                title: s.privacyPolicy,
                 onTap: () {
                   customSnackbar(
                     title: s.privacyPolicy,
@@ -64,15 +82,18 @@ class AboutSection extends GetView<MenuViewController> {
                   );
                 },
               ),
-              Divider(height: 1, indent: 16, endIndent: 16),
-              ListTile(
-                leading: const Icon(Icons.description_outlined),
-                title: Text(s.termsOfService),
-                trailing: const Icon(Icons.chevron_right),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  height: 1,
+                  color: theme.dividerColor.withOpacity(0.1),
                 ),
+              ),
+              _buildAboutTile(
+                theme,
+                icon: Icons.description_outlined,
+                iconColor: Colors.orange,
+                title: s.termsOfService,
                 onTap: () {
                   customSnackbar(
                     title: s.termsOfService,
@@ -85,6 +106,39 @@ class AboutSection extends GetView<MenuViewController> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildAboutTile(
+    ThemeData theme, {
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    Widget? trailing,
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      onTap: onTap,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: iconColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(icon, color: iconColor, size: 22),
+      ),
+      title: Text(
+        title,
+        style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+      ),
+      trailing:
+          trailing ??
+          Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 16,
+            color: theme.colorScheme.onSurface.withOpacity(0.4),
+          ),
     );
   }
 }

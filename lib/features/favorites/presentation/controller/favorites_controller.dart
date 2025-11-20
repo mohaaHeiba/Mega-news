@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_colors.dart';
+import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
 import 'package:mega_news/features/favorites/domain/usecases/add_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/get_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/remove_favorites_use_case.dart';
@@ -39,7 +41,11 @@ class FavoritesController extends GetxController {
       final result = await getFavoritesUseCase(_userId);
       favorites.assignAll(result);
     } catch (e) {
-      Get.snackbar('Error', 'Failed to load favorites: ${e.toString()}');
+      customSnackbar(
+        title: 'Error',
+        message: 'Failed to load favorites: ${e.toString()}',
+        color: AppColors.error,
+      );
     } finally {
       isLoading.value = false;
     }
@@ -54,16 +60,20 @@ class FavoritesController extends GetxController {
 
     try {
       await addFavoriteUseCase(_userId, article);
-      Get.snackbar(
-        s.addedToFavorites,
-        s.articleSavedToFavorites,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 1),
+
+      customSnackbar(
+        title: s.addedToFavorites,
+        message: s.articleSavedToFavorites,
+        color: AppColors.success,
       );
     } catch (e) {
       // Rollback if failed
       favorites.remove(article);
-      Get.snackbar('Error', 'Failed to add favorite');
+      customSnackbar(
+        title: 'Error',
+        message: 'Failed to add favorites: ${e.toString()}',
+        color: AppColors.error,
+      );
     }
   }
 
@@ -99,16 +109,20 @@ class FavoritesController extends GetxController {
 
     try {
       await removeFavoriteUseCase(_userId, article.id);
-      Get.snackbar(
-        s.removed,
-        s.articleRemovedFromFavoritesShort,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 1),
+
+      customSnackbar(
+        title: s.removed,
+        message: s.articleRemovedFromFavoritesShort,
+        color: AppColors.success,
       );
     } catch (e) {
       // Rollback
       favorites.insert(index, article);
-      Get.snackbar('Error', 'Failed to remove favorite');
+      customSnackbar(
+        title: 'Error',
+        message: 'Failed to remove favorites: ${e.toString()}',
+        color: AppColors.error,
+      );
     }
   }
 
