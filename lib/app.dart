@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/core/routes/app_routes_helper.dart';
 import 'package:mega_news/core/theme/app_theme.dart';
+import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
 import 'package:mega_news/generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      // locale: Locale(Get.find<ThemeController>().language.value),
 
       // theme
       theme: AppTheme.light,

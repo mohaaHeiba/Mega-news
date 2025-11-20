@@ -18,7 +18,7 @@ Widget buildAiView(
         backgroundColor: context.background,
         elevation: 0,
         title: Text(
-          "AI Summary",
+          context.s.title_ai_summary,
           style: context.textStyles.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -36,7 +36,7 @@ Widget buildAiView(
           delegate: SliverChildListDelegate([
             // --- 1. Topic Title ---
             Text(
-              controller.aiTopic ?? "Smart Insight",
+              controller.aiTopic ?? context.s.label_smart_insight,
               style: context.textStyles.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
                 color: dynamicColor,
@@ -96,7 +96,7 @@ Widget buildAiView(
             AppGaps.h16,
             // --- 4. Summary Text ---
             Text(
-              controller.aiSummary ?? "Generating summary...",
+              controller.aiSummary ?? context.s.status_generating_summary,
               style: context.textStyles.bodyLarge?.copyWith(
                 fontSize: 17,
                 height: 1.6,
@@ -138,7 +138,9 @@ Widget buildAiView(
                     ),
                   ),
                   label: Text(
-                    isPlaying ? "Stop Listening" : "Listen to Summary",
+                    isPlaying
+                        ? context.s.action_stop_listening
+                        : context.s.action_listen_summary,
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

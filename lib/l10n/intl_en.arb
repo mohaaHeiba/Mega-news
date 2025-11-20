@@ -170,10 +170,59 @@
   "quick_actions": "Quick Actions",
   "read": "read",
     "cache_cleared_title": "Cache Cleared",
-  "cache_cleared_msg": "Cache has been cleared successfully"
+  "cache_cleared_msg": "Cache has been cleared successfully",
 
+  "auth_signup_success_title": "Account Created Successfully!",
+  "auth_signup_success_msg": "A verification link has been sent to your email.",
+  "auth_email_exists_title": "Email Already Registered",
+  "auth_email_exists_msg": "This email is already in use. Please log in instead.",
+  "auth_signup_error_title": "Signup Error",
 
+  "auth_login_success_title": "Welcome Back!",
+  "auth_login_success_msg": "You have signed in successfully.",
+  "auth_invalid_creds_title": "Invalid Credentials",
+  "auth_invalid_creds_msg": "Incorrect email or password. Please try again.",
+  "auth_login_error_title": "Sign-in Error",
 
+  "auth_google_welcome_title": "Welcome!",
+  "auth_google_success_msg": "Signed in successfully with Google.",
+
+  "auth_guest_welcome_title": "Welcome Guest!",
+  "auth_guest_welcome_msg": "You are now browsing as a guest.",
+
+  "auth_logout_title": "Logged Out",
+  "auth_logout_msg": "You have been logged out successfully.",
+  "auth_logout_error_title": "Logout Error",
+  
+  "auth_account_deleted_title": "Account Deleted",
+  "auth_account_deleted_msg": "Your account has been permanently removed.",
+  "auth_deletion_failed_title": "Deletion Failed",
+
+  "auth_pass_updated_title": "Password Updated",
+  "auth_pass_updated_msg": "Your password has been changed successfully.",
+  "auth_update_error_title": "Update Error",
+
+  "auth_reset_email_sent_title": "Email Sent",
+  "auth_reset_email_sent_msg": "A password reset link has been sent to your email.",
+  
+  "error_no_connection_title": "No Connection",
+  "error_no_connection_msg": "Please check your internet connection and try again.",
+  
+  "error_user_not_found_title": "User Not Found",
+  "error_user_not_found_msg": "No account found with this email.",
+  
+  "error_unexpected_title": "Unexpected Error",
+  "error_unexpected_msg": "Something went wrong. Please try again later.",
+
+  "action_stop_listening": "Stop Listening",
+  "action_listen_summary": "Listen to Summary",
+  "status_generating_summary": "Generating summary...",
+  "label_smart_insight": "Smart Insight",
+  "title_ai_summary": "AI Summary",
+  "msg_no_description": "No detailed description available. Click below to read the full story.",
+  "action_pause": "Pause",
+"action_listen": "Listen",
+"action_read_full_story": "Read Full Story"
 
 
 }

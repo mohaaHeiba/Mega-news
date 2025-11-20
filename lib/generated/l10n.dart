@@ -1273,6 +1273,396 @@ class S {
       args: [],
     );
   }
+
+  /// `Account Created Successfully!`
+  String get auth_signup_success_title {
+    return Intl.message(
+      'Account Created Successfully!',
+      name: 'auth_signup_success_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A verification link has been sent to your email.`
+  String get auth_signup_success_msg {
+    return Intl.message(
+      'A verification link has been sent to your email.',
+      name: 'auth_signup_success_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Already Registered`
+  String get auth_email_exists_title {
+    return Intl.message(
+      'Email Already Registered',
+      name: 'auth_email_exists_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email is already in use. Please log in instead.`
+  String get auth_email_exists_msg {
+    return Intl.message(
+      'This email is already in use. Please log in instead.',
+      name: 'auth_email_exists_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Signup Error`
+  String get auth_signup_error_title {
+    return Intl.message(
+      'Signup Error',
+      name: 'auth_signup_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Back!`
+  String get auth_login_success_title {
+    return Intl.message(
+      'Welcome Back!',
+      name: 'auth_login_success_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have signed in successfully.`
+  String get auth_login_success_msg {
+    return Intl.message(
+      'You have signed in successfully.',
+      name: 'auth_login_success_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Credentials`
+  String get auth_invalid_creds_title {
+    return Intl.message(
+      'Invalid Credentials',
+      name: 'auth_invalid_creds_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect email or password. Please try again.`
+  String get auth_invalid_creds_msg {
+    return Intl.message(
+      'Incorrect email or password. Please try again.',
+      name: 'auth_invalid_creds_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign-in Error`
+  String get auth_login_error_title {
+    return Intl.message(
+      'Sign-in Error',
+      name: 'auth_login_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome!`
+  String get auth_google_welcome_title {
+    return Intl.message(
+      'Welcome!',
+      name: 'auth_google_welcome_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Signed in successfully with Google.`
+  String get auth_google_success_msg {
+    return Intl.message(
+      'Signed in successfully with Google.',
+      name: 'auth_google_success_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Guest!`
+  String get auth_guest_welcome_title {
+    return Intl.message(
+      'Welcome Guest!',
+      name: 'auth_guest_welcome_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are now browsing as a guest.`
+  String get auth_guest_welcome_msg {
+    return Intl.message(
+      'You are now browsing as a guest.',
+      name: 'auth_guest_welcome_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logged Out`
+  String get auth_logout_title {
+    return Intl.message(
+      'Logged Out',
+      name: 'auth_logout_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have been logged out successfully.`
+  String get auth_logout_msg {
+    return Intl.message(
+      'You have been logged out successfully.',
+      name: 'auth_logout_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout Error`
+  String get auth_logout_error_title {
+    return Intl.message(
+      'Logout Error',
+      name: 'auth_logout_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Deleted`
+  String get auth_account_deleted_title {
+    return Intl.message(
+      'Account Deleted',
+      name: 'auth_account_deleted_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account has been permanently removed.`
+  String get auth_account_deleted_msg {
+    return Intl.message(
+      'Your account has been permanently removed.',
+      name: 'auth_account_deleted_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deletion Failed`
+  String get auth_deletion_failed_title {
+    return Intl.message(
+      'Deletion Failed',
+      name: 'auth_deletion_failed_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password Updated`
+  String get auth_pass_updated_title {
+    return Intl.message(
+      'Password Updated',
+      name: 'auth_pass_updated_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password has been changed successfully.`
+  String get auth_pass_updated_msg {
+    return Intl.message(
+      'Your password has been changed successfully.',
+      name: 'auth_pass_updated_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Error`
+  String get auth_update_error_title {
+    return Intl.message(
+      'Update Error',
+      name: 'auth_update_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Sent`
+  String get auth_reset_email_sent_title {
+    return Intl.message(
+      'Email Sent',
+      name: 'auth_reset_email_sent_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A password reset link has been sent to your email.`
+  String get auth_reset_email_sent_msg {
+    return Intl.message(
+      'A password reset link has been sent to your email.',
+      name: 'auth_reset_email_sent_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Connection`
+  String get error_no_connection_title {
+    return Intl.message(
+      'No Connection',
+      name: 'error_no_connection_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your internet connection and try again.`
+  String get error_no_connection_msg {
+    return Intl.message(
+      'Please check your internet connection and try again.',
+      name: 'error_no_connection_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Not Found`
+  String get error_user_not_found_title {
+    return Intl.message(
+      'User Not Found',
+      name: 'error_user_not_found_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No account found with this email.`
+  String get error_user_not_found_msg {
+    return Intl.message(
+      'No account found with this email.',
+      name: 'error_user_not_found_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unexpected Error`
+  String get error_unexpected_title {
+    return Intl.message(
+      'Unexpected Error',
+      name: 'error_unexpected_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get error_unexpected_msg {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'error_unexpected_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop Listening`
+  String get action_stop_listening {
+    return Intl.message(
+      'Stop Listening',
+      name: 'action_stop_listening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Listen to Summary`
+  String get action_listen_summary {
+    return Intl.message(
+      'Listen to Summary',
+      name: 'action_listen_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generating summary...`
+  String get status_generating_summary {
+    return Intl.message(
+      'Generating summary...',
+      name: 'status_generating_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smart Insight`
+  String get label_smart_insight {
+    return Intl.message(
+      'Smart Insight',
+      name: 'label_smart_insight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Summary`
+  String get title_ai_summary {
+    return Intl.message(
+      'AI Summary',
+      name: 'title_ai_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No detailed description available. Click below to read the full story.`
+  String get msg_no_description {
+    return Intl.message(
+      'No detailed description available. Click below to read the full story.',
+      name: 'msg_no_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pause`
+  String get action_pause {
+    return Intl.message('Pause', name: 'action_pause', desc: '', args: []);
+  }
+
+  /// `Listen`
+  String get action_listen {
+    return Intl.message('Listen', name: 'action_listen', desc: '', args: []);
+  }
+
+  /// `Read Full Story`
+  String get action_read_full_story {
+    return Intl.message(
+      'Read Full Story',
+      name: 'action_read_full_story',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

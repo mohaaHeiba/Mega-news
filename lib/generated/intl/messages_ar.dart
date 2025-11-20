@@ -27,6 +27,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "إنشاء ملخص",
     ),
+    "action_listen": MessageLookupByLibrary.simpleMessage("استماع"),
+    "action_listen_summary": MessageLookupByLibrary.simpleMessage(
+      "استمع للملخص",
+    ),
+    "action_pause": MessageLookupByLibrary.simpleMessage("إيقاف مؤقت"),
+    "action_read_full_story": MessageLookupByLibrary.simpleMessage(
+      "قراءة الخبر كاملاً",
+    ),
+    "action_stop_listening": MessageLookupByLibrary.simpleMessage(
+      "إيقاف الاستماع",
+    ),
     "addToFavorites": MessageLookupByLibrary.simpleMessage("إضافة إلى المفضلة"),
     "addedToFavorites": MessageLookupByLibrary.simpleMessage(
       "تمت الإضافة إلى المفضلة",
@@ -64,6 +75,81 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth": MessageLookupByLibrary.simpleMessage(
       "______________________________________",
+    ),
+    "auth_account_deleted_msg": MessageLookupByLibrary.simpleMessage(
+      "تم حذف حسابك نهائياً.",
+    ),
+    "auth_account_deleted_title": MessageLookupByLibrary.simpleMessage(
+      "تم حذف الحساب",
+    ),
+    "auth_deletion_failed_title": MessageLookupByLibrary.simpleMessage(
+      "فشل الحذف",
+    ),
+    "auth_email_exists_msg": MessageLookupByLibrary.simpleMessage(
+      "هذا البريد مستخدم بالفعل. يرجى تسجيل الدخول.",
+    ),
+    "auth_email_exists_title": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني مسجل مسبقاً",
+    ),
+    "auth_google_success_msg": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الدخول عبر Google بنجاح.",
+    ),
+    "auth_google_welcome_title": MessageLookupByLibrary.simpleMessage(
+      "مرحباً!",
+    ),
+    "auth_guest_welcome_msg": MessageLookupByLibrary.simpleMessage(
+      "أنت تتصفح التطبيق الآن كزائر.",
+    ),
+    "auth_guest_welcome_title": MessageLookupByLibrary.simpleMessage(
+      "مرحباً بك كزائر!",
+    ),
+    "auth_invalid_creds_msg": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
+    ),
+    "auth_invalid_creds_title": MessageLookupByLibrary.simpleMessage(
+      "بيانات الدخول غير صحيحة",
+    ),
+    "auth_login_error_title": MessageLookupByLibrary.simpleMessage(
+      "خطأ في تسجيل الدخول",
+    ),
+    "auth_login_success_msg": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الدخول بنجاح.",
+    ),
+    "auth_login_success_title": MessageLookupByLibrary.simpleMessage(
+      "مرحباً بعودتك!",
+    ),
+    "auth_logout_error_title": MessageLookupByLibrary.simpleMessage(
+      "خطأ في تسجيل الخروج",
+    ),
+    "auth_logout_msg": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل خروجك بنجاح.",
+    ),
+    "auth_logout_title": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الخروج",
+    ),
+    "auth_pass_updated_msg": MessageLookupByLibrary.simpleMessage(
+      "تم تغيير كلمة المرور بنجاح.",
+    ),
+    "auth_pass_updated_title": MessageLookupByLibrary.simpleMessage(
+      "تم تحديث كلمة المرور",
+    ),
+    "auth_reset_email_sent_msg": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك.",
+    ),
+    "auth_reset_email_sent_title": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال البريد",
+    ),
+    "auth_signup_error_title": MessageLookupByLibrary.simpleMessage(
+      "خطأ في التسجيل",
+    ),
+    "auth_signup_success_msg": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال رابط التحقق إلى بريدك الإلكتروني.",
+    ),
+    "auth_signup_success_title": MessageLookupByLibrary.simpleMessage(
+      "تم إنشاء الحساب بنجاح!",
+    ),
+    "auth_update_error_title": MessageLookupByLibrary.simpleMessage(
+      "خطأ في التحديث",
     ),
     "breakingNews": MessageLookupByLibrary.simpleMessage("الأخبار العاجلة"),
     "briefing": MessageLookupByLibrary.simpleMessage("الملخص"),
@@ -143,6 +229,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "خطأ في تحميل الأخبار",
     ),
     "errorSearching": MessageLookupByLibrary.simpleMessage("خطأ في البحث"),
+    "error_no_connection_msg": MessageLookupByLibrary.simpleMessage(
+      "تأكد من اتصالك بالإنترنت وحاول مرة أخرى.",
+    ),
+    "error_no_connection_title": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد اتصال",
+    ),
+    "error_unexpected_msg": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ ما. يرجى المحاولة لاحقاً.",
+    ),
+    "error_unexpected_title": MessageLookupByLibrary.simpleMessage(
+      "خطأ غير متوقع",
+    ),
+    "error_user_not_found_msg": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد حساب مرتبط بهذا البريد.",
+    ),
+    "error_user_not_found_title": MessageLookupByLibrary.simpleMessage(
+      "المستخدم غير موجود",
+    ),
     "failedToGenerateBriefings": MessageLookupByLibrary.simpleMessage(
       "فشل في إنشاء الملخصات",
     ),
@@ -186,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "labelEmail": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "labelFullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "label_smart_insight": MessageLookupByLibrary.simpleMessage("رؤية ذكية"),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "large": MessageLookupByLibrary.simpleMessage("كبير"),
     "latest": MessageLookupByLibrary.simpleMessage("الأحدث"),
@@ -202,6 +307,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "megaNews": MessageLookupByLibrary.simpleMessage("ميجا نيوز"),
     "memberSince": MessageLookupByLibrary.simpleMessage("عضو منذ"),
     "menu": MessageLookupByLibrary.simpleMessage("القائمة"),
+    "msg_no_description": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد وصف متاح. اضغط بالأسفل لقراءة الخبر كاملاً.",
+    ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الاسم 3 أحرف على الأقل",
     ),
@@ -276,11 +384,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
       "الموجز جاهز",
     ),
+    "status_generating_summary": MessageLookupByLibrary.simpleMessage(
+      "جاري إنشاء الملخص...",
+    ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage("فشل التلخيص"),
     "system": MessageLookupByLibrary.simpleMessage("النظام"),
     "technology": MessageLookupByLibrary.simpleMessage("التكنولوجيا"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
     "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
+    "title_ai_summary": MessageLookupByLibrary.simpleMessage(
+      "ملخص الذكاء الاصطناعي",
+    ),
     "update_password": MessageLookupByLibrary.simpleMessage(
       "تحديث كلمة المرور",
     ),

@@ -7,8 +7,17 @@ enum ThemeModeSelection { light, dark, system }
 class ThemeController extends GetxController {
   final storage = GetStorage();
   final Rx<ThemeModeSelection> selectedMode = ThemeModeSelection.system.obs;
+
   final language = 'en'.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    loadTheme();
+    loadLanguage();
+  }
+
+  // ==================== Theme Logic ====================
   void loadTheme() {
     final savedTheme = storage.read('savedTheme');
     switch (savedTheme) {
@@ -45,25 +54,20 @@ class ThemeController extends GetxController {
     storage.write('savedTheme', themeString);
   }
 
-  void _loadOtherSettings() {
-    final savedLang = storage.read('language');
-    if (savedLang != null) {
-      language.value = savedLang;
-    } else {
-      final deviceLang = Get.deviceLocale?.languageCode;
+  void loadLanguage() {
+    String lang =
+        storage.read('language') ?? Get.deviceLocale?.languageCode ?? 'en';
 
-      if (deviceLang == 'ar') {
-        language.value = 'ar';
-      } else {
-        language.value = 'en';
-      }
-    }
+    language.value = lang;
+
+    Get.updateLocale(Locale(lang));
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadTheme();
-    _loadOtherSettings();
+  void setLanguage(String lang) {
+    language.value = lang;
+
+    Get.updateLocale(Locale(lang));
+
+    storage.write('language', lang);
   }
 }

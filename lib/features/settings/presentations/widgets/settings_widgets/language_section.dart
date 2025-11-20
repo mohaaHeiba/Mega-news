@@ -59,41 +59,45 @@ class _LanguageOption extends GetView<MenuViewController> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isSelected = controller.language.value == code;
+    final theme = context;
 
-    return GestureDetector(
-      onTap: () => controller.setLanguage(code),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        decoration: BoxDecoration(
-          color: isSelected ? theme.colorScheme.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: theme.colorScheme.primary.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ]
-              : [],
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: isSelected
-                  ? Colors.white
-                  : theme.colorScheme.onSurface.withOpacity(0.7),
-              fontWeight: FontWeight.w600,
-              fontSize: 15,
+    return Obx(() {
+      final isSelected = controller.themeController.language.value == code;
+
+      return GestureDetector(
+        onTap: () => controller.changeLanguage(code),
+
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            color: isSelected ? theme.primary : Colors.transparent,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: theme.primary.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [],
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: isSelected
+                    ? Colors.white
+                    : theme.onSurface.withOpacity(0.7),
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

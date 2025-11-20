@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,8 +61,7 @@ class ArticleDetailController extends GetxController {
 
   // ================= Text-to-Speech (TTS) Logic =================
   void _initTts() {
-    _flutterTts.setSpeechRate(0.45);
-    _flutterTts.setLanguage("en-US");
+    _flutterTts.setSpeechRate(0.5);
 
     // Status Listeners
     _flutterTts.setStartHandler(() => ttsState.value = TtsState.playing);
@@ -72,12 +70,30 @@ class ArticleDetailController extends GetxController {
     _flutterTts.setPauseHandler(() => ttsState.value = TtsState.paused);
     _flutterTts.setContinueHandler(() => ttsState.value = TtsState.continued);
     _flutterTts.setErrorHandler((msg) => ttsState.value = TtsState.stopped);
+
+    // for ios
+    // _flutterTts.setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
+    //   IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+    // ]);
   }
 
   Future<void> speak() async {
     String textToSpeak =
         aiSummary ?? article?.description ?? article?.title ?? "";
-    if (textToSpeak.isNotEmpty) await _flutterTts.speak(textToSpeak);
+
+    if (textToSpeak.isNotEmpty) {
+      bool isArabic = RegExp("[\u0600-\u06FF]").hasMatch(textToSpeak);
+
+      if (isArabic) {
+        await _flutterTts.setLanguage("ar");
+        await _flutterTts.setSpeechRate(0.5);
+      } else {
+        await _flutterTts.setLanguage("en-US");
+        await _flutterTts.setSpeechRate(0.45);
+      }
+
+      await _flutterTts.speak(textToSpeak);
+    }
   }
 
   Future<void> pauseTts() async => await _flutterTts.pause();
@@ -93,11 +109,6 @@ class ArticleDetailController extends GetxController {
   }
 
   // ================= Dynamic UI & Color Logic =================
-
-  /// Extracts the dominant vibrant color from the article image
-
-  // ================= Dynamic UI & Color Logic =================
-
   Future<void> _generatePalette() async {
     if (article?.imageUrl == null) return;
 
@@ -108,24 +119,18 @@ class ArticleDetailController extends GetxController {
       final bool isNetworkImage = imagePath.startsWith('http');
 
       if (isNetworkImage) {
-        // Load network image — still async and non-blocking
         final networkImage = await NetworkAssetBundle(
           Uri.parse(imagePath),
         ).load(imagePath);
         imageBytes = networkImage.buffer.asUint8List();
       } else {
-        // Load asset image
         final byteData = await rootBundle.load(imagePath);
         imageBytes = byteData.buffer.asUint8List();
       }
 
-      // Extract dominant color inside Isolate
       final color = await compute(_extractDominantColor, imageBytes);
-
-      // Smooth transition (your function stays as-is)
       _graduallyChangeColor(vibrantColor.value, color);
 
-      // Auto-detect readable text color
       vibrantTextColor.value = color.computeLuminance() > 0.5
           ? Colors.black
           : Colors.white;
@@ -133,8 +138,6 @@ class ArticleDetailController extends GetxController {
       debugPrint("Failed to extract dominant color: $e");
     }
   }
-
-  // ================= Isolate Function (Runs in background thread) =================
 
   static Color _extractDominantColor(Uint8List bytes) {
     final img.Image? decoded = img.decodeImage(bytes);
@@ -151,13 +154,11 @@ class ArticleDetailController extends GetxController {
       count++;
     }
 
-    // Safety check to prevent division by zero if image is empty
     if (count == 0) return Colors.grey;
 
     return Color.fromRGBO(r ~/ count, g ~/ count, b ~/ count, 1);
   }
 
-  /// Manually animates color change for smoother visual effect than standard tween
   void _graduallyChangeColor(Color from, Color to) {
     const int steps = 100;
     const Duration stepDuration = Duration(milliseconds: 15);

@@ -56,7 +56,7 @@ Widget buildNormalArticleView(
             icon: Icons.share_rounded,
             onTap: () => Share.share("${article.title}\n${article.articleUrl}"),
           ),
-          const SizedBox(width: 8),
+          AppGaps.h8,
           Obx(
             () => _buildGlassActionButton(
               icon: controller.isLiked.value
@@ -66,7 +66,7 @@ Widget buildNormalArticleView(
               onTap: () => controller.toggleLike(),
             ),
           ),
-          const SizedBox(width: 16),
+          AppGaps.h16,
         ],
 
         // --- Background Image & Gradient ---
@@ -127,7 +127,7 @@ Widget buildNormalArticleView(
                         color: Colors.white,
                         size: 14,
                       ),
-                      const SizedBox(width: 6),
+                      AppGaps.h8,
                       Text(
                         article.sourceName,
                         style: context.textStyles.labelMedium?.copyWith(
@@ -171,7 +171,7 @@ Widget buildNormalArticleView(
                     size: 16,
                     color: context.onBackground.withOpacity(0.6),
                   ),
-                  const SizedBox(width: 6),
+                  AppGaps.h8,
                   Text(
                     timeago.format(article.publishedAt),
                     style: context.textStyles.bodySmall?.copyWith(
@@ -194,8 +194,7 @@ Widget buildNormalArticleView(
 
               // --- 3. Description Text ---
               Text(
-                article.description ??
-                    'No detailed description available. Click the button below to read the full story.',
+                article.description ?? context.s.msg_no_description,
                 style: context.textStyles.bodyLarge?.copyWith(
                   fontSize: 17,
                   height: 1.7,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/article_detail/controller/article_detail_controller.dart';
 
 Widget buildTtsControls(
@@ -29,7 +31,7 @@ Widget buildTtsControls(
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          AppGaps.h8,
           InkWell(
             onTap: controller.pauseTts,
             child: Container(
@@ -43,9 +45,12 @@ Widget buildTtsControls(
               child: Row(
                 children: [
                   Icon(Icons.pause_rounded, size: 16, color: dynamicColor),
-                  const Text(
-                    " Pause",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                  Text(
+                    context.s.action_pause,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -65,9 +70,12 @@ Widget buildTtsControls(
           child: Row(
             children: [
               Icon(Icons.volume_up_rounded, size: 16, color: dynamicColor),
-              const Text(
-                " Listen",
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              Text(
+                context.s.action_listen,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),

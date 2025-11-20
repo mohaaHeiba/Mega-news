@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
-import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart';
 

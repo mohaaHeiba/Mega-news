@@ -5,12 +5,13 @@ import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/auth/data/model/auth_model.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
-
-enum ThemeModeSelection { light, dark, system }
+import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
 
 class MenuViewController extends GetxController {
   final storage = GetStorage();
   final Rxn<AuthEntity> user = Rxn<AuthEntity>();
+
+  final ThemeController themeController = Get.find<ThemeController>();
 
   //=============== PageView ================
   final PageController pageController = PageController(initialPage: 0);
@@ -28,37 +29,30 @@ class MenuViewController extends GetxController {
   }
 
   //=============== Settings ================
-
   final notificationsEnabled = true.obs;
   final breakingNewsEnabled = true.obs;
-  final language = 'en'.obs;
 
-  final loginBefore = false.obs;
+  String get currentLang => themeController.language.value;
+  bool get isArabic => themeController.language.value == 'ar';
 
   @override
   void onInit() {
     super.onInit();
-
     _loadOtherSettings();
-    // _applyLocale();
     _initializeUser();
   }
 
   void _initializeUser() {
     try {
       final AuthController authController = Get.find<AuthController>();
-
       ever(authController.user, (authUser) {
         if (authUser != null) {
           user.value = authUser;
-          Future.delayed(const Duration(milliseconds: 100), () {
-            loadUser();
-          });
+          Future.delayed(const Duration(milliseconds: 100), () => loadUser());
         } else {
           user.value = null;
         }
       });
-
       if (authController.user.value != null) {
         user.value = authController.user.value;
       } else {
@@ -72,7 +66,6 @@ class MenuViewController extends GetxController {
   Future<void> loadUser() async {
     try {
       final dynamic rawData = storage.read('auth_data');
-
       if (rawData != null && rawData is Map<String, dynamic>) {
         user.value = AuthModel.fromMap(rawData);
       } else {
@@ -88,11 +81,6 @@ class MenuViewController extends GetxController {
     breakingNewsEnabled.value = storage.read('breakingNews') ?? true;
   }
 
-  void _applyLocale() {
-    final locale = Locale(language.value);
-    Get.updateLocale(locale);
-  }
-
   void toggleNotifications() {
     notificationsEnabled.value = !notificationsEnabled.value;
     storage.write('notifications', notificationsEnabled.value);
@@ -103,13 +91,9 @@ class MenuViewController extends GetxController {
     storage.write('breakingNews', breakingNewsEnabled.value);
   }
 
-  void setLanguage(String lang) {
-    language.value = lang;
-    storage.write('language', lang);
-    _applyLocale();
+  void changeLanguage(String lang) {
+    themeController.setLanguage(lang);
   }
-
-  bool get isArabic => language.value == 'ar';
 
   Future<void> clearCache() async {
     final keptData = <String, dynamic>{
@@ -122,10 +106,11 @@ class MenuViewController extends GetxController {
     await storage.erase();
 
     keptData.forEach((key, value) {
-      if (value != null) {
-        storage.write(key, value);
-      }
+      if (value != null) storage.write(key, value);
     });
+
+    themeController.loadTheme();
+    themeController.loadLanguage();
   }
 
   Future<void> logout() async {
@@ -133,7 +118,5 @@ class MenuViewController extends GetxController {
     await Get.offAllNamed(AppPages.welcomePage);
   }
 
-  String getAppVersion() {
-    return '1.0.0';
-  }
+  String getAppVersion() => '1.0.0';
 }

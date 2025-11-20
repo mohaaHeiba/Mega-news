@@ -27,6 +27,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "Generate Summary",
     ),
+    "action_listen": MessageLookupByLibrary.simpleMessage("Listen"),
+    "action_listen_summary": MessageLookupByLibrary.simpleMessage(
+      "Listen to Summary",
+    ),
+    "action_pause": MessageLookupByLibrary.simpleMessage("Pause"),
+    "action_read_full_story": MessageLookupByLibrary.simpleMessage(
+      "Read Full Story",
+    ),
+    "action_stop_listening": MessageLookupByLibrary.simpleMessage(
+      "Stop Listening",
+    ),
     "addToFavorites": MessageLookupByLibrary.simpleMessage("Add to favorites"),
     "addedToFavorites": MessageLookupByLibrary.simpleMessage(
       "Added to Favorites",
@@ -64,6 +75,79 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth": MessageLookupByLibrary.simpleMessage(
       "______________________________________",
+    ),
+    "auth_account_deleted_msg": MessageLookupByLibrary.simpleMessage(
+      "Your account has been permanently removed.",
+    ),
+    "auth_account_deleted_title": MessageLookupByLibrary.simpleMessage(
+      "Account Deleted",
+    ),
+    "auth_deletion_failed_title": MessageLookupByLibrary.simpleMessage(
+      "Deletion Failed",
+    ),
+    "auth_email_exists_msg": MessageLookupByLibrary.simpleMessage(
+      "This email is already in use. Please log in instead.",
+    ),
+    "auth_email_exists_title": MessageLookupByLibrary.simpleMessage(
+      "Email Already Registered",
+    ),
+    "auth_google_success_msg": MessageLookupByLibrary.simpleMessage(
+      "Signed in successfully with Google.",
+    ),
+    "auth_google_welcome_title": MessageLookupByLibrary.simpleMessage(
+      "Welcome!",
+    ),
+    "auth_guest_welcome_msg": MessageLookupByLibrary.simpleMessage(
+      "You are now browsing as a guest.",
+    ),
+    "auth_guest_welcome_title": MessageLookupByLibrary.simpleMessage(
+      "Welcome Guest!",
+    ),
+    "auth_invalid_creds_msg": MessageLookupByLibrary.simpleMessage(
+      "Incorrect email or password. Please try again.",
+    ),
+    "auth_invalid_creds_title": MessageLookupByLibrary.simpleMessage(
+      "Invalid Credentials",
+    ),
+    "auth_login_error_title": MessageLookupByLibrary.simpleMessage(
+      "Sign-in Error",
+    ),
+    "auth_login_success_msg": MessageLookupByLibrary.simpleMessage(
+      "You have signed in successfully.",
+    ),
+    "auth_login_success_title": MessageLookupByLibrary.simpleMessage(
+      "Welcome Back!",
+    ),
+    "auth_logout_error_title": MessageLookupByLibrary.simpleMessage(
+      "Logout Error",
+    ),
+    "auth_logout_msg": MessageLookupByLibrary.simpleMessage(
+      "You have been logged out successfully.",
+    ),
+    "auth_logout_title": MessageLookupByLibrary.simpleMessage("Logged Out"),
+    "auth_pass_updated_msg": MessageLookupByLibrary.simpleMessage(
+      "Your password has been changed successfully.",
+    ),
+    "auth_pass_updated_title": MessageLookupByLibrary.simpleMessage(
+      "Password Updated",
+    ),
+    "auth_reset_email_sent_msg": MessageLookupByLibrary.simpleMessage(
+      "A password reset link has been sent to your email.",
+    ),
+    "auth_reset_email_sent_title": MessageLookupByLibrary.simpleMessage(
+      "Email Sent",
+    ),
+    "auth_signup_error_title": MessageLookupByLibrary.simpleMessage(
+      "Signup Error",
+    ),
+    "auth_signup_success_msg": MessageLookupByLibrary.simpleMessage(
+      "A verification link has been sent to your email.",
+    ),
+    "auth_signup_success_title": MessageLookupByLibrary.simpleMessage(
+      "Account Created Successfully!",
+    ),
+    "auth_update_error_title": MessageLookupByLibrary.simpleMessage(
+      "Update Error",
     ),
     "breakingNews": MessageLookupByLibrary.simpleMessage("Breaking News"),
     "briefing": MessageLookupByLibrary.simpleMessage("Briefing"),
@@ -141,6 +225,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "Error Loading News",
     ),
     "errorSearching": MessageLookupByLibrary.simpleMessage("Error Searching"),
+    "error_no_connection_msg": MessageLookupByLibrary.simpleMessage(
+      "Please check your internet connection and try again.",
+    ),
+    "error_no_connection_title": MessageLookupByLibrary.simpleMessage(
+      "No Connection",
+    ),
+    "error_unexpected_msg": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again later.",
+    ),
+    "error_unexpected_title": MessageLookupByLibrary.simpleMessage(
+      "Unexpected Error",
+    ),
+    "error_user_not_found_msg": MessageLookupByLibrary.simpleMessage(
+      "No account found with this email.",
+    ),
+    "error_user_not_found_title": MessageLookupByLibrary.simpleMessage(
+      "User Not Found",
+    ),
     "failedToGenerateBriefings": MessageLookupByLibrary.simpleMessage(
       "Failed to generate briefings",
     ),
@@ -186,6 +288,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "labelEmail": MessageLookupByLibrary.simpleMessage("Email Address"),
     "labelFullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
+    "label_smart_insight": MessageLookupByLibrary.simpleMessage(
+      "Smart Insight",
+    ),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "large": MessageLookupByLibrary.simpleMessage("Large"),
     "latest": MessageLookupByLibrary.simpleMessage("Latest"),
@@ -202,6 +307,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "megaNews": MessageLookupByLibrary.simpleMessage("Mega News"),
     "memberSince": MessageLookupByLibrary.simpleMessage("Member Since"),
     "menu": MessageLookupByLibrary.simpleMessage("Menu"),
+    "msg_no_description": MessageLookupByLibrary.simpleMessage(
+      "No detailed description available. Click below to read the full story.",
+    ),
     "nameMinChars": MessageLookupByLibrary.simpleMessage(
       "Name must be at least 3 characters",
     ),
@@ -276,6 +384,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
       "Briefing Ready",
     ),
+    "status_generating_summary": MessageLookupByLibrary.simpleMessage(
+      "Generating summary...",
+    ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage(
       "Summarization Failed",
     ),
@@ -283,6 +394,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "technology": MessageLookupByLibrary.simpleMessage("Technology"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "title_ai_summary": MessageLookupByLibrary.simpleMessage("AI Summary"),
     "update_password": MessageLookupByLibrary.simpleMessage("Update Password"),
     "viewAiSummary": MessageLookupByLibrary.simpleMessage("View AI Summary"),
     "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(

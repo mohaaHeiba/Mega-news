@@ -163,7 +163,66 @@
   "quick_actions": "إجراءات سريعة",
   "read": "قراءة",
   "cache_cleared_title": "تم مسح الذاكرة المؤقتة",
-  "cache_cleared_msg": "تم مسح الذاكرة المؤقتة بنجاح"
+  "cache_cleared_msg": "تم مسح الذاكرة المؤقتة بنجاح",
+
+
+
+  
+  "auth_signup_success_title": "تم إنشاء الحساب بنجاح!",
+  "auth_signup_success_msg": "تم إرسال رابط التحقق إلى بريدك الإلكتروني.",
+  "auth_email_exists_title": "البريد الإلكتروني مسجل مسبقاً",
+  "auth_email_exists_msg": "هذا البريد مستخدم بالفعل. يرجى تسجيل الدخول.",
+  "auth_signup_error_title": "خطأ في التسجيل",
+
+  "auth_login_success_title": "مرحباً بعودتك!",
+  "auth_login_success_msg": "تم تسجيل الدخول بنجاح.",
+  "auth_invalid_creds_title": "بيانات الدخول غير صحيحة",
+  "auth_invalid_creds_msg": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
+  "auth_login_error_title": "خطأ في تسجيل الدخول",
+
+  "auth_google_welcome_title": "مرحباً!",
+  "auth_google_success_msg": "تم تسجيل الدخول عبر Google بنجاح.",
+
+  "auth_guest_welcome_title": "مرحباً بك كزائر!",
+  "auth_guest_welcome_msg": "أنت تتصفح التطبيق الآن كزائر.",
+
+  "auth_logout_title": "تم تسجيل الخروج",
+  "auth_logout_msg": "تم تسجيل خروجك بنجاح.",
+  "auth_logout_error_title": "خطأ في تسجيل الخروج",
+  
+  "auth_account_deleted_title": "تم حذف الحساب",
+  "auth_account_deleted_msg": "تم حذف حسابك نهائياً.",
+  "auth_deletion_failed_title": "فشل الحذف",
+
+  "auth_pass_updated_title": "تم تحديث كلمة المرور",
+  "auth_pass_updated_msg": "تم تغيير كلمة المرور بنجاح.",
+  "auth_update_error_title": "خطأ في التحديث",
+
+  "auth_reset_email_sent_title": "تم إرسال البريد",
+  "auth_reset_email_sent_msg": "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك.",
+  
+  "error_no_connection_title": "لا يوجد اتصال",
+  "error_no_connection_msg": "تأكد من اتصالك بالإنترنت وحاول مرة أخرى.",
+  
+  "error_user_not_found_title": "المستخدم غير موجود",
+  "error_user_not_found_msg": "لا يوجد حساب مرتبط بهذا البريد.",
+  
+  "error_unexpected_title": "خطأ غير متوقع",
+  "error_unexpected_msg": "حدث خطأ ما. يرجى المحاولة لاحقاً.",
+
+  "action_stop_listening": "إيقاف الاستماع",
+  "action_listen_summary": "استمع للملخص",
+  "status_generating_summary": "جاري إنشاء الملخص...",
+  "label_smart_insight": "رؤية ذكية",
+  "title_ai_summary": "ملخص الذكاء الاصطناعي",
+  "msg_no_description": "لا يوجد وصف متاح. اضغط بالأسفل لقراءة الخبر كاملاً.",
+  "action_pause": "إيقاف مؤقت",
+"action_listen": "استماع",
+"action_read_full_story": "قراءة الخبر كاملاً"
+
+
+
+
   
 
 }

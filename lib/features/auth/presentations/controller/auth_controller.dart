@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/errors/supabase_exception.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/core/services/network_service.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
@@ -77,8 +78,9 @@ class AuthController extends GetxController {
   }
 
   /// ------------------ Auth Actions ------------------
-
   final Rxn<AuthEntity> user = Rxn<AuthEntity>();
+
+  final s = Get.context!.s;
 
   Future<void> signUp(String name, String email, String password) async {
     try {
@@ -100,33 +102,33 @@ class AuthController extends GetxController {
       _saveUserToStorage(authEntity);
 
       customSnackbar(
-        title: 'Account Created Successfully!',
-        message: 'A verification link has been sent to your email.',
+        title: s.auth_signup_success_title,
+        message: s.auth_signup_success_msg,
         color: AppColors.success,
       );
       Get.to(EmailVerificationPage(), transition: Transition.fadeIn);
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on UserAlreadyExistsException {
       customSnackbar(
-        title: 'Email Already Registered',
-        message: 'This email is already in use. Please log in instead.',
+        title: s.auth_email_exists_title,
+        message: s.auth_email_exists_msg,
         color: AppColors.warning,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Signup Error',
+        title: s.auth_signup_error_title,
         message: e.message,
         color: AppColors.error,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -150,32 +152,32 @@ class AuthController extends GetxController {
       await GetStorage().write('loginBefore', true);
 
       customSnackbar(
-        title: 'Welcome Back!',
-        message: 'You\'ve signed in successfully.',
+        title: s.auth_login_success_title,
+        message: s.auth_login_success_msg,
         color: AppColors.success,
       );
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on MissingDataException {
       customSnackbar(
-        title: 'Invalid Credentials',
-        message: 'Incorrect email or password. Please try again.',
+        title: s.auth_invalid_creds_title,
+        message: s.auth_invalid_creds_msg,
         color: AppColors.warning,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Sign-in Error',
+        title: s.auth_login_error_title,
         message: e.message,
         color: AppColors.error,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -199,26 +201,26 @@ class AuthController extends GetxController {
       await GetStorage().write('loginBefore', true);
 
       customSnackbar(
-        title: 'Welcome!',
-        message: 'Signed in successfully with Google.',
+        title: s.auth_google_welcome_title,
+        message: s.auth_google_success_msg,
         color: AppColors.success,
       );
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Sign-in Error',
+        title: s.auth_login_error_title,
         message: e.message,
         color: AppColors.warning,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -237,33 +239,33 @@ class AuthController extends GetxController {
 
       await repo.logout();
       customSnackbar(
-        title: 'Logged Out',
-        message: 'You have been logged out successfully.',
+        title: s.auth_logout_title,
+        message: s.auth_logout_msg,
         color: AppColors.success,
       );
       goToLogin();
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on UserNotFoundException catch (e) {
       customSnackbar(
-        title: 'User Not Found',
+        title: s.error_user_not_found_title,
         message: e.message,
         color: AppColors.error,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Logout Error',
+        title: s.auth_logout_error_title,
         message: e.message,
         color: AppColors.warning,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -286,33 +288,33 @@ class AuthController extends GetxController {
       await repo.deleteAccount(currentUser.id);
 
       customSnackbar(
-        title: 'Account Deleted',
-        message: 'Your account has been permanently removed.',
+        title: s.auth_account_deleted_title,
+        message: s.auth_account_deleted_msg,
         color: AppColors.success,
       );
       goToLogin();
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on UserNotFoundException catch (e) {
       customSnackbar(
-        title: 'User Not Found',
+        title: s.error_user_not_found_title,
         message: e.message,
         color: AppColors.error,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Deletion Failed',
+        title: s.auth_deletion_failed_title,
         message: e.message,
         color: AppColors.warning,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -332,28 +334,28 @@ class AuthController extends GetxController {
       await repo.updatePassword(newPassword);
 
       customSnackbar(
-        title: 'Password Updated',
-        message: 'Your password has been changed successfully.',
+        title: s.auth_pass_updated_title,
+        message: s.auth_pass_updated_msg,
         color: AppColors.success,
       );
 
       backToLogin();
     } on NetworkException {
       customSnackbar(
-        title: 'No Connection',
-        message: 'Please check your internet connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.error,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Update Error',
+        title: s.auth_update_error_title,
         message: e.message,
         color: AppColors.warning,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -375,33 +377,33 @@ class AuthController extends GetxController {
       await repo.resetPassword(email);
 
       customSnackbar(
-        title: 'Email Sent',
-        message: 'A password reset link has been sent to your email.',
+        title: s.auth_reset_email_sent_title,
+        message: s.auth_reset_email_sent_msg,
         color: AppColors.success,
       );
       emailController.clear();
     } on UserNotFoundException {
       customSnackbar(
-        title: 'User Not Found',
-        message: 'No account found with this email.',
+        title: s.error_user_not_found_title,
+        message: s.error_user_not_found_msg,
         color: AppColors.error,
       );
     } on NetworkException {
       customSnackbar(
-        title: 'No Internet',
-        message: 'Please check your connection and try again.',
+        title: s.error_no_connection_title,
+        message: s.error_no_connection_msg,
         color: AppColors.warning,
       );
     } on AuthException catch (e) {
       customSnackbar(
-        title: 'Error',
+        title: s.error_unexpected_title,
         message: e.message,
         color: AppColors.error,
       );
     } catch (e) {
       customSnackbar(
-        title: 'Unexpected Error',
-        message: 'Something went wrong. Please try again later.',
+        title: s.error_unexpected_title,
+        message: s.error_unexpected_msg,
         color: AppColors.error,
       );
     } finally {
@@ -422,8 +424,8 @@ class AuthController extends GetxController {
     GetStorage().write('loginBefore', true);
 
     customSnackbar(
-      title: 'Welcome Guest!',
-      message: 'You are now browsing as a guest.',
+      title: s.auth_guest_welcome_title,
+      message: s.auth_guest_welcome_msg,
       color: AppColors.success,
     );
 

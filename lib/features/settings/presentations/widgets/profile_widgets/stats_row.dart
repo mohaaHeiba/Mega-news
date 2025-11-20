@@ -27,7 +27,7 @@ Widget StatsRow(ThemeData theme, dynamic s) {
           ),
         ),
       ),
-      AppGaps.h16,
+      AppGaps.w16,
       // --- Read Articles Card ---
       Expanded(
         child: _buildStatCard(
