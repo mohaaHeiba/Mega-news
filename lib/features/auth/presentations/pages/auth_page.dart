@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 import 'package:mega_news/features/auth/presentations/pages/create_new_password_page.dart';
 import 'package:mega_news/features/auth/presentations/pages/forgot_password_page.dart';

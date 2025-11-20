@@ -5,17 +5,8 @@ import 'package:shimmer/shimmer.dart';
 
 Widget buildArticleShimmer(BuildContext context) {
   return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      color: context.colors.surface,
-      boxShadow: [
-        BoxShadow(
-          color: context.primary.withOpacity(0.08),
-          blurRadius: 12,
-          offset: const Offset(0, 3),
-        ),
-      ],
-    ),
+    color: context.background,
+
     child: Padding(
       padding: const EdgeInsets.all(12),
       child: Shimmer.fromColors(

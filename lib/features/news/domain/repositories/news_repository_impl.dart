@@ -32,29 +32,29 @@ class NewsRepositoryImpl implements INewsRepository {
   }) async {
     try {
       final results = await Future.wait<List<dynamic>>([
-        gNewsSource
-            .getTopHeadlines(category: category, language: language, page: page)
-            .catchError((_) => <GNewsArticleModel>[]),
+        // gNewsSource
+        //     .getTopHeadlines(category: category, language: language, page: page)
+        //     .catchError((_) => <GNewsArticleModel>[]),
         newsApiSource
             .getTopHeadlines(category: category, language: language, page: page)
             .catchError((_) => <NewsApiArticleModel>[]),
-        newsDataSource
-            .getTopHeadlines(category: category, language: language, page: page)
-            .catchError((_) => <NewsDataArticleModel>[]),
-        currentsSource
-            .getLatestNews(category: category, language: language ?? 'ar')
-            .catchError((_) => <Article>[]),
+        // newsDataSource
+        //     .getTopHeadlines(category: category, language: language, page: page)
+        //     .catchError((_) => <NewsDataArticleModel>[]),
+        // currentsSource
+        //     .getLatestNews(category: category, language: language ?? 'ar')
+        //     .catchError((_) => <Article>[]),
       ], eagerError: false);
 
       final List<Article> articles = [
-        ...(results[0] as List<GNewsArticleModel>).map(mapper.fromGNewsModel),
-        ...(results[1] as List<NewsApiArticleModel>).map(
+        // ...(results[0] as List<GNewsArticleModel>).map(mapper.fromGNewsModel),
+        ...(results[0] as List<NewsApiArticleModel>).map(
           mapper.fromNewsApiModel,
         ),
-        ...(results[2] as List<NewsDataArticleModel>).map(
-          mapper.fromNewsDataModel,
-        ),
-        ...(results[3] as List<Article>), // Currents articles
+        // ...(results[2] as List<NewsDataArticleModel>).map(
+        // mapper.fromNewsDataModel,
+        // ),
+        // ...(results[3] as List<Article>), // Currents articles
       ];
 
       articles.sort((a, b) => b.publishedAt.compareTo(a.publishedAt));

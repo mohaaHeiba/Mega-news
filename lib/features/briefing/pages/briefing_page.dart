@@ -64,7 +64,8 @@ class AiBriefingPage extends GetView<AiBriefingController> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      context.primary.withOpacity(0.08),
+                      context.primary.withOpacity(0.5),
+                      context.primary.withOpacity(0.5),
                       context.background,
                     ],
                   ),

@@ -48,7 +48,7 @@ Widget buildSmartTopicCard(
               // 1. Image
               Hero(
                 tag: displayArticle.id,
-                child: Image.network(
+                child: Image.asset(
                   displayArticle.imageUrl!,
                   fit: BoxFit.cover,
                   errorBuilder: (_, __, ___) =>
