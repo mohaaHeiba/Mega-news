@@ -1,5 +1,6 @@
 import 'dart:ui'; // Needed for ImageFilter (Blur)
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
@@ -240,8 +241,8 @@ Widget _buildGlassActionButton({
   );
 }
 
-Widget _buildSmartImage(BuildContext context, String? imagePath) {
-  if (imagePath == null || imagePath.isEmpty) {
+Widget _buildSmartImage(BuildContext context, String? imageUrl) {
+  if (imageUrl == null || imageUrl.isEmpty) {
     return Container(
       color: context.surface,
       child: Icon(
@@ -252,23 +253,25 @@ Widget _buildSmartImage(BuildContext context, String? imagePath) {
     );
   }
 
-  if (imagePath.startsWith('http')) {
-    return Image.network(
-      imagePath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(
-        color: context.surface,
-        child: Icon(Icons.broken_image_rounded),
+  return CachedNetworkImage(
+    imageUrl: imageUrl,
+    fit: BoxFit.cover,
+    memCacheWidth: 800,
+
+    // Loading placeholder
+    placeholder: (context, url) => Container(
+      color: context.surface.withOpacity(0.15),
+      child: const Center(child: CircularProgressIndicator(strokeWidth: 1.5)),
+    ),
+
+    // Error image
+    errorWidget: (context, url, error) => Container(
+      color: context.surface,
+      child: Icon(
+        Icons.broken_image_rounded,
+        color: context.onSurface.withOpacity(0.3),
+        size: 40,
       ),
-    );
-  } else {
-    return Image.asset(
-      imagePath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(
-        color: context.surface,
-        child: Icon(Icons.image_not_supported),
-      ),
-    );
-  }
+    ),
+  );
 }

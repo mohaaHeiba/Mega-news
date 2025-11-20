@@ -136,10 +136,12 @@ Widget buildSmartTopicCard(
                                 AppGaps.h8,
                                 Text(
                                   isLoading
-                                      ? 'Analyzing...'
+                                      ? context.s.status_analyzing
                                       : (isCached
-                                            ? 'Briefing Ready'
-                                            : 'Generate Summary'),
+                                            ? context.s.status_briefing_ready
+                                            : context
+                                                  .s
+                                                  .action_generate_summary),
                                   style: context.textStyles.labelSmall
                                       ?.copyWith(
                                         color: Colors.white,

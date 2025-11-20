@@ -69,12 +69,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         );
       }
     } on UserAlreadyExistsException {
-      // <-- إضافة للـ rethrow
       rethrow;
     } on AuthApiException catch (e) {
       if (e.code == 'user_already_exists' ||
           e.code == 'email_exists' ||
+          // ignore: unrelated_type_equality_checks
           e.statusCode == 409 ||
+          // ignore: unrelated_type_equality_checks
           e.statusCode == 422) {
         throw const UserAlreadyExistsException('User already registered');
       }
@@ -114,6 +115,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return AuthModel.fromMap(profileResponse);
     } on AuthApiException catch (e) {
       if (e.code == 'invalid_credentials' ||
+          // ignore: unrelated_type_equality_checks
           e.statusCode == 400 ||
           e.message.toLowerCase().contains('invalid login credentials')) {
         throw const MissingDataException('Invalid login credentials');
@@ -139,6 +141,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
     } on AuthApiException catch (e) {
       if (e.code == 'invalid_credentials' ||
+          // ignore: unrelated_type_equality_checks
           e.statusCode == 400 ||
           e.message.toLowerCase().contains('email not found')) {
         throw const UserNotFoundException('No account found for this email.');
@@ -183,7 +186,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
 
       final googleUser = await googleSignIn.authenticate();
-      final googleAuth = await googleUser.authentication;
+      final googleAuth = googleUser.authentication;
       final idToken = googleAuth.idToken;
 
       if (idToken == null) {
@@ -273,5 +276,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   // ================= Check Logged In =================
+  @override
   bool get isLoggedIn => supabase.auth.currentUser != null;
 }

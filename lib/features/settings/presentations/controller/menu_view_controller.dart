@@ -40,7 +40,7 @@ class MenuViewController extends GetxController {
     super.onInit();
 
     _loadOtherSettings();
-    _applyLocale();
+    // _applyLocale();
     _initializeUser();
   }
 

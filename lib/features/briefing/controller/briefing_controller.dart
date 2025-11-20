@@ -17,6 +17,8 @@ class AiBriefingController extends GetxController {
     required this.getAiSummaryUseCase,
   });
 
+  final s = Get.context!.s;
+
   // 1. Caching:
   final RxMap<String, Article> cachedSummaries = <String, Article>{}.obs;
 
@@ -93,8 +95,8 @@ class AiBriefingController extends GetxController {
       loadingTopicIds.remove(topicId);
 
       customSnackbar(
-        title: "Generation Failed",
-        message: 'Could not generate summary. Please try again.',
+        title: s.generation_failed_title,
+        message: s.generation_failed_msg,
         color: AppColors.error,
       );
     }
@@ -118,15 +120,15 @@ class AiBriefingController extends GetxController {
           articles: articles.take(5).toList(),
         );
       } else {
-        summaryText = "No recent news found for $label to summarize.";
+        summaryText = s.ai_summary_error;
       }
     } catch (e) {
-      summaryText = "Could not generate summary due to an error.";
+      summaryText = s.ai_summary_error;
     }
 
     return Article(
       id: value,
-      sourceName: "AI Briefing",
+      sourceName: s.ai_briefing,
       title: label,
       description: summaryText,
       articleUrl: articleUrl,

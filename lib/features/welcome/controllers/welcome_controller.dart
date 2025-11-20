@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_images.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/services/permission_service.dart';
-import 'package:mega_news/generated/l10n.dart';
 
 class WelcomeController extends GetxController {
   final PermissionService permission = Get.find<PermissionService>();
@@ -20,28 +21,28 @@ class WelcomeController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final s = S.of(Get.context!); // Get localization
+    final s = Get.context!.s; // Get localization
 
     pages = [
       {
         "title": s.welcomeTitle1,
         "subtitle": s.welcomeSubtitle1,
-        "image": "assets/images/news_aggregation.png",
+        "image": AppImages.newAggregation,
       },
       {
         "title": s.welcomeTitle2,
         "subtitle": s.welcomeSubtitle2,
-        "image": "assets/images/search_summary.png",
+        "image": AppImages.searchSummary,
       },
       {
         "title": s.welcomeTitle3,
         "subtitle": s.welcomeSubtitle3,
-        "image": "assets/images/favorites.png",
+        "image": AppImages.favorite,
       },
       {
         "title": s.welcomeTitle4,
         "subtitle": s.welcomeSubtitle4,
-        "image": "assets/images/notifications.png",
+        "image": AppImages.notifications,
       },
     ];
 
@@ -55,6 +56,14 @@ class WelcomeController extends GetxController {
 
   void onPageChanged(int index) {
     currentIndex.value = index;
+  }
+
+  void goNext() {
+    imageController.animateToPage(
+      pages.length - 1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
   }
 
   // GET PREMESSIONS

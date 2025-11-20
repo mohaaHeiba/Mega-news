@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/custom/inputs/custom_text_fields.dart';
-import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_auth_navigation.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_submit_button.dart';
 
 class ForgotPasswordPage extends GetView<AuthController> {
   const ForgotPasswordPage({super.key});
@@ -16,6 +17,7 @@ class ForgotPasswordPage extends GetView<AuthController> {
     final appTheme = context;
 
     return Container(
+      // Gradient
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -77,60 +79,27 @@ class ForgotPasswordPage extends GetView<AuthController> {
                 AppGaps.h24,
 
                 // Send Reset Link Button
-                Obx(
-                  () => SizedBox(
-                    height: 54,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appTheme.primary,
-                      ),
-                      onPressed: controller.isLoading.value
-                          ? null
-                          : () async {
-                              if (controller.formKey.currentState!.validate()) {
-                                controller.isLoading.value = true;
-                                await controller.resetPassword();
-                                controller.isLoading.value = false;
-                              }
-                            },
-                      child: controller.isLoading.value
-                          ? CircularProgressIndicator(color: appTheme.onPrimary)
-                          : Text(
-                              s.buttonSendResetLink,
-                              style: appTheme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.background,
-                                fontSize: 18,
-                              ),
-                            ),
-                    ),
-                  ),
+                buildSubmitButton(
+                  context: context,
+                  controller: controller,
+                  buttonText: s.buttonSendResetLink,
+                  onPressed: () async {
+                    if (controller.formKey.currentState!.validate()) {
+                      controller.isLoading.value = true;
+                      await controller.resetPassword();
+                      controller.isLoading.value = false;
+                    }
+                  },
                 ),
+
                 AppGaps.h24,
 
                 // Back to Login
-                Center(
-                  child: GestureDetector(
-                    onTap: controller.backFromForgotPass,
-                    child: RichText(
-                      text: TextSpan(
-                        text: "${s.rememberPassword} ",
-                        style: appTheme.textTheme.bodyMedium?.copyWith(
-                          color: appTheme.onSurface.withOpacity(0.7),
-                        ),
-                        children: [
-                          TextSpan(
-                            text: s.buttonLogin,
-                            style: appTheme.textTheme.bodyMedium?.copyWith(
-                              color: appTheme.primary,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                buildAuthNavigation(
+                  context: context,
+                  text: s.rememberPassword,
+                  actionText: s.buttonLogin,
+                  onTap: controller.backFromForgotPass,
                 ),
               ],
             ),

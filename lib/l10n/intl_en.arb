@@ -157,6 +157,15 @@
   "noRecentNewsFound": "No recent news found to summarize for this topic.",
   "failedToGenerateSummary": "Failed to generate summary",
 
-  "viewAiSummary": "View AI Summary"
+  "viewAiSummary": "View AI Summary",
+  "ai_briefing": "AI Briefing",
+  "ai_summary_error": "Could not generate summary due to an error.",
+  "generation_failed_title": "Generation Failed",
+"generation_failed_msg": "Could not generate summary. Please try again.",
+"status_analyzing": "Analyzing...",
+"status_briefing_ready": "Briefing Ready",
+"action_generate_summary": "Generate Summary",
+"ai_welcome_message": "What would you like to\nsummarize today?"
+
 
 }

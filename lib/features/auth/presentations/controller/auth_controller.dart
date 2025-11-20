@@ -430,22 +430,22 @@ class AuthController extends GetxController {
     Get.offAllNamed(AppPages.layoutPage);
   }
 
-  final supabase = Supabase.instance.client;
-
   void _saveUserToStorage(AuthEntity authEntity) {
-    try {
-      final userMap = {
-        'id': authEntity.id,
-        'name': authEntity.name,
-        'email': authEntity.email,
-        'createdAt': authEntity.createdAt,
-      };
-      GetStorage().write('auth_data', userMap);
-      print('User saved to storage: ${authEntity.name}');
-    } catch (e) {
-      print('Error saving user to storage: $e');
-    }
+    // try {
+    final userMap = {
+      'id': authEntity.id,
+      'name': authEntity.name,
+      'email': authEntity.email,
+      'createdAt': authEntity.createdAt,
+    };
+    GetStorage().write('auth_data', userMap);
+    // print('User saved to storage: ${authEntity.name}');
+    // } catch (e) {
+    //   print('Error saving user to storage: $e');
+    // }
   }
+
+  final supabase = Supabase.instance.client;
 
   @override
   void onInit() {
@@ -455,38 +455,36 @@ class AuthController extends GetxController {
       final event = data.event;
       final sessionUser = data.session?.user;
 
-      if (event == AuthChangeEvent.passwordRecovery) {
-        goToNewPass();
-        return;
-      }
-
-      if (event == AuthChangeEvent.signedIn && sessionUser != null) {
-        if (sessionUser.emailConfirmedAt != null) {
-          GetStorage().write('loginBefore', true);
-
-          final authEntity = AuthEntity(
-            id: sessionUser.id,
-            name:
-                sessionUser.userMetadata?['name'] ??
-                sessionUser.email?.split('@')[0] ??
-                'User',
-            email: sessionUser.email ?? '',
-            createdAt: sessionUser.createdAt,
-          );
-          user.value = authEntity;
-
-          // Save user to storage
-          _saveUserToStorage(authEntity);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (event == AuthChangeEvent.passwordRecovery) {
+          goToNewPass();
+          return;
         }
 
-        Get.offAllNamed(AppPages.layoutPage);
-      } else if (event == AuthChangeEvent.signedOut) {
-        user.value = null;
-        GetStorage().remove('auth_data');
-        try {} catch (e) {
-          // SettingsController might not be initialized yet, ignore
+        if (event == AuthChangeEvent.signedIn && sessionUser != null) {
+          if (sessionUser.emailConfirmedAt != null) {
+            GetStorage().write('loginBefore', true);
+
+            final authEntity = AuthEntity(
+              id: sessionUser.id,
+              name:
+                  sessionUser.userMetadata?['name'] ??
+                  sessionUser.email?.split('@')[0] ??
+                  'User',
+              email: sessionUser.email ?? '',
+              createdAt: sessionUser.createdAt,
+            );
+
+            user.value = authEntity;
+            _saveUserToStorage(authEntity);
+          }
+
+          Get.offAllNamed(AppPages.layoutPage);
+        } else if (event == AuthChangeEvent.signedOut) {
+          user.value = null;
+          GetStorage().remove('auth_data');
         }
-      }
+      });
     });
   }
 

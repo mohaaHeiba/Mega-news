@@ -15,6 +15,7 @@ class EmailVerificationPage extends GetView<AuthController> {
 
     return Scaffold(
       body: Container(
+        // Gradient
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [

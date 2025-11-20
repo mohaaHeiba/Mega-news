@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/custom/inputs/custom_text_fields.dart';
-import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_auth_navigation.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_submit_button.dart';
 
 class RegisterPage extends GetView<AuthController> {
   const RegisterPage({super.key});
@@ -16,6 +17,7 @@ class RegisterPage extends GetView<AuthController> {
     final s = context.s;
 
     return Container(
+      // Gradient
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -112,69 +114,29 @@ class RegisterPage extends GetView<AuthController> {
             AppGaps.h24,
 
             // Sign Up button
-            SizedBox(
-              height: 54,
-              child: Obx(
-                () => ElevatedButton(
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : () async {
-                          if (controller.formKey.currentState!.validate()) {
-                            try {
-                              controller.isLoading.value = true;
-                              await controller.signUp(
-                                controller.nameController.text,
-                                controller.emailController.text,
-                                controller.passController.text,
-                              );
-                            } finally {
-                              controller.isLoading.value = false;
-                            }
-                          }
-                        },
-                  child: controller.isLoading.value
-                      ? CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        )
-                      : Text(
-                          s.buttonSignUp,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.background,
-                          ),
-                        ),
-                ),
-              ),
+            buildSubmitButton(
+              context: context,
+              controller: controller,
+              buttonText: s.buttonSignUp,
+              onPressed: () async {
+                if (controller.formKey.currentState!.validate()) {
+                  await controller.signUp(
+                    controller.nameController.text,
+                    controller.emailController.text,
+                    controller.passController.text,
+                  );
+                }
+              },
             ),
+
             AppGaps.h32,
 
             // Already have an account
-            Center(
-              child: GestureDetector(
-                onTap: controller.goToLogin,
-                child: RichText(
-                  text: TextSpan(
-                    text: "${s.alreadyHaveAccount} ",
-                    style: appTheme.textTheme.bodyMedium?.copyWith(
-                      color: appTheme.textTheme.bodyMedium?.color?.withOpacity(
-                        0.85,
-                      ),
-                      fontSize: 15,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: s.buttonLogin,
-                        style: TextStyle(
-                          color: appTheme.primary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            buildAuthNavigation(
+              context: context,
+              text: s.alreadyHaveAccount,
+              actionText: s.buttonLogin,
+              onTap: controller.goToLogin,
             ),
           ],
         ),

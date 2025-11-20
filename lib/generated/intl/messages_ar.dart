@@ -23,9 +23,21 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
+    "action_generate_summary": MessageLookupByLibrary.simpleMessage(
+      "إنشاء ملخص",
+    ),
     "addToFavorites": MessageLookupByLibrary.simpleMessage("إضافة إلى المفضلة"),
     "addedToFavorites": MessageLookupByLibrary.simpleMessage(
       "تمت الإضافة إلى المفضلة",
+    ),
+    "ai_briefing": MessageLookupByLibrary.simpleMessage(
+      "موجز الذكاء الاصطناعي",
+    ),
+    "ai_summary_error": MessageLookupByLibrary.simpleMessage(
+      "تعذر إنشاء الملخص بسبب خطأ ما.",
+    ),
+    "ai_welcome_message": MessageLookupByLibrary.simpleMessage(
+      "ما الذي تود\nتلخيصه اليوم؟",
     ),
     "allFavoritesCleared": MessageLookupByLibrary.simpleMessage(
       "تم مسح جميع المفضلة",
@@ -143,6 +155,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "general": MessageLookupByLibrary.simpleMessage("عام"),
+    "generation_failed_msg": MessageLookupByLibrary.simpleMessage(
+      "تعذر إنشاء الملخص. يرجى المحاولة مرة أخرى.",
+    ),
+    "generation_failed_title": MessageLookupByLibrary.simpleMessage(
+      "فشل الإنشاء",
+    ),
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
     "health": MessageLookupByLibrary.simpleMessage("الصحة"),
     "hintConfirmPassword": MessageLookupByLibrary.simpleMessage(
@@ -245,6 +263,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "small": MessageLookupByLibrary.simpleMessage("صغير"),
     "sports": MessageLookupByLibrary.simpleMessage("الرياضة"),
+    "status_analyzing": MessageLookupByLibrary.simpleMessage("جاري التحليل..."),
+    "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
+      "الموجز جاهز",
+    ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage("فشل التلخيص"),
     "system": MessageLookupByLibrary.simpleMessage("النظام"),
     "technology": MessageLookupByLibrary.simpleMessage("التكنولوجيا"),

@@ -1153,6 +1153,81 @@ class S {
       args: [],
     );
   }
+
+  /// `AI Briefing`
+  String get ai_briefing {
+    return Intl.message('AI Briefing', name: 'ai_briefing', desc: '', args: []);
+  }
+
+  /// `Could not generate summary due to an error.`
+  String get ai_summary_error {
+    return Intl.message(
+      'Could not generate summary due to an error.',
+      name: 'ai_summary_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generation Failed`
+  String get generation_failed_title {
+    return Intl.message(
+      'Generation Failed',
+      name: 'generation_failed_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not generate summary. Please try again.`
+  String get generation_failed_msg {
+    return Intl.message(
+      'Could not generate summary. Please try again.',
+      name: 'generation_failed_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analyzing...`
+  String get status_analyzing {
+    return Intl.message(
+      'Analyzing...',
+      name: 'status_analyzing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Briefing Ready`
+  String get status_briefing_ready {
+    return Intl.message(
+      'Briefing Ready',
+      name: 'status_briefing_ready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate Summary`
+  String get action_generate_summary {
+    return Intl.message(
+      'Generate Summary',
+      name: 'action_generate_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What would you like to\nsummarize today?`
+  String get ai_welcome_message {
+    return Intl.message(
+      'What would you like to\nsummarize today?',
+      name: 'ai_welcome_message',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

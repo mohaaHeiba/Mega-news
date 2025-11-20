@@ -23,9 +23,19 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
+    "action_generate_summary": MessageLookupByLibrary.simpleMessage(
+      "Generate Summary",
+    ),
     "addToFavorites": MessageLookupByLibrary.simpleMessage("Add to favorites"),
     "addedToFavorites": MessageLookupByLibrary.simpleMessage(
       "Added to Favorites",
+    ),
+    "ai_briefing": MessageLookupByLibrary.simpleMessage("AI Briefing"),
+    "ai_summary_error": MessageLookupByLibrary.simpleMessage(
+      "Could not generate summary due to an error.",
+    ),
+    "ai_welcome_message": MessageLookupByLibrary.simpleMessage(
+      "What would you like to\nsummarize today?",
     ),
     "allFavoritesCleared": MessageLookupByLibrary.simpleMessage(
       "All favorites have been cleared",
@@ -141,6 +151,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgot_password": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "general": MessageLookupByLibrary.simpleMessage("General"),
+    "generation_failed_msg": MessageLookupByLibrary.simpleMessage(
+      "Could not generate summary. Please try again.",
+    ),
+    "generation_failed_title": MessageLookupByLibrary.simpleMessage(
+      "Generation Failed",
+    ),
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
     "health": MessageLookupByLibrary.simpleMessage("Health"),
     "hintConfirmPassword": MessageLookupByLibrary.simpleMessage(
@@ -247,6 +263,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "small": MessageLookupByLibrary.simpleMessage("Small"),
     "sports": MessageLookupByLibrary.simpleMessage("Sports"),
+    "status_analyzing": MessageLookupByLibrary.simpleMessage("Analyzing..."),
+    "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
+      "Briefing Ready",
+    ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage(
       "Summarization Failed",
     ),

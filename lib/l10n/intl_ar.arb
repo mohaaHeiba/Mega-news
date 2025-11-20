@@ -150,6 +150,15 @@
   "noRecentNewsFound": "لم يتم العثور على أخبار حديثة لتلخيصها لهذا الموضوع.",
   "failedToGenerateSummary": "فشل في إنشاء الملخص",
 
-  "viewAiSummary": "عرض الملخص الذكي"
+  "viewAiSummary": "عرض الملخص الذكي",
+  "ai_briefing": "موجز الذكاء الاصطناعي",
+  "ai_summary_error": "تعذر إنشاء الملخص بسبب خطأ ما.",
+  "generation_failed_title": "فشل الإنشاء",
+  "generation_failed_msg": "تعذر إنشاء الملخص. يرجى المحاولة مرة أخرى.",
+  "status_analyzing": "جاري التحليل...",
+  "status_briefing_ready": "الموجز جاهز",
+  "action_generate_summary": "إنشاء ملخص",
+  "ai_welcome_message": "ما الذي تود\nتلخيصه اليوم؟"
+  
 
 }

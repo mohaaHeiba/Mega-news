@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/custom/inputs/custom_text_fields.dart';
-import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_auth_navigation.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_submit_button.dart';
 
 class CreateNewPasswordPage extends GetView<AuthController> {
   const CreateNewPasswordPage({super.key});
@@ -16,6 +17,7 @@ class CreateNewPasswordPage extends GetView<AuthController> {
     final appTheme = context;
 
     return Scaffold(
+      // Gradient
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -86,58 +88,26 @@ class CreateNewPasswordPage extends GetView<AuthController> {
               AppGaps.h24,
 
               // Submit button
-              SizedBox(
-                height: 54,
-                child: Obx(
-                  () => ElevatedButton(
-                    onPressed: controller.isLoading.value
-                        ? null
-                        : () async {
-                            if (controller.formKey.currentState!.validate()) {
-                              final newPassword = controller.passController.text
-                                  .trim();
-                              await controller.updatePassword(newPassword);
-                            }
-                          },
-                    child: controller.isLoading.value
-                        ? CircularProgressIndicator(color: appTheme.onPrimary)
-                        : Text(
-                            s.update_password,
-                            style: appTheme.textTheme.labelLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.background,
-                              fontSize: 18,
-                            ),
-                          ),
-                  ),
-                ),
+              buildSubmitButton(
+                context: context,
+                controller: controller,
+                buttonText: s.update_password,
+                onPressed: () async {
+                  if (controller.formKey.currentState!.validate()) {
+                    final newPassword = controller.passController.text.trim();
+                    await controller.updatePassword(newPassword);
+                  }
+                },
               ),
+
               AppGaps.h32,
 
               // Back to Login
-              Center(
-                child: GestureDetector(
-                  onTap: controller.goToLogin,
-                  child: RichText(
-                    text: TextSpan(
-                      text: s.remembered_password,
-                      style: appTheme.textTheme.bodyMedium?.copyWith(
-                        color: appTheme.textTheme.bodyMedium?.color
-                            ?.withOpacity(0.7),
-                      ),
-                      children: [
-                        TextSpan(
-                          text: s.log_in,
-                          style: appTheme.textTheme.bodyMedium?.copyWith(
-                            color: appTheme.primary,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              buildAuthNavigation(
+                context: context,
+                text: s.remembered_password,
+                actionText: s.log_in,
+                onTap: controller.goToLogin,
               ),
             ],
           ),

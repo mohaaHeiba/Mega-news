@@ -28,7 +28,7 @@ class WelcomePage extends GetView<WelcomeController> {
             Image.asset(AppImages.logo, width: 60),
             AppGaps.w8,
             Text(
-              'MegaNews',
+              s.megaNews,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -42,11 +42,7 @@ class WelcomePage extends GetView<WelcomeController> {
                     padding: const EdgeInsets.only(right: 12.0),
                     child: TextButton(
                       onPressed: () {
-                        controller.imageController.animateToPage(
-                          pages.length - 1,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeInOut,
-                        );
+                        controller.goNext();
                       },
                       child: Text(
                         s.skip,
@@ -64,6 +60,7 @@ class WelcomePage extends GetView<WelcomeController> {
       ),
       // ========== Body ==========
       body: Container(
+        // Gradient
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -210,14 +207,6 @@ class WelcomePage extends GetView<WelcomeController> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    // AppGaps.w4,
-                                    // Icon(
-                                    //   controller.currentIndex.value ==
-                                    //           pages.length - 1
-                                    //       ? Icons.rocket_launch_rounded
-                                    //       : Icons.arrow_forward,
-                                    //   size: 20,
-                                    // ),
                                   ],
                                 ),
                               ),

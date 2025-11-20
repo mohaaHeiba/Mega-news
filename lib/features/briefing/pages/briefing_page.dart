@@ -86,7 +86,7 @@ class AiBriefingPage extends GetView<AiBriefingController> {
                       AppGaps.h8,
 
                       Text(
-                        "What would you like to\nsummarize today?",
+                        s.ai_welcome_message,
                         style: context.textStyles.headlineMedium?.copyWith(
                           height: 1.1,
                           fontWeight: FontWeight.w900,

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/custom/inputs/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/utils/validator.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_auth_navigation.dart';
+import 'package:mega_news/features/auth/presentations/widgets/build_submit_button.dart';
 
 class LoginPage extends GetView<AuthController> {
   const LoginPage({super.key});
@@ -15,6 +18,7 @@ class LoginPage extends GetView<AuthController> {
     final appTheme = context;
 
     return Container(
+      // Gradient
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -103,36 +107,20 @@ class LoginPage extends GetView<AuthController> {
             AppGaps.h12,
 
             // Log In Button
-            SizedBox(
-              height: 54,
-              child: Obx(
-                () => ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appTheme.primary,
-                  ),
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : () async {
-                          if (controller.formKey.currentState!.validate()) {
-                            await controller.signIn(
-                              email: controller.emailController.text.trim(),
-                              password: controller.passController.text.trim(),
-                            );
-                          }
-                        },
-                  child: controller.isLoading.value
-                      ? CircularProgressIndicator(color: appTheme.onPrimary)
-                      : Text(
-                          s.log_in,
-                          style: appTheme.textTheme.titleMedium?.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
-              ),
+            buildSubmitButton(
+              context: context,
+              controller: controller,
+              buttonText: s.log_in,
+              onPressed: () async {
+                if (controller.formKey.currentState!.validate()) {
+                  await controller.signIn(
+                    email: controller.emailController.text.trim(),
+                    password: controller.passController.text.trim(),
+                  );
+                }
+              },
             ),
+
             AppGaps.h32,
 
             // Divider
@@ -178,11 +166,7 @@ class LoginPage extends GetView<AuthController> {
                   ),
                   backgroundColor: appTheme.onSurface.withOpacity(0.08),
                 ),
-                icon: Image.asset(
-                  'assets/images/logo_google.png',
-                  height: 24,
-                  width: 24,
-                ),
+                icon: Image.asset(AppImages.logoGoogle, height: 24, width: 24),
                 label: Text(
                   s.sign_in_with_google,
                   style: appTheme.textTheme.bodyMedium?.copyWith(
@@ -196,31 +180,11 @@ class LoginPage extends GetView<AuthController> {
             AppGaps.h24,
 
             // Sign Up Link
-            Center(
-              child: GestureDetector(
-                onTap: controller.goToRegister,
-                child: RichText(
-                  text: TextSpan(
-                    text: s.dont_have_account,
-                    style: appTheme.textTheme.bodyMedium?.copyWith(
-                      color: appTheme.textTheme.bodyMedium?.color?.withOpacity(
-                        0.85,
-                      ),
-                      fontSize: 15,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: s.sign_up,
-                        style: TextStyle(
-                          color: appTheme.primary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            buildAuthNavigation(
+              context: context,
+              text: s.dont_have_account,
+              actionText: s.sign_up,
+              onTap: controller.goToRegister,
             ),
           ],
         ),
