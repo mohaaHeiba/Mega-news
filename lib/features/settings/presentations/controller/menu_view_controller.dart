@@ -33,7 +33,7 @@ class MenuViewController extends GetxController {
   final breakingNewsEnabled = true.obs;
   final language = 'en'.obs;
 
-  final loginBefore = false.obs; // بدل bool عادي
+  final loginBefore = false.obs;
 
   @override
   void onInit() {

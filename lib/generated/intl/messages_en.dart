@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
+    "account_info": MessageLookupByLibrary.simpleMessage("Account Info"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "Generate Summary",
     ),
@@ -75,6 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "cacheCleared": MessageLookupByLibrary.simpleMessage("Cache Cleared"),
     "cacheClearedMessage": MessageLookupByLibrary.simpleMessage(
       "Cache has been cleared successfully",
+    ),
+    "cache_cleared_msg": MessageLookupByLibrary.simpleMessage(
+      "Cache has been cleared successfully",
+    ),
+    "cache_cleared_title": MessageLookupByLibrary.simpleMessage(
+      "Cache Cleared",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
@@ -227,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "quick_actions": MessageLookupByLibrary.simpleMessage("Quick Actions"),
+    "read": MessageLookupByLibrary.simpleMessage("read"),
     "registerSubtitle": MessageLookupByLibrary.simpleMessage(
       "Join us and start exploring all the amazing features we offer!",
     ),

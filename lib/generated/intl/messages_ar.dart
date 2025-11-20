@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
+    "account_info": MessageLookupByLibrary.simpleMessage("معلومات الحساب"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "إنشاء ملخص",
     ),
@@ -77,6 +78,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cacheClearedMessage": MessageLookupByLibrary.simpleMessage(
       "تم مسح الذاكرة المؤقتة بنجاح",
+    ),
+    "cache_cleared_msg": MessageLookupByLibrary.simpleMessage(
+      "تم مسح الذاكرة المؤقتة بنجاح",
+    ),
+    "cache_cleared_title": MessageLookupByLibrary.simpleMessage(
+      "تم مسح الذاكرة المؤقتة",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
@@ -229,6 +236,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+    "quick_actions": MessageLookupByLibrary.simpleMessage("إجراءات سريعة"),
+    "read": MessageLookupByLibrary.simpleMessage("قراءة"),
     "registerSubtitle": MessageLookupByLibrary.simpleMessage(
       "انضم إلينا وابدأ في استكشاف كل المميزات الرائعة التي نقدمها!",
     ),

@@ -1228,6 +1228,51 @@ class S {
       args: [],
     );
   }
+
+  /// `Account Info`
+  String get account_info {
+    return Intl.message(
+      'Account Info',
+      name: 'account_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quick Actions`
+  String get quick_actions {
+    return Intl.message(
+      'Quick Actions',
+      name: 'quick_actions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `read`
+  String get read {
+    return Intl.message('read', name: 'read', desc: '', args: []);
+  }
+
+  /// `Cache Cleared`
+  String get cache_cleared_title {
+    return Intl.message(
+      'Cache Cleared',
+      name: 'cache_cleared_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cache has been cleared successfully`
+  String get cache_cleared_msg {
+    return Intl.message(
+      'Cache has been cleared successfully',
+      name: 'cache_cleared_msg',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

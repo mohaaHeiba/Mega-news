@@ -54,7 +54,7 @@ class SettingsPage extends StatelessWidget {
             const AboutSection(),
             AppGaps.h32,
             const LogoutButton(),
-            AppGaps.h32, // مسافة أمان في الأسفل
+            AppGaps.h32,
           ],
         ),
       ),

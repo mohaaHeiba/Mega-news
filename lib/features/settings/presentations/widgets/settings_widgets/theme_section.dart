@@ -10,7 +10,7 @@ class ThemeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +27,7 @@ class ThemeSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: theme.surface,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -78,7 +78,6 @@ class _ThemeOption extends StatelessWidget {
     required this.mode,
     required this.icon,
   });
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ThemeController>();
@@ -89,9 +88,7 @@ class _ThemeOption extends StatelessWidget {
 
       return GestureDetector(
         onTap: () => controller.selectMode(mode),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
+        child: Container(
           padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
             color: isSelected ? theme.colorScheme.primary : Colors.transparent,

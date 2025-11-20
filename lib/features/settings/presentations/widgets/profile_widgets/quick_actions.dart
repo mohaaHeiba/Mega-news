@@ -10,7 +10,7 @@ Widget QuickActions(ThemeData theme, dynamic s) {
       Padding(
         padding: const EdgeInsets.only(left: 8, bottom: 12),
         child: Text(
-          'Quick Actions',
+          s.quick_actions,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -37,7 +37,6 @@ Widget QuickActions(ThemeData theme, dynamic s) {
               title: s.savedArticles,
               onTap: () => Get.to(() => const FavoritesPage()),
             ),
-            // يمكنك إضافة المزيد هنا مستقبلاً
           ],
         ),
       ),

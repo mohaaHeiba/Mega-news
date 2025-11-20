@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 
 // ignore: non_constant_identifier_names
@@ -7,7 +8,7 @@ Widget ProfileHeader(ThemeData theme, dynamic s, AuthEntity user) {
     alignment: Alignment.topCenter,
     children: [
       Container(
-        margin: const EdgeInsets.only(top: 50), // مسافة للصورة
+        margin: const EdgeInsets.only(top: 50),
         padding: const EdgeInsets.fromLTRB(24, 60, 24, 24),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -30,7 +31,7 @@ Widget ProfileHeader(ThemeData theme, dynamic s, AuthEntity user) {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            AppGaps.h8,
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
@@ -48,7 +49,6 @@ Widget ProfileHeader(ThemeData theme, dynamic s, AuthEntity user) {
           ],
         ),
       ),
-      // الصورة العائمة
       Container(
         width: 100,
         height: 100,

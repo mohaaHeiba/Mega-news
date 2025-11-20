@@ -158,7 +158,12 @@
   "status_analyzing": "جاري التحليل...",
   "status_briefing_ready": "الموجز جاهز",
   "action_generate_summary": "إنشاء ملخص",
-  "ai_welcome_message": "ما الذي تود\nتلخيصه اليوم؟"
+  "ai_welcome_message": "ما الذي تود\nتلخيصه اليوم؟",
+  "account_info": "معلومات الحساب",
+  "quick_actions": "إجراءات سريعة",
+  "read": "قراءة",
+  "cache_cleared_title": "تم مسح الذاكرة المؤقتة",
+  "cache_cleared_msg": "تم مسح الذاكرة المؤقتة بنجاح"
   
 
 }

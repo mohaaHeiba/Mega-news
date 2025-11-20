@@ -165,7 +165,15 @@
 "status_analyzing": "Analyzing...",
 "status_briefing_ready": "Briefing Ready",
 "action_generate_summary": "Generate Summary",
-"ai_welcome_message": "What would you like to\nsummarize today?"
+"ai_welcome_message": "What would you like to\nsummarize today?",
+  "account_info": "Account Info",
+  "quick_actions": "Quick Actions",
+  "read": "read",
+    "cache_cleared_title": "Cache Cleared",
+  "cache_cleared_msg": "Cache has been cleared successfully"
+
+
+
 
 
 }

@@ -11,7 +11,7 @@ class AboutSection extends GetView<MenuViewController> {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +27,7 @@ class AboutSection extends GetView<MenuViewController> {
         ),
         Container(
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: theme.surface,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -50,13 +50,13 @@ class AboutSection extends GetView<MenuViewController> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withOpacity(0.1),
+                    color: theme.primary.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     controller.getAppVersion(),
                     style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.primary,
+                      color: theme.primary,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -66,7 +66,7 @@ class AboutSection extends GetView<MenuViewController> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(
                   height: 1,
-                  color: theme.dividerColor.withOpacity(0.1),
+                  color: theme.onSurface.withOpacity(0.1),
                 ),
               ),
               _buildAboutTile(
@@ -75,18 +75,18 @@ class AboutSection extends GetView<MenuViewController> {
                 iconColor: Colors.purple,
                 title: s.privacyPolicy,
                 onTap: () {
-                  customSnackbar(
-                    title: s.privacyPolicy,
-                    message: 'Privacy policy page coming soon',
-                    color: AppColors.primary,
-                  );
+                  // customSnackbar(
+                  //   title: s.privacyPolicy,
+                  //   message: 'Privacy policy page coming soon',
+                  //   color: AppColors.primary,
+                  // );
                 },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(
                   height: 1,
-                  color: theme.dividerColor.withOpacity(0.1),
+                  color: theme.onSurface.withOpacity(0.1),
                 ),
               ),
               _buildAboutTile(
@@ -95,11 +95,11 @@ class AboutSection extends GetView<MenuViewController> {
                 iconColor: Colors.orange,
                 title: s.termsOfService,
                 onTap: () {
-                  customSnackbar(
-                    title: s.termsOfService,
-                    message: 'Terms of service page coming soon',
-                    color: AppColors.primary,
-                  );
+                  // customSnackbar(
+                  //   title: s.termsOfService,
+                  //   message: 'Terms of service page coming soon',
+                  //   color: AppColors.primary,
+                  // );
                 },
               ),
             ],
@@ -110,7 +110,7 @@ class AboutSection extends GetView<MenuViewController> {
   }
 
   Widget _buildAboutTile(
-    ThemeData theme, {
+    BuildContext theme, {
     required IconData icon,
     required Color iconColor,
     required String title,
@@ -137,7 +137,7 @@ class AboutSection extends GetView<MenuViewController> {
           Icon(
             Icons.arrow_forward_ios_rounded,
             size: 16,
-            color: theme.colorScheme.onSurface.withOpacity(0.4),
+            color: theme.onSurface.withOpacity(0.4),
           ),
     );
   }

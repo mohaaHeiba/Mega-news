@@ -8,7 +8,7 @@ Widget InfoSection(ThemeData theme, dynamic s, final user) {
       Padding(
         padding: const EdgeInsets.only(left: 8, bottom: 12),
         child: Text(
-          'Account Info',
+          s.account_info,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 
 // ignore: non_constant_identifier_names
@@ -15,7 +16,6 @@ Widget StatsRow(ThemeData theme, dynamic s) {
           title: s.savedArticles,
           icon: Icons.bookmark_rounded,
           iconColor: Colors.orangeAccent,
-          // نمرر ويدجت للمحتوى المتغير (الرقم)
           valueWidget: Obx(
             () => Text(
               '${favoritesController.favorites.length}',
@@ -27,12 +27,12 @@ Widget StatsRow(ThemeData theme, dynamic s) {
           ),
         ),
       ),
-      const SizedBox(width: 16),
+      AppGaps.h16,
       // --- Read Articles Card ---
       Expanded(
         child: _buildStatCard(
           theme,
-          title: 'Read', // s.read
+          title: s.read,
           icon: Icons.auto_stories_rounded,
           iconColor: Colors.blueAccent,
           valueWidget: Text(
@@ -79,9 +79,9 @@ Widget _buildStatCard(
           ),
           child: Icon(icon, color: iconColor, size: 24),
         ),
-        const SizedBox(height: 16),
+        AppGaps.h16,
         valueWidget,
-        const SizedBox(height: 4),
+        AppGaps.h4,
         Text(
           title,
           style: theme.textTheme.bodyMedium?.copyWith(

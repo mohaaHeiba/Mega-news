@@ -10,7 +10,7 @@ class LogoutButton extends GetView<MenuViewController> {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Container(
       width: double.infinity,
@@ -29,7 +29,7 @@ class LogoutButton extends GetView<MenuViewController> {
         onPressed: () async {
           final confirmed = await Get.dialog<bool>(
             AlertDialog(
-              backgroundColor: theme.cardColor,
+              backgroundColor: theme.surface,
               title: Text(s.logout),
               content: Text(s.logoutConfirmation),
               actions: [
@@ -37,7 +37,7 @@ class LogoutButton extends GetView<MenuViewController> {
                   onPressed: () => Get.back(result: false),
                   child: Text(
                     s.cancel,
-                    style: TextStyle(color: theme.colorScheme.onSurface),
+                    style: TextStyle(color: theme.onSurface),
                   ),
                 ),
                 TextButton(

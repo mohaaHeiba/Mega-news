@@ -10,7 +10,7 @@ class NotificationsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<MenuViewController>();
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class NotificationsSection extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: theme.surface,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -51,7 +51,7 @@ class NotificationsSection extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Divider(
                     height: 1,
-                    color: theme.dividerColor.withOpacity(0.1),
+                    color: theme.surface.withOpacity(0.1),
                   ),
                 ),
                 _buildSwitchTile(
@@ -71,7 +71,7 @@ class NotificationsSection extends StatelessWidget {
   }
 
   Widget _buildSwitchTile(
-    ThemeData theme, {
+    BuildContext theme, {
     required String title,
     required bool value,
     required ValueChanged<bool> onChanged,
@@ -81,7 +81,7 @@ class NotificationsSection extends StatelessWidget {
     return SwitchListTile(
       value: value,
       onChanged: onChanged,
-      activeColor: theme.colorScheme.primary,
+      activeColor: theme.primary,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       title: Text(
         title,

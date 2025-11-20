@@ -12,7 +12,7 @@ class StorageSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<MenuViewController>();
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +28,7 @@ class StorageSection extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: theme.surface,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -64,18 +64,18 @@ class StorageSection extends StatelessWidget {
             subtitle: Text(
               s.clearCacheDescription,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.onSurface.withOpacity(0.6),
               ),
             ),
             trailing: Icon(
               Icons.arrow_forward_ios_rounded,
               size: 16,
-              color: theme.colorScheme.onSurface.withOpacity(0.4),
+              color: theme.onSurface.withOpacity(0.4),
             ),
             onTap: () async {
               final confirmed = await Get.dialog<bool>(
                 AlertDialog(
-                  backgroundColor: theme.cardColor,
+                  backgroundColor: theme.surface,
                   title: Text(s.clearCache),
                   content: Text(s.clearCacheDescription),
                   actions: [
@@ -83,14 +83,14 @@ class StorageSection extends StatelessWidget {
                       onPressed: () => Get.back(result: false),
                       child: Text(
                         s.cancel,
-                        style: TextStyle(color: theme.colorScheme.onSurface),
+                        style: TextStyle(color: theme.onSurface),
                       ),
                     ),
                     TextButton(
                       onPressed: () => Get.back(result: true),
                       child: Text(
                         s.confirm,
-                        style: TextStyle(color: theme.colorScheme.primary),
+                        style: TextStyle(color: theme.primary),
                       ),
                     ),
                   ],
@@ -99,8 +99,8 @@ class StorageSection extends StatelessWidget {
               if (confirmed == true) {
                 await controller.clearCache();
                 customSnackbar(
-                  title: 'Cache Cleared',
-                  message: 'Cache has been cleared successfully',
+                  title: Get.context!.s.cache_cleared_title,
+                  message: Get.context!.s.cache_cleared_msg,
                   color: AppColors.success,
                 );
               }

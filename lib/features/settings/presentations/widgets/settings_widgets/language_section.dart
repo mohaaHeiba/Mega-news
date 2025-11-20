@@ -9,7 +9,7 @@ class LanguageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final theme = Theme.of(context);
+    final theme = context;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class LanguageSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: theme.surface,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
