@@ -39,3 +39,7 @@ class AuthInvalidCredentialsException extends AuthException {
   const AuthInvalidCredentialsException(String message)
     : super(message, 'invalid_credentials');
 }
+
+class SupabaseDatabaseException extends SupabaseException {
+  const SupabaseDatabaseException(super.message, [super.code]);
+}

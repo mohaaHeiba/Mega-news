@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart'; // تأكد من استيراد get
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
+import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart'; // 1. استيراد الكنترولر
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:share_plus/share_plus.dart';
 
 Widget buildArticlesList(final controller, BuildContext context) {
+  // 2. البحث عن FavoritesController (تم حقنه مسبقاً في LayoutBinding)
+  final favoritesController = Get.find<FavoritesController>();
+
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     child: controller.isLoading.value
@@ -21,6 +24,7 @@ Widget buildArticlesList(final controller, BuildContext context) {
         : ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            // الحساب هنا صحيح لتخطي أول 5 مقالات (لو ده المقصود)
             itemCount: (controller.articles.length > 5)
                 ? controller.articles.length - 5
                 : 0,
@@ -28,7 +32,6 @@ Widget buildArticlesList(final controller, BuildContext context) {
             itemBuilder: (_, index) {
               final article = controller.articles[index + 5];
 
-              // ... (Article Item Code from the last refined version) ...
               return Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -43,7 +46,7 @@ Widget buildArticlesList(final controller, BuildContext context) {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // 1. Article Image (Prominent, Left Side, Ratio 4:3)
+                            // 1. Article Image
                             if (article.imageUrl != null)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
@@ -71,7 +74,7 @@ Widget buildArticlesList(final controller, BuildContext context) {
                             if (article.imageUrl != null)
                               const SizedBox(width: 12),
 
-                            // 2. Article Content (Right Side - Title is the Focus)
+                            // 2. Article Content
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,8 +90,6 @@ Widget buildArticlesList(final controller, BuildContext context) {
                                           color: context.onBackground,
                                         ),
                                   ),
-
-                                  // Source Name (Immediately below the title, low contrast)
                                   AppGaps.h4,
                                   Text(
                                     article.sourceName,
@@ -107,10 +108,11 @@ Widget buildArticlesList(final controller, BuildContext context) {
                           ],
                         ),
 
-                        // 3. Bottom Metadata & Actions Row (Cleaned up, full width)
+                        // 3. Bottom Metadata & Actions Row
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // Time
                             Row(
                               children: [
                                 Icon(
@@ -130,9 +132,10 @@ Widget buildArticlesList(final controller, BuildContext context) {
                               ],
                             ),
 
-                            // Actions (Grouped, using IconButton for better tap area)
+                            // Actions
                             Row(
                               children: [
+                                // Share Button
                                 IconButton(
                                   icon: Icon(
                                     Icons.share_rounded,
@@ -152,31 +155,45 @@ Widget buildArticlesList(final controller, BuildContext context) {
                                     minHeight: 32,
                                   ),
                                 ),
-                                IconButton(
-                                  icon: Icon(
-                                    controller.isLiked.value
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: controller.isLiked.value
-                                        ? Colors.redAccent
-                                        : Colors.white,
-                                    size: 18,
-                                  ),
-                                  onPressed: () => controller.isLiked.toggle(),
 
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                ),
+                                // 3. زر المفضلة الجديد (Favorite Button)
+                                // استخدمنا Obx عشان نراقب التغييرات في قائمة المفضلة
+                                Obx(() {
+                                  // بنشيك هل المقال ده بالذات موجود في الليستة ولا لأ
+                                  final isFav = favoritesController.isFavorite(
+                                    article.id,
+                                  );
+
+                                  return IconButton(
+                                    icon: Icon(
+                                      isFav
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      // لو مفضلة يبقى أحمر، لو لأ يبقى رمادي شفاف
+                                      color: isFav
+                                          ? Colors.redAccent
+                                          : context.onBackground.withOpacity(
+                                              0.5,
+                                            ),
+                                      size: 20, // حجم متناسق مع زر الشير
+                                    ),
+                                    // عند الضغط ننادي دالة toggle الموجودة في الكنترولر
+                                    onPressed: () => favoritesController
+                                        .toggleFavorite(article),
+
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(
+                                      minWidth: 32,
+                                      minHeight: 32,
+                                    ),
+                                  );
+                                }),
                               ],
                             ),
                           ],
                         ),
 
-                        // Divider to separate items
-                        // const SizedBox(height: 8),
+                        // Divider
                         Divider(
                           color: context.onBackground.withOpacity(0.1),
                           height: 1,

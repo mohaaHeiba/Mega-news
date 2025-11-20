@@ -4,12 +4,9 @@ import 'package:flutter/material.dart' hide SearchController;
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
-import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/home/widgets/build_article_shimmer.dart';
 import 'package:mega_news/features/home/widgets/build_articles_list.dart';
-import 'package:share_plus/share_plus.dart';
 
-// 👇 2. تأكد من استيراد ملف الكنترولر الخاص بك (عدل المسار لو مختلف عندك)
 import 'package:mega_news/features/search/presentations/controller/search_controller.dart';
 
 class ShowSearchPage extends GetView<SearchController> {
@@ -86,7 +83,6 @@ class ShowSearchPage extends GetView<SearchController> {
                     ),
                     Expanded(
                       child: TextField(
-                        // بما أننا صلحنا التعارض، هذا السطر سيعمل الآن
                         controller: controller.textController,
                         autofocus: true,
                         style: TextStyle(

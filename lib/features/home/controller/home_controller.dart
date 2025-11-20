@@ -19,7 +19,6 @@ class HomeController extends GetxController {
 
   int _currentPage = 1;
   String currentLanguage = 'en';
-  var isLiked = false.obs;
 
   // ====================================================
   // Categories
@@ -56,24 +55,8 @@ class HomeController extends GetxController {
         page: _currentPage,
       );
 
-      // Debug: Print all fetched articles
-      print('--- FETCH PAGE $_currentPage ---');
-      for (var a in fetched) {
-        print('${a.title} | ${a.sourceName}');
-      }
-      print('--- END OF PAGE ---');
-
       articles.value = fetched;
       hasMorePages(fetched.length >= 20);
-      // print(
-      //   '-----------------------------------------------------------------------',
-      // );
-
-      // for (int i = 0; i <= 20; i++) {
-      //   print(articles[i].imageUrl);
-      // }
-    } catch (e) {
-      print('Error fetching news: $e');
     } finally {
       isLoading(false);
     }
@@ -95,16 +78,8 @@ class HomeController extends GetxController {
       } else {
         articles.addAll(fetched);
         if (fetched.length < 20) hasMorePages(false);
-
-        // ======= PRINT ALL DATA AFTER LOAD MORE =======
-        print('--- LOAD MORE PAGE $_currentPage ---');
-        for (var a in articles) {
-          print('${a.title} | ${a.sourceName}');
-        }
-        print('--- END OF LOAD MORE ---');
       }
     } catch (e) {
-      print('Error loading more: $e');
       _currentPage--; // revert page
     } finally {
       isLoadingMore(false);
@@ -114,10 +89,6 @@ class HomeController extends GetxController {
   String getTimeAgo(DateTime dateTime) {
     return timeago.format(dateTime, locale: 'ar');
   }
-
-  // ====================================================
-  // Load more for pagination
-  // ====================================================
 
   // ====================================================
   // Change category

@@ -20,6 +20,30 @@ class Article {
     required this.publishedAt,
   });
 
+  factory Article.fromJson(Map<String, dynamic> json) {
+    return Article(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      sourceName: json['sourceName'] as String,
+      articleUrl: json['articleUrl'] as String,
+      publishedAt: DateTime.parse(json['publishedAt'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'imageUrl': imageUrl,
+      'sourceName': sourceName,
+      'articleUrl': articleUrl,
+      'publishedAt': publishedAt.toIso8601String(),
+    };
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

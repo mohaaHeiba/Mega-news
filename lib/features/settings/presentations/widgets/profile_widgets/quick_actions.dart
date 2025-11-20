@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:mega_news/features/favorites/presentation/pages/favorites_page.dart';
 
 // ignore: non_constant_identifier_names
 Widget QuickActions(ThemeData theme, dynamic s) {
@@ -32,7 +33,7 @@ Widget QuickActions(ThemeData theme, dynamic s) {
                 vertical: 4,
               ),
               onTap: () {
-                Get.toNamed('/favoritesPage');
+                Get.to(FavoritesPage());
               },
             ),
           ],
