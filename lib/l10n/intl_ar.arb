@@ -218,7 +218,28 @@
   "msg_no_description": "لا يوجد وصف متاح. اضغط بالأسفل لقراءة الخبر كاملاً.",
   "action_pause": "إيقاف مؤقت",
 "action_listen": "استماع",
-"action_read_full_story": "قراءة الخبر كاملاً"
+"action_read_full_story": "قراءة الخبر كاملاً",
+"category_general": "عام",
+  "category_sports": "رياضة",
+  "category_technology": "تكنولوجيا",
+  "category_business": "أعمال",
+  "category_health": "صحة",
+  "category_science": "علوم",
+  "category_entertainment": "ترفيه",
+  "home_no_news": "لا توجد أخبار",
+  "home_try_diff_category": "جرب اختيار تصنيف آخر",
+  "home_welcome_back": "مرحباً بعودتك،",
+  "app_name": "ميجا نيوز.",
+  "home_search_hint": "ابحث في أكثر من مليون مقال...",
+  "home_featured_label": "⚡ مميز",
+  "home_latest_articles": "أحدث المقالات",
+  "search_discover": "اكتشف الأخبار",
+  "search_no_results": "لا توجد نتائج",
+  "search_results_count": "نتائج",
+  "search_results_for": "عن",
+  "search_listening": "جاري الاستماع...",
+  "search_listening_hint": "جرب قول 'رياضة' أو 'تكنولوجيا'",
+  "search_hint": "ابحث عن أخبار، مواضيع..."
 
 
 

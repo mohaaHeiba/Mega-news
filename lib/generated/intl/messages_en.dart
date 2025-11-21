@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred",
     ),
     "appVersion": MessageLookupByLibrary.simpleMessage("App Version"),
+    "app_name": MessageLookupByLibrary.simpleMessage("Mega News."),
     "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
     "articleRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
@@ -168,6 +169,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cache Cleared",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "category_business": MessageLookupByLibrary.simpleMessage("Business"),
+    "category_entertainment": MessageLookupByLibrary.simpleMessage(
+      "Entertainment",
+    ),
+    "category_general": MessageLookupByLibrary.simpleMessage("General"),
+    "category_health": MessageLookupByLibrary.simpleMessage("Health"),
+    "category_science": MessageLookupByLibrary.simpleMessage("Science"),
+    "category_sports": MessageLookupByLibrary.simpleMessage("Sports"),
+    "category_technology": MessageLookupByLibrary.simpleMessage("Technology"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "clearAll": MessageLookupByLibrary.simpleMessage("Clear All"),
     "clearAllFavorites": MessageLookupByLibrary.simpleMessage(
@@ -279,6 +289,18 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hintPassword": MessageLookupByLibrary.simpleMessage("Enter your password"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "home_featured_label": MessageLookupByLibrary.simpleMessage("⚡ FEATURED"),
+    "home_latest_articles": MessageLookupByLibrary.simpleMessage(
+      "Latest Articles",
+    ),
+    "home_no_news": MessageLookupByLibrary.simpleMessage("No news found"),
+    "home_search_hint": MessageLookupByLibrary.simpleMessage(
+      "Search over 1,000,000 articles...",
+    ),
+    "home_try_diff_category": MessageLookupByLibrary.simpleMessage(
+      "Try selecting a different category",
+    ),
+    "home_welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back,"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email",
     ),
@@ -368,6 +390,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "Search for articles first to summarize them.",
     ),
+    "search_discover": MessageLookupByLibrary.simpleMessage("Discover News"),
+    "search_hint": MessageLookupByLibrary.simpleMessage(
+      "Search news, topics...",
+    ),
+    "search_listening": MessageLookupByLibrary.simpleMessage("Listening..."),
+    "search_listening_hint": MessageLookupByLibrary.simpleMessage(
+      "Try saying \'Sports\' or \'Technology\'",
+    ),
+    "search_no_results": MessageLookupByLibrary.simpleMessage(
+      "No results found",
+    ),
+    "search_results_count": MessageLookupByLibrary.simpleMessage("Results"),
+    "search_results_for": MessageLookupByLibrary.simpleMessage("for"),
     "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
     "set_strong_password": MessageLookupByLibrary.simpleMessage(
       "Set a strong new password to secure your account.",

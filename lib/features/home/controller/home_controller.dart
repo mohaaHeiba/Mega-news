@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -23,22 +24,27 @@ class HomeController extends GetxController {
   // ====================================================
   // Categories
   // ====================================================
-  final categories = [
-    {'label': 'General', 'value': 'general'},
-    {'label': 'Sports', 'value': 'sports'},
-    {'label': 'Technology', 'value': 'technology'},
-    {'label': 'Business', 'value': 'business'},
-    {'label': 'Health', 'value': 'health'},
-    {'label': 'Science', 'value': 'science'},
-    {'label': 'Entertainment', 'value': 'entertainment'},
+  List<Map<String, String>> get categories => [
+    {'label': Get.context!.s.category_general, 'value': 'general'},
+    {'label': Get.context!.s.category_sports, 'value': 'sports'},
+    {'label': Get.context!.s.category_technology, 'value': 'technology'},
+    {'label': Get.context!.s.category_business, 'value': 'business'},
+    {'label': Get.context!.s.category_health, 'value': 'health'},
+    {'label': Get.context!.s.category_science, 'value': 'science'},
+    {'label': Get.context!.s.category_entertainment, 'value': 'entertainment'},
   ];
-
   // ====================================================
   // On Init
   // ====================================================
   @override
   void onInit() {
     super.onInit();
+
+    timeago.setLocaleMessages('ar', timeago.ArMessages());
+    timeago.setLocaleMessages('en', timeago.EnMessages());
+
+    currentLanguage = Get.locale?.languageCode ?? 'en';
+
     fetchNews();
   }
 
@@ -49,6 +55,9 @@ class HomeController extends GetxController {
     try {
       isLoading(true);
       _currentPage = 1;
+
+      currentLanguage = Get.locale?.languageCode ?? 'en';
+
       final fetched = await newsRepository.getTopHeadlines(
         category: selectedCategory.value,
         language: currentLanguage,
@@ -87,7 +96,9 @@ class HomeController extends GetxController {
   }
 
   String getTimeAgo(DateTime dateTime) {
-    return timeago.format(dateTime, locale: 'ar');
+    final String currentAppLang = Get.locale?.languageCode ?? 'en';
+
+    return timeago.format(dateTime, locale: currentAppLang);
   }
 
   // ====================================================

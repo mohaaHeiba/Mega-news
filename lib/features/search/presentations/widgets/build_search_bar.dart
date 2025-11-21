@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide SearchController;
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/search/presentations/controller/search_controller.dart';
 
@@ -37,7 +38,7 @@ Widget buildSearchBar(BuildContext context, SearchController controller) {
               fontWeight: FontWeight.w500,
             ),
             decoration: InputDecoration(
-              hintText: 'Search news, topics...',
+              hintText: context.s.search_hint,
               hintStyle: TextStyle(
                 color: context.onBackground.withOpacity(0.4),
                 fontSize: 16,
@@ -73,7 +74,7 @@ Widget buildSearchBar(BuildContext context, SearchController controller) {
           ),
           onPressed: controller.startListening,
         ),
-        const SizedBox(width: 4),
+        AppGaps.w4,
       ],
     ),
   );

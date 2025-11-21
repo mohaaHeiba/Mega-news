@@ -40,6 +40,7 @@ class SearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    currentLanguage = Get.locale?.languageCode ?? 'en';
     searchTextController.addListener(_onSearchChanged);
     _initSpeech();
   }
@@ -73,6 +74,8 @@ class SearchController extends GetxController {
       _currentPage = 1;
       articles.clear();
       _cachedSummary = null;
+
+      currentLanguage = Get.locale?.languageCode ?? 'en';
 
       final fetched = await newsRepository.searchNews(
         searchQuery.value,
@@ -172,6 +175,11 @@ class SearchController extends GetxController {
     textController.clear();
     clearSearch();
     isListening(true);
+
+    String localeId = Get.locale?.languageCode == 'ar' ? 'ar_EG' : 'en_US';
+
+    currentLanguage = Get.locale?.languageCode ?? 'en';
+
     _speechToText.listen(
       onResult: (result) {
         textController.text = result.recognizedWords;
@@ -179,6 +187,7 @@ class SearchController extends GetxController {
           TextPosition(offset: textController.text.length),
         );
       },
+      localeId: localeId,
     );
   }
 
@@ -188,7 +197,7 @@ class SearchController extends GetxController {
   }
 
   String getTimeAgo(DateTime dateTime) =>
-      timeago.format(dateTime, locale: 'ar');
+      timeago.format(dateTime, locale: Get.locale?.languageCode ?? 'en');
 
   void clearSearch() {
     searchTextController.clear();

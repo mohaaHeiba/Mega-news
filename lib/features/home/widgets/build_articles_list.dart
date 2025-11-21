@@ -90,8 +90,7 @@ Widget buildArticlesList(
                                 ),
                               ),
 
-                            if (article.imageUrl != null)
-                              const SizedBox(width: 12),
+                            if (article.imageUrl != null) AppGaps.w12,
 
                             // 2. Article Content
                             Expanded(
@@ -139,7 +138,7 @@ Widget buildArticlesList(
                                   size: 14,
                                   color: context.primary.withOpacity(0.8),
                                 ),
-                                const SizedBox(width: 4),
+                                AppGaps.w4,
                                 Text(
                                   controller.getTimeAgo(article.publishedAt),
                                   style: context.textStyles.labelMedium

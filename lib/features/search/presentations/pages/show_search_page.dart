@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide SearchController;
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/home/widgets/build_articles_list.dart';
 import 'package:mega_news/features/search/presentations/controller/search_controller.dart';
@@ -12,6 +13,8 @@ class ShowSearchPage extends GetView<SearchController> {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.s;
+
     return Scaffold(
       backgroundColor: context.background,
       floatingActionButton: buildFloatingActionButton(context, controller),
@@ -67,7 +70,7 @@ class ShowSearchPage extends GetView<SearchController> {
                         child: buildEmptyState(
                           context,
                           icon: Icons.travel_explore_rounded,
-                          message: 'Discover News',
+                          message: s.search_discover,
                           iconColor: context.primary,
                         ),
                       );
@@ -81,7 +84,7 @@ class ShowSearchPage extends GetView<SearchController> {
                         child: buildEmptyState(
                           context,
                           icon: Icons.search_off_rounded,
-                          message: 'No results found',
+                          message: s.search_no_results,
                         ),
                       );
                     }
@@ -96,7 +99,7 @@ class ShowSearchPage extends GetView<SearchController> {
                             child: Row(
                               children: [
                                 Text(
-                                  '${controller.articles.length} Results',
+                                  '${controller.articles.length} ${s.search_results_count}',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -106,7 +109,7 @@ class ShowSearchPage extends GetView<SearchController> {
                                 const Spacer(),
                                 Expanded(
                                   child: Text(
-                                    'for "${controller.searchQuery.value}"',
+                                    '${s.search_results_for} "${controller.searchQuery.value}"',
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
                                       fontSize: 13,
@@ -133,7 +136,7 @@ class ShowSearchPage extends GetView<SearchController> {
                               child: Center(child: CircularProgressIndicator()),
                             )
                           else
-                            const SizedBox(height: 24),
+                            AppGaps.h24,
                         ],
                       ),
                     );
@@ -173,19 +176,19 @@ class ShowSearchPage extends GetView<SearchController> {
                             size: 70,
                           ),
                         ),
-                        const SizedBox(height: 40),
-                        const Text(
-                          "Listening...",
-                          style: TextStyle(
+                        AppGaps.h32,
+                        Text(
+                          s.search_listening,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.5,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        AppGaps.h12,
                         Text(
-                          "Try saying 'Sports' or 'Technology'",
+                          s.search_listening_hint,
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.6),
                             fontSize: 16,

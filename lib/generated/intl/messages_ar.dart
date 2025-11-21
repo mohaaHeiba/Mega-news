@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "anErrorOccurred": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
     "appVersion": MessageLookupByLibrary.simpleMessage("إصدار التطبيق"),
+    "app_name": MessageLookupByLibrary.simpleMessage("ميجا نيوز."),
     "appearance": MessageLookupByLibrary.simpleMessage("المظهر"),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "articleRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
@@ -172,6 +173,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم مسح الذاكرة المؤقتة",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "category_business": MessageLookupByLibrary.simpleMessage("أعمال"),
+    "category_entertainment": MessageLookupByLibrary.simpleMessage("ترفيه"),
+    "category_general": MessageLookupByLibrary.simpleMessage("عام"),
+    "category_health": MessageLookupByLibrary.simpleMessage("صحة"),
+    "category_science": MessageLookupByLibrary.simpleMessage("علوم"),
+    "category_sports": MessageLookupByLibrary.simpleMessage("رياضة"),
+    "category_technology": MessageLookupByLibrary.simpleMessage("تكنولوجيا"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
     "clearAll": MessageLookupByLibrary.simpleMessage("مسح الكل"),
     "clearAllFavorites": MessageLookupByLibrary.simpleMessage(
@@ -281,6 +289,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "hintFullName": MessageLookupByLibrary.simpleMessage("أدخل اسمك الكامل"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+    "home_featured_label": MessageLookupByLibrary.simpleMessage("⚡ مميز"),
+    "home_latest_articles": MessageLookupByLibrary.simpleMessage(
+      "أحدث المقالات",
+    ),
+    "home_no_news": MessageLookupByLibrary.simpleMessage("لا توجد أخبار"),
+    "home_search_hint": MessageLookupByLibrary.simpleMessage(
+      "ابحث في أكثر من مليون مقال...",
+    ),
+    "home_try_diff_category": MessageLookupByLibrary.simpleMessage(
+      "جرب اختيار تصنيف آخر",
+    ),
+    "home_welcome_back": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك،"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "الرجاء إدخال بريد إلكتروني صالح",
     ),
@@ -368,6 +388,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "ابحث عن المقالات أولاً لتلخيصها.",
     ),
+    "search_discover": MessageLookupByLibrary.simpleMessage("اكتشف الأخبار"),
+    "search_hint": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن أخبار، مواضيع...",
+    ),
+    "search_listening": MessageLookupByLibrary.simpleMessage(
+      "جاري الاستماع...",
+    ),
+    "search_listening_hint": MessageLookupByLibrary.simpleMessage(
+      "جرب قول \'رياضة\' أو \'تكنولوجيا\'",
+    ),
+    "search_no_results": MessageLookupByLibrary.simpleMessage("لا توجد نتائج"),
+    "search_results_count": MessageLookupByLibrary.simpleMessage("نتائج"),
+    "search_results_for": MessageLookupByLibrary.simpleMessage("عن"),
     "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
     "set_strong_password": MessageLookupByLibrary.simpleMessage(
       "أنشئ كلمة مرور قوية لحماية حسابك.",

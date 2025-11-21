@@ -15,6 +15,8 @@ class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
+    final s = context.s;
+
     return Scaffold(
       backgroundColor: context.background,
       body: Obx(() {
@@ -22,7 +24,6 @@ class HomePage extends GetView<HomeController> {
         // Empty State (when not loading)
         // =================================
         if (!controller.isLoading.value && controller.articles.isEmpty) {
-          // ... (Empty State Code remains unchanged) ...
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -32,17 +33,17 @@ class HomePage extends GetView<HomeController> {
                   size: 64,
                   color: context.primary.withOpacity(0.3),
                 ),
-                const SizedBox(height: 16),
+                AppGaps.h16,
                 Text(
-                  'No news found',
+                  s.home_no_news,
                   style: context.textStyles.headlineSmall?.copyWith(
                     color: context.onBackground,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 8),
+                AppGaps.h8,
                 Text(
-                  'Try selecting a different category',
+                  s.home_try_diff_category,
                   style: context.textStyles.bodyMedium?.copyWith(
                     color: context.onBackground.withOpacity(0.6),
                   ),
@@ -94,7 +95,6 @@ class HomePage extends GetView<HomeController> {
                 ),
 
                 actions: [
-                  // Search shows ONLY when collapsed
                   LayoutBuilder(
                     builder: (context, constraints) {
                       final settings = context
@@ -107,7 +107,6 @@ class HomePage extends GetView<HomeController> {
 
                       return Row(
                         children: [
-                          // Search button - only when collapsed
                           if (collapsed)
                             IconButton(
                               icon: Icon(
@@ -119,7 +118,6 @@ class HomePage extends GetView<HomeController> {
                               },
                             ),
 
-                          // Notifications - always visible
                           IconButton(
                             icon: Icon(
                               Icons.notifications_none,
@@ -128,7 +126,7 @@ class HomePage extends GetView<HomeController> {
                             onPressed: () {},
                           ),
 
-                          const SizedBox(width: 8),
+                          AppGaps.w8,
                         ],
                       );
                     },
@@ -171,11 +169,11 @@ class HomePage extends GetView<HomeController> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 12),
+                                  AppGaps.h12,
 
                                   // Greeting
                                   Text(
-                                    'Welcome Back,',
+                                    s.home_welcome_back,
                                     style: context.textStyles.labelSmall
                                         ?.copyWith(
                                           color: context.onBackground
@@ -183,9 +181,9 @@ class HomePage extends GetView<HomeController> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
-                                  const SizedBox(height: 2),
+                                  AppGaps.h4,
                                   Text(
-                                    'Mega News.',
+                                    s.app_name,
                                     style: context.textStyles.headlineLarge
                                         ?.copyWith(
                                           color: context.onBackground,
@@ -194,7 +192,7 @@ class HomePage extends GetView<HomeController> {
                                         ),
                                   ),
 
-                                  const SizedBox(height: 16),
+                                  AppGaps.h16,
 
                                   // BIG Search Bar
                                   Container(
@@ -227,10 +225,10 @@ class HomePage extends GetView<HomeController> {
                                               color: context.primary
                                                   .withOpacity(0.8),
                                             ),
-                                            const SizedBox(width: 12),
+                                            AppGaps.w12,
                                             Expanded(
                                               child: Text(
-                                                'Search over 1,000,000 articles...',
+                                                s.home_search_hint,
                                                 style: context
                                                     .textStyles
                                                     .bodyMedium
@@ -259,7 +257,6 @@ class HomePage extends GetView<HomeController> {
               // 2. Sliver List
               SliverList(
                 delegate: SliverChildListDelegate([
-                  // AppGaps.h12,
                   // Category Chips
                   SizedBox(
                     height: 44,
@@ -275,7 +272,7 @@ class HomePage extends GetView<HomeController> {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: FilterChip(
                             label: Text(
-                              cat['label']!,
+                              cat['label']!, // Label is already localized in controller
                               style: context.textStyles.labelSmall?.copyWith(
                                 fontWeight: isSelected
                                     ? FontWeight.bold
@@ -303,9 +300,7 @@ class HomePage extends GetView<HomeController> {
                   // Featured Carousel
                   controller.isLoading.value
                       ? buildCarouselShimmer(context)
-                      :
-                        // ... باقي الكود
-                        CarouselSlider(
+                      : CarouselSlider(
                           items: controller.articles.take(5).map((article) {
                             return GestureDetector(
                               onTap: () {
@@ -319,7 +314,6 @@ class HomePage extends GetView<HomeController> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(0),
                                   color: Colors.grey.shade300,
-                                  // شيلنا الصورة من هنا عشان نستخدم CachedNetworkImage كـ Widget
                                 ),
                                 child: article.imageUrl == null
                                     ? Center(
@@ -341,14 +335,6 @@ class HomePage extends GetView<HomeController> {
                                           CachedNetworkImage(
                                             imageUrl: article.imageUrl!,
                                             fit: BoxFit.cover,
-                                            // placeholder: (context, url) =>
-                                            //     Container(
-                                            //       color: Colors.grey.shade300,
-                                            //       child: const Center(
-                                            //         child:
-                                            //             CircularProgressIndicator(),
-                                            //       ),
-                                            //     ),
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Container(
@@ -359,7 +345,6 @@ class HomePage extends GetView<HomeController> {
                                                       ),
                                                     ),
                                           ),
-
                                           Container(
                                             decoration: BoxDecoration(
                                               gradient: LinearGradient(
@@ -374,7 +359,6 @@ class HomePage extends GetView<HomeController> {
                                               ),
                                             ),
                                           ),
-
                                           Positioned(
                                             bottom: 0,
                                             left: 0,
@@ -408,7 +392,7 @@ class HomePage extends GetView<HomeController> {
                                                       ],
                                                     ),
                                                     child: Text(
-                                                      '⚡ FEATURED',
+                                                      s.home_featured_label,
                                                       style: TextStyle(
                                                         color:
                                                             context.onPrimary,
@@ -419,7 +403,7 @@ class HomePage extends GetView<HomeController> {
                                                       ),
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 12),
+                                                  AppGaps.h12,
                                                   Text(
                                                     article.title,
                                                     style: const TextStyle(
@@ -439,7 +423,7 @@ class HomePage extends GetView<HomeController> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
-                                                  const SizedBox(height: 8),
+                                                  AppGaps.h8,
                                                   Container(
                                                     padding:
                                                         const EdgeInsets.symmetric(
@@ -487,7 +471,7 @@ class HomePage extends GetView<HomeController> {
                         ),
                   AppGaps.h24,
 
-                  // Latest Articles Header (
+                  // Latest Articles Header
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
@@ -504,9 +488,9 @@ class HomePage extends GetView<HomeController> {
                             color: context.primary,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        AppGaps.w8,
                         Text(
-                          'Latest Articles',
+                          s.home_latest_articles,
                           style: context.textStyles.headlineSmall?.copyWith(
                             color: context.onBackground,
                             fontWeight: FontWeight.bold,
@@ -516,13 +500,11 @@ class HomePage extends GetView<HomeController> {
                       ],
                     ),
                   ),
-                  // AppGaps.h24,
 
                   // Latest Articles List
-                  buildArticlesList(
-                    controller,
-                    context,
-                  ), // Loading More Indicator
+                  buildArticlesList(controller, context),
+
+                  // Loading More Indicator
                   Obx(() {
                     if (controller.isLoadingMore.value) {
                       return Padding(
@@ -536,7 +518,7 @@ class HomePage extends GetView<HomeController> {
                     }
                     return const SizedBox.shrink();
                   }),
-                  const SizedBox(height: 20),
+                  AppGaps.h16,
                 ]),
               ),
             ],

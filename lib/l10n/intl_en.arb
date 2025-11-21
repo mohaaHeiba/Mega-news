@@ -222,7 +222,29 @@
   "msg_no_description": "No detailed description available. Click below to read the full story.",
   "action_pause": "Pause",
 "action_listen": "Listen",
-"action_read_full_story": "Read Full Story"
+"action_read_full_story": "Read Full Story",
+"category_general": "General",
+  "category_sports": "Sports",
+  "category_technology": "Technology",
+  "category_business": "Business",
+  "category_health": "Health",
+  "category_science": "Science",
+  "category_entertainment": "Entertainment",
+  "home_no_news": "No news found",
+  "home_try_diff_category": "Try selecting a different category",
+  "home_welcome_back": "Welcome Back,",
+  "app_name": "Mega News.",
+  "home_search_hint": "Search over 1,000,000 articles...",
+  "home_featured_label": "⚡ FEATURED",
+  "home_latest_articles": "Latest Articles",
+  "search_discover": "Discover News",
+  "search_no_results": "No results found",
+  "search_results_count": "Results",
+  "search_results_for": "for",
+  "search_listening": "Listening...",
+  "search_listening_hint": "Try saying 'Sports' or 'Technology'",
+  "search_hint": "Search news, topics..."
+  
 
 
 }

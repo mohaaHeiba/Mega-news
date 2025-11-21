@@ -1663,6 +1663,196 @@ class S {
       args: [],
     );
   }
+
+  /// `General`
+  String get category_general {
+    return Intl.message(
+      'General',
+      name: 'category_general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sports`
+  String get category_sports {
+    return Intl.message('Sports', name: 'category_sports', desc: '', args: []);
+  }
+
+  /// `Technology`
+  String get category_technology {
+    return Intl.message(
+      'Technology',
+      name: 'category_technology',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Business`
+  String get category_business {
+    return Intl.message(
+      'Business',
+      name: 'category_business',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Health`
+  String get category_health {
+    return Intl.message('Health', name: 'category_health', desc: '', args: []);
+  }
+
+  /// `Science`
+  String get category_science {
+    return Intl.message(
+      'Science',
+      name: 'category_science',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Entertainment`
+  String get category_entertainment {
+    return Intl.message(
+      'Entertainment',
+      name: 'category_entertainment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No news found`
+  String get home_no_news {
+    return Intl.message(
+      'No news found',
+      name: 'home_no_news',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try selecting a different category`
+  String get home_try_diff_category {
+    return Intl.message(
+      'Try selecting a different category',
+      name: 'home_try_diff_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Back,`
+  String get home_welcome_back {
+    return Intl.message(
+      'Welcome Back,',
+      name: 'home_welcome_back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mega News.`
+  String get app_name {
+    return Intl.message('Mega News.', name: 'app_name', desc: '', args: []);
+  }
+
+  /// `Search over 1,000,000 articles...`
+  String get home_search_hint {
+    return Intl.message(
+      'Search over 1,000,000 articles...',
+      name: 'home_search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `⚡ FEATURED`
+  String get home_featured_label {
+    return Intl.message(
+      '⚡ FEATURED',
+      name: 'home_featured_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latest Articles`
+  String get home_latest_articles {
+    return Intl.message(
+      'Latest Articles',
+      name: 'home_latest_articles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover News`
+  String get search_discover {
+    return Intl.message(
+      'Discover News',
+      name: 'search_discover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No results found`
+  String get search_no_results {
+    return Intl.message(
+      'No results found',
+      name: 'search_no_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Results`
+  String get search_results_count {
+    return Intl.message(
+      'Results',
+      name: 'search_results_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `for`
+  String get search_results_for {
+    return Intl.message('for', name: 'search_results_for', desc: '', args: []);
+  }
+
+  /// `Listening...`
+  String get search_listening {
+    return Intl.message(
+      'Listening...',
+      name: 'search_listening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try saying 'Sports' or 'Technology'`
+  String get search_listening_hint {
+    return Intl.message(
+      'Try saying \'Sports\' or \'Technology\'',
+      name: 'search_listening_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search news, topics...`
+  String get search_hint {
+    return Intl.message(
+      'Search news, topics...',
+      name: 'search_hint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
