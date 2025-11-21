@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/auth/data/model/auth_model.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
+import 'package:mega_news/core/services/permission_service.dart';
 
 class MenuViewController extends GetxController {
   final storage = GetStorage();
   final Rxn<AuthEntity> user = Rxn<AuthEntity>();
-
   final ThemeController themeController = Get.find<ThemeController>();
+
+  final PermissionService _permissionService = PermissionService();
 
   //=============== PageView ================
   final PageController pageController = PageController(initialPage: 0);
@@ -29,7 +32,7 @@ class MenuViewController extends GetxController {
   }
 
   //=============== Settings ================
-  final notificationsEnabled = true.obs;
+  final notificationsEnabled = false.obs;
   final breakingNewsEnabled = true.obs;
 
   String get currentLang => themeController.language.value;
@@ -40,6 +43,19 @@ class MenuViewController extends GetxController {
     super.onInit();
     _loadOtherSettings();
     _initializeUser();
+
+    _checkSystemPermissions();
+  }
+
+  Future<void> _checkSystemPermissions() async {
+    bool systemGranted = await _permissionService.isNotificationGranted;
+    bool userPref = storage.read('notifications') ?? true;
+
+    if (!systemGranted) {
+      notificationsEnabled.value = false;
+    } else {
+      notificationsEnabled.value = userPref;
+    }
   }
 
   void _initializeUser() {
@@ -81,14 +97,50 @@ class MenuViewController extends GetxController {
     breakingNewsEnabled.value = storage.read('breakingNews') ?? true;
   }
 
-  void toggleNotifications() {
-    notificationsEnabled.value = !notificationsEnabled.value;
-    storage.write('notifications', notificationsEnabled.value);
+  Future<void> toggleNotifications() async {
+    if (notificationsEnabled.value) {
+      notificationsEnabled.value = false;
+      storage.write('notifications', false);
+      return;
+    }
+
+    bool granted = await _permissionService.requestNotification();
+
+    if (granted) {
+      notificationsEnabled.value = true;
+      storage.write('notifications', true);
+    } else {
+      _showPermissionDialog();
+      notificationsEnabled.value = false;
+    }
   }
 
-  void toggleBreakingNews() {
+  void toggleBreakingNews() async {
+    if (!breakingNewsEnabled.value) {
+      if (!notificationsEnabled.value) {
+        await toggleNotifications();
+        if (!notificationsEnabled.value) return;
+      }
+    }
+
     breakingNewsEnabled.value = !breakingNewsEnabled.value;
     storage.write('breakingNews', breakingNewsEnabled.value);
+  }
+
+  void _showPermissionDialog() {
+    final s = Get.context!.s;
+
+    Get.defaultDialog(
+      title: s.notification_permission_title,
+      middleText: s.notification_permission_msg,
+      textConfirm: s.action_settings,
+      textCancel: s.action_cancel,
+      confirmTextColor: Colors.white,
+      onConfirm: () {
+        _permissionService.openSettings();
+        Get.back();
+      },
+    );
   }
 
   void changeLanguage(String lang) {

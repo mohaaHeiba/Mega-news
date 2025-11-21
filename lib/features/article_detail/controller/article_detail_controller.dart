@@ -8,14 +8,21 @@ import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// ================= Enums =================
+// ✅ 1. استيراد كونترولر المفضلة
+import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
+
 enum TtsState { playing, stopped, paused, continued }
 
 class ArticleDetailController extends GetxController {
   // ================= Variables & State =================
   Article? article;
 
-  // AI Summary Data
+  // ✅ 2. الوصول لكونترولر المفضلة
+  // بنستخدم Get.find لأنه شغال بالفعل في الخلفية (في الـ Bindings أو main)
+  final FavoritesController _favoritesController =
+      Get.find<FavoritesController>();
+
+  // AI Summary Data (Legacy support if needed)
   String? aiSummary;
   String? aiTopic;
   List<String>? aiImages;
@@ -23,7 +30,8 @@ class ArticleDetailController extends GetxController {
   // UI Observables
   var vibrantColor = Rx<Color>(Colors.transparent);
   var vibrantTextColor = Rx<Color>(Colors.white);
-  var isLiked = false.obs;
+
+  var isLiked = false.obs; // حالة الزرار
   var ttsState = TtsState.stopped.obs;
 
   // Services
@@ -35,15 +43,21 @@ class ArticleDetailController extends GetxController {
     super.onInit();
     final args = Get.arguments;
 
-    // Handle Standard Article
+    // Handle Standard Article (And AI Summary converted to Article)
     if (args is Article) {
       article = args;
-      // Delay slightly to ensure UI is ready before calculating colors
+
+      // ✅ 3. التحقق: هل المقال ده محفوظ عندي قبل كده؟
+      // لو محفوظ، خلي isLiked بـ true عشان القلب ينور أحمر
+      if (article != null) {
+        isLiked.value = _favoritesController.isFavorite(article!.id);
+      }
+
       Future.delayed(const Duration(milliseconds: 100), () {
         _generatePalette();
       });
     }
-    // Handle AI Generated Content
+    // Handle AI Generated Content (Legacy Map)
     else if (args is Map<String, dynamic>) {
       aiTopic = args['topic'];
       aiSummary = args['summary'];
@@ -56,25 +70,26 @@ class ArticleDetailController extends GetxController {
 
   // ================= User Actions =================
   void toggleLike() {
-    isLiked.value = !isLiked.value;
+    if (article == null) return;
+
+    // ✅ 4. الربط الحقيقي: بننادي دالة الحفظ في FavoritesController
+    // الدالة دي هتحفظ في Supabase وفي GetStorage
+    _favoritesController.toggleFavorite(article!);
+
+    // تحديث حالة الزرار في الصفحة دي فوراً
+    isLiked.value = _favoritesController.isFavorite(article!.id);
   }
 
   // ================= Text-to-Speech (TTS) Logic =================
   void _initTts() {
     _flutterTts.setSpeechRate(0.5);
 
-    // Status Listeners
     _flutterTts.setStartHandler(() => ttsState.value = TtsState.playing);
     _flutterTts.setCompletionHandler(() => ttsState.value = TtsState.stopped);
     _flutterTts.setCancelHandler(() => ttsState.value = TtsState.stopped);
     _flutterTts.setPauseHandler(() => ttsState.value = TtsState.paused);
     _flutterTts.setContinueHandler(() => ttsState.value = TtsState.continued);
     _flutterTts.setErrorHandler((msg) => ttsState.value = TtsState.stopped);
-
-    // for ios
-    // _flutterTts.setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
-    //   IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
-    // ]);
   }
 
   Future<void> speak() async {

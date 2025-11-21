@@ -99,12 +99,15 @@ class AiBriefingController extends GetxController {
   // ==================================================
   //
   // ==================================================
+  // ... (باقي الكود)
+
+  // دالة الانتقال للتفاصيل (المعدلة للحفظ)
   void _navigateToDetails(Article fullArticle) {
     final isArabic = Get.locale?.languageCode == 'ar';
     String finalDescription = fullArticle.description ?? '';
 
+    // لو بتستخدم فصل اللغات، اختار اللغة المناسبة
     const separator = "###SPLIT###";
-
     if (finalDescription.contains(separator)) {
       final parts = finalDescription.split(separator);
       if (parts.length >= 2) {
@@ -112,14 +115,20 @@ class AiBriefingController extends GetxController {
       }
     }
 
+    // ✅ توليد ID فريد (عشان الحفظ المتكرر)
+    // الشكل: ai_briefing_sports_170123456789
+    final String uniqueId =
+        'ai_briefing_${fullArticle.title}_${DateTime.now().millisecondsSinceEpoch}';
+
     final articleToShow = Article(
-      id: fullArticle.id,
-      sourceName: fullArticle.sourceName,
+      id: uniqueId, // ✅ ID جديد وفريد
+      sourceName: "AI Briefing", // 👈 العلامة المميزة للفلترة
+      author: "Gemini AI",
       title: fullArticle.title,
       description: finalDescription,
       articleUrl: fullArticle.articleUrl,
       imageUrl: fullArticle.imageUrl,
-      publishedAt: fullArticle.publishedAt,
+      publishedAt: DateTime.now(),
     );
 
     Get.toNamed(AppPages.articleDetailPage, arguments: articleToShow);

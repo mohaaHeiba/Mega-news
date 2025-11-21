@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/features/favorites/presentation/pages/favorites_page.dart';
+// ✅ 1. استيراد صفحة الـ AI الجديدة
+import 'package:mega_news/features/favorites/presentation/pages/saved_ai_page.dart';
 
 // ignore: non_constant_identifier_names
 Widget QuickActions(ThemeData theme, dynamic s) {
@@ -30,12 +32,33 @@ Widget QuickActions(ThemeData theme, dynamic s) {
         ),
         child: Column(
           children: [
+            // --- 1. Saved Articles Button ---
             _buildActionTile(
               theme,
               icon: Icons.bookmark_outline_rounded,
-              color: Colors.purpleAccent,
+              color: Colors.orangeAccent,
               title: s.savedArticles,
               onTap: () => Get.to(() => const FavoritesPage()),
+            ),
+
+            // فاصل صغير وشيك
+            Divider(
+              height: 1,
+              thickness: 0.5,
+              indent: 60, // يبدأ بعد الأيقونة
+              endIndent: 20,
+              color: theme.dividerColor.withOpacity(0.1),
+            ),
+
+            // --- 2. AI Summaries Button (New) ---
+            _buildActionTile(
+              theme,
+              icon: Icons.auto_awesome_motion_outlined,
+              color: Colors.purpleAccent,
+              title: "Saved AI Summaries", // s.savedAiSummaries
+              onTap: () => Get.to(
+                () => const SavedAiPage(),
+              ), // ✅ الانتقال للصفحة الجديدة
             ),
           ],
         ),

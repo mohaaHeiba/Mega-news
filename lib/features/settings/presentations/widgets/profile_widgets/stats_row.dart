@@ -5,20 +5,22 @@ import 'package:mega_news/features/favorites/presentation/controller/favorites_c
 
 // ignore: non_constant_identifier_names
 Widget StatsRow(ThemeData theme, dynamic s) {
+  // بنوصل للكنترولر عشان نجيب الأرقام الحقيقية
   final favoritesController = Get.find<FavoritesController>();
 
   return Row(
     children: [
-      // --- Saved Articles Card ---
+      // --- Saved Articles Card (Normal News) ---
       Expanded(
         child: _buildStatCard(
           theme,
-          title: s.savedArticles,
-          icon: Icons.bookmark_rounded,
+          title: s.savedArticles, // "Saved Articles"
+          icon: Icons.article_rounded,
           iconColor: Colors.orangeAccent,
           valueWidget: Obx(
+            // ✅ بنعرض عدد الأخبار العادية فقط
             () => Text(
-              '${favoritesController.favorites.length}',
+              '${favoritesController.normalArticles.length}',
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.onSurface,
@@ -28,18 +30,22 @@ Widget StatsRow(ThemeData theme, dynamic s) {
         ),
       ),
       AppGaps.w16,
-      // --- Read Articles Card ---
+
+      // --- AI Summaries Card (New) ---
       Expanded(
         child: _buildStatCard(
           theme,
-          title: s.read,
-          icon: Icons.auto_stories_rounded,
-          iconColor: Colors.blueAccent,
-          valueWidget: Text(
-            '45',
-            style: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
+          title: "AI Summaries", // ممكن تضيفها للترجمة s.aiSummaries
+          icon: Icons.auto_awesome_rounded, // أيقونة مناسبة للـ AI
+          iconColor: Colors.purpleAccent,
+          valueWidget: Obx(
+            // ✅ بنعرض عدد ملخصات الذكاء الاصطناعي
+            () => Text(
+              '${favoritesController.aiSummaries.length}',
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onSurface,
+              ),
             ),
           ),
         ),
@@ -84,6 +90,8 @@ Widget _buildStatCard(
         AppGaps.h4,
         Text(
           title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.6),
             fontWeight: FontWeight.w600,

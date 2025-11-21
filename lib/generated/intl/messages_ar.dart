@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "account_info": MessageLookupByLibrary.simpleMessage("معلومات الحساب"),
+    "action_cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "إنشاء ملخص",
     ),
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_read_full_story": MessageLookupByLibrary.simpleMessage(
       "قراءة الخبر كاملاً",
     ),
+    "action_settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "action_stop_listening": MessageLookupByLibrary.simpleMessage(
       "إيقاف الاستماع",
     ),
@@ -353,6 +355,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noUserDataFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على بيانات المستخدم",
     ),
+    "notification_permission_msg": MessageLookupByLibrary.simpleMessage(
+      "يجب تفعيل الإشعارات من إعدادات الهاتف لاستقبال الأخبار.",
+    ),
+    "notification_permission_title": MessageLookupByLibrary.simpleMessage(
+      "إذن الإشعارات",
+    ),
     "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "or_continue_with": MessageLookupByLibrary.simpleMessage(
       "أو تابع باستخدام",
@@ -396,6 +404,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_articles_first_msg": MessageLookupByLibrary.simpleMessage(
       "يجب البحث عن مقالات أولاً.",
     ),
+    "search_clear_all": MessageLookupByLibrary.simpleMessage("مسح الكل"),
     "search_discover": MessageLookupByLibrary.simpleMessage("اكتشف الأخبار"),
     "search_hint": MessageLookupByLibrary.simpleMessage(
       "ابحث عن أخبار، مواضيع...",
@@ -407,6 +416,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "جرب قول \'رياضة\' أو \'تكنولوجيا\'",
     ),
     "search_no_results": MessageLookupByLibrary.simpleMessage("لا توجد نتائج"),
+    "search_recent": MessageLookupByLibrary.simpleMessage(
+      "عمليات البحث الأخيرة",
+    ),
     "search_results_count": MessageLookupByLibrary.simpleMessage("نتائج"),
     "search_results_for": MessageLookupByLibrary.simpleMessage("عن"),
     "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),

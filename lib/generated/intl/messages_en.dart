@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "account_info": MessageLookupByLibrary.simpleMessage("Account Info"),
+    "action_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "Generate Summary",
     ),
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_read_full_story": MessageLookupByLibrary.simpleMessage(
       "Read Full Story",
     ),
+    "action_settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "action_stop_listening": MessageLookupByLibrary.simpleMessage(
       "Stop Listening",
     ),
@@ -353,6 +355,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noUserDataFound": MessageLookupByLibrary.simpleMessage(
       "No user data found",
     ),
+    "notification_permission_msg": MessageLookupByLibrary.simpleMessage(
+      "Notifications are disabled. Please enable them in settings to receive news.",
+    ),
+    "notification_permission_title": MessageLookupByLibrary.simpleMessage(
+      "Notifications Permission",
+    ),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "or_continue_with": MessageLookupByLibrary.simpleMessage(
       "or continue with",
@@ -398,6 +406,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_articles_first_msg": MessageLookupByLibrary.simpleMessage(
       "Search for articles first.",
     ),
+    "search_clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
     "search_discover": MessageLookupByLibrary.simpleMessage("Discover News"),
     "search_hint": MessageLookupByLibrary.simpleMessage(
       "Search news, topics...",
@@ -409,6 +418,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_no_results": MessageLookupByLibrary.simpleMessage(
       "No results found",
     ),
+    "search_recent": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "search_results_count": MessageLookupByLibrary.simpleMessage("Results"),
     "search_results_for": MessageLookupByLibrary.simpleMessage("for"),
     "seeAll": MessageLookupByLibrary.simpleMessage("See all"),

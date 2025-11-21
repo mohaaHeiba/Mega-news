@@ -244,7 +244,14 @@
   "info_title": "تنبيه",
 "search_articles_first_msg": "يجب البحث عن مقالات أولاً.",
 "error_title": "خطأ",
-"ai_summary_generation_error": "فشل إنشاء الملخص: "
+"ai_summary_generation_error": "فشل إنشاء الملخص: ",
+"notification_permission_title": "إذن الإشعارات",
+  "notification_permission_msg": "يجب تفعيل الإشعارات من إعدادات الهاتف لاستقبال الأخبار.",
+  "action_settings": "الإعدادات",
+  "action_cancel": "إلغاء",
+  "search_recent": "عمليات البحث الأخيرة",
+  "search_clear_all": "مسح الكل"
+
 
 
 

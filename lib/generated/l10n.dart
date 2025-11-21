@@ -1883,6 +1883,61 @@ class S {
       args: [],
     );
   }
+
+  /// `Notifications Permission`
+  String get notification_permission_title {
+    return Intl.message(
+      'Notifications Permission',
+      name: 'notification_permission_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications are disabled. Please enable them in settings to receive news.`
+  String get notification_permission_msg {
+    return Intl.message(
+      'Notifications are disabled. Please enable them in settings to receive news.',
+      name: 'notification_permission_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get action_settings {
+    return Intl.message(
+      'Settings',
+      name: 'action_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get action_cancel {
+    return Intl.message('Cancel', name: 'action_cancel', desc: '', args: []);
+  }
+
+  /// `Recent Searches`
+  String get search_recent {
+    return Intl.message(
+      'Recent Searches',
+      name: 'search_recent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All`
+  String get search_clear_all {
+    return Intl.message(
+      'Clear All',
+      name: 'search_clear_all',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

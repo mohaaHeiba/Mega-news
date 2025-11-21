@@ -34,7 +34,9 @@ class ShowSearchPage extends GetView<SearchController> {
               },
               child: CustomScrollView(
                 slivers: [
-                  // AppBar
+                  // ===================================================
+                  // ✅ AppBar with Notification Action
+                  // ===================================================
                   SliverAppBar(
                     elevation: 0,
                     backgroundColor: context.background,
@@ -44,7 +46,31 @@ class ShowSearchPage extends GetView<SearchController> {
                     expandedHeight: 0,
                     toolbarHeight: 90,
                     automaticallyImplyLeading: false,
+                    // شريط البحث
                     title: buildSearchBar(context, controller),
+
+                    // ✅✅ إضافة زر الإشعارات هنا ✅✅
+                    actions: [
+                      Obx(() {
+                        // يظهر الزر فقط لو فيه كلمة بحث مكتوبة
+                        if (controller.searchQuery.value.isNotEmpty) {
+                          return Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 16),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.notification_add_outlined,
+                                color: context.primary,
+                              ),
+                              tooltip: 'asd', // تأكد من إضافتها في الترجمة
+                              onPressed: () {
+                                controller.subscribeToCurrentTopic(context);
+                              },
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      }),
+                    ],
                   ),
 
                   // Content Body
@@ -63,20 +89,28 @@ class ShowSearchPage extends GetView<SearchController> {
                       );
                     }
 
-                    // 2. Initial State (Discover - Search Query is Empty)
+                    // 2. Initial State (History OR Discover)
                     if (controller.searchQuery.value.isEmpty) {
-                      return SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: buildEmptyState(
-                          context,
-                          icon: Icons.travel_explore_rounded,
-                          message: s.search_discover,
-                          iconColor: context.primary,
-                        ),
-                      );
+                      // ✅ عرض الهيستوري لو موجود
+                      if (controller.searchHistory.isNotEmpty) {
+                        return SliverToBoxAdapter(
+                          child: _buildHistoryList(context, s),
+                        );
+                      } else {
+                        // عرض شاشة الاكتشاف
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: buildEmptyState(
+                            context,
+                            icon: Icons.travel_explore_rounded,
+                            message: s.search_discover,
+                            iconColor: context.primary,
+                          ),
+                        );
+                      }
                     }
 
-                    // 3. Empty State (No Results found when searching)
+                    // 3. Empty State (No Results found)
                     if (controller.articles.isEmpty &&
                         controller.searchQuery.value.isNotEmpty) {
                       return SliverFillRemaining(
@@ -204,6 +238,63 @@ class ShowSearchPage extends GetView<SearchController> {
           }),
         ],
       ),
+    );
+  }
+
+  // ==========================================
+  // ✅ Widget لعرض قائمة السجل
+  // ==========================================
+  Widget _buildHistoryList(BuildContext context, var s) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                s.search_recent,
+                style: context.textStyles.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: context.onBackground,
+                ),
+              ),
+              TextButton(
+                onPressed: controller.clearAllHistory,
+                style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+                child: Text(s.search_clear_all),
+              ),
+            ],
+          ),
+        ),
+        ...controller.searchHistory.map(
+          (item) {
+            return ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              leading: Icon(
+                Icons.history_rounded,
+                color: context.onBackground.withOpacity(0.5),
+                size: 22,
+              ),
+              title: Text(
+                item,
+                style: TextStyle(fontSize: 16, color: context.onBackground),
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.close_rounded,
+                  color: context.onBackground.withOpacity(0.4),
+                  size: 20,
+                ),
+                onPressed: () => controller.removeFromHistory(item),
+              ),
+              onTap: () => controller.searchFromHistory(item),
+            );
+          },
+        ).toList(), // شيلت toList هنا لأن الـ spread operator بيحتاج iterable بس toList أأمن
+        AppGaps.h24,
+      ],
     );
   }
 }

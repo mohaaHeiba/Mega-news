@@ -248,7 +248,13 @@
   "info_title": "Info",
 "search_articles_first_msg": "Search for articles first.",
 "error_title": "Error",
-"ai_summary_generation_error": "Failed to generate summary: "
+"ai_summary_generation_error": "Failed to generate summary: ",
+"notification_permission_title": "Notifications Permission",
+  "notification_permission_msg": "Notifications are disabled. Please enable them in settings to receive news.",
+  "action_settings": "Settings",
+  "action_cancel": "Cancel",
+  "search_recent": "Recent Searches",
+  "search_clear_all": "Clear All"
   
 
 
