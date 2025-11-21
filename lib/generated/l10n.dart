@@ -1938,6 +1938,36 @@ class S {
       args: [],
     );
   }
+
+  /// `AI Summaries`
+  String get saved_ai_title {
+    return Intl.message(
+      'AI Summaries',
+      name: 'saved_ai_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No AI Summaries yet`
+  String get saved_ai_empty {
+    return Intl.message(
+      'No AI Summaries yet',
+      name: 'saved_ai_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Generated`
+  String get saved_ai_badge {
+    return Intl.message(
+      'AI Generated',
+      name: 'saved_ai_badge',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

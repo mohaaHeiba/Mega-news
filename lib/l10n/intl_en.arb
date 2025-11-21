@@ -254,7 +254,10 @@
   "action_settings": "Settings",
   "action_cancel": "Cancel",
   "search_recent": "Recent Searches",
-  "search_clear_all": "Clear All"
+  "search_clear_all": "Clear All",
+  "saved_ai_title": "AI Summaries",
+  "saved_ai_empty": "No AI Summaries yet",
+  "saved_ai_badge": "AI Generated"
   
 
 

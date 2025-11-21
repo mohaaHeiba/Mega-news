@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
-import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
+import 'package:mega_news/core/custom/custom_snackbar.dart';
 import 'package:mega_news/features/favorites/domain/usecases/add_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/get_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/remove_favorites_use_case.dart';
@@ -103,7 +103,7 @@ class FavoritesController extends GetxController {
 
     // Optimistic Update
     final index = favorites.indexOf(article);
-    if (index == -1) return; // Should not happen
+    if (index == -1) return;
 
     favorites.removeAt(index);
 
@@ -138,5 +138,19 @@ class FavoritesController extends GetxController {
     } else {
       addFavorite(article);
     }
+  }
+
+  List<Article> get aiSummaries {
+    return favorites.where((article) {
+      return article.sourceName == "AI Summary" ||
+          article.sourceName == "AI Briefing";
+    }).toList();
+  }
+
+  List<Article> get normalArticles {
+    return favorites.where((article) {
+      return article.sourceName != "AI Summary" &&
+          article.sourceName != "AI Briefing";
+    }).toList();
   }
 }

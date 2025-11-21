@@ -7,14 +7,13 @@ import 'package:mega_news/features/favorites/data/repositories/favorites_reposit
 import 'package:mega_news/features/favorites/domain/usecases/add_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/get_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/remove_favorites_use_case.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // Supabase Import
+import 'package:mega_news/features/notifications/presentation/controller/notifications_controller.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-// --- Imports for Core & Layout ---
 import 'package:mega_news/core/layouts/layout_controller.dart';
 import 'package:mega_news/core/network/api_cleint.dart';
-import 'package:mega_news/features/settings/presentations/controller/menu_view_controller.dart';
+import 'package:mega_news/features/settings/controller/menu_view_controller.dart';
 
-// --- Imports for News Feature ---
 import 'package:mega_news/features/home/controller/home_controller.dart';
 import 'package:mega_news/features/news/data/datasources/currents_remote_datasource.dart';
 import 'package:mega_news/features/news/data/datasources/gnews_remote_datasource.dart';
@@ -23,16 +22,13 @@ import 'package:mega_news/features/news/data/datasources/newsdata_remote_datasou
 import 'package:mega_news/features/news/data/mappers/article_mapper.dart';
 import 'package:mega_news/features/news/domain/repositories/news_repository_impl.dart';
 
-// --- Imports for Gemini Feature ---
 import 'package:mega_news/features/briefing/controller/briefing_controller.dart';
 import 'package:mega_news/features/gemini/data/datasources/gemini_remote_datasource.dart';
 import 'package:mega_news/features/gemini/data/repositories/gemini_repository_impl.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
 
-// --- Imports for Search Feature ---
-import 'package:mega_news/features/search/presentations/controller/search_controller.dart';
+import 'package:mega_news/features/search/controller/search_controller.dart';
 
-// --- Imports for Favorites Feature (New) ---
 import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 
 class LayoutBinding extends Bindings {
@@ -121,6 +117,10 @@ class LayoutBinding extends Bindings {
       fenix: true,
     );
 
+    Get.lazyPut<NotificationsController>(
+      () => NotificationsController(),
+      fenix: true,
+    );
     // Favorites Controller
     Get.lazyPut<FavoritesController>(
       () => FavoritesController(

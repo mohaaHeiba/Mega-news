@@ -4,7 +4,7 @@ import 'package:mega_news/core/layouts/bottom_nav_bar.dart';
 import 'package:mega_news/core/layouts/layout_controller.dart';
 import 'package:mega_news/features/briefing/pages/briefing_page.dart';
 import 'package:mega_news/features/home/pages/home_page.dart';
-import 'package:mega_news/features/settings/presentations/pages/menu_view.dart';
+import 'package:mega_news/features/settings/pages/menu_view.dart';
 
 class MainLayout extends GetView<LayoutController> {
   const MainLayout({super.key});

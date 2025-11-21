@@ -397,6 +397,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "تمت الإزالة من المفضلة",
     ),
     "savedArticles": MessageLookupByLibrary.simpleMessage("المقالات المحفوظة"),
+    "saved_ai_badge": MessageLookupByLibrary.simpleMessage("توليد AI"),
+    "saved_ai_empty": MessageLookupByLibrary.simpleMessage(
+      "لا توجد ملخصات محفوظة بعد",
+    ),
+    "saved_ai_title": MessageLookupByLibrary.simpleMessage(
+      "ملخصات الذكاء الاصطناعي",
+    ),
     "science": MessageLookupByLibrary.simpleMessage("العلوم"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "ابحث عن المقالات أولاً لتلخيصها.",

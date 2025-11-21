@@ -4,7 +4,7 @@ import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
+import 'package:mega_news/features/settings/controller/theme_controller.dart';
 
 class HomeController extends GetxController {
   final INewsRepository newsRepository;

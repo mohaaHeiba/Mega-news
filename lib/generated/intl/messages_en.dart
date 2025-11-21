@@ -399,6 +399,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Removed from Favorites",
     ),
     "savedArticles": MessageLookupByLibrary.simpleMessage("Saved Articles"),
+    "saved_ai_badge": MessageLookupByLibrary.simpleMessage("AI Generated"),
+    "saved_ai_empty": MessageLookupByLibrary.simpleMessage(
+      "No AI Summaries yet",
+    ),
+    "saved_ai_title": MessageLookupByLibrary.simpleMessage("AI Summaries"),
     "science": MessageLookupByLibrary.simpleMessage("Science"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "Search for articles first to summarize them.",

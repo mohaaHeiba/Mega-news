@@ -4,8 +4,11 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mega_news/app.dart';
-import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
+import 'package:mega_news/core/services/notification_service.dart';
+import 'package:mega_news/features/notifications/Worker/background_worker.dart';
+import 'package:mega_news/features/settings/controller/theme_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:workmanager/workmanager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,10 @@ Future<void> main() async {
 
   // for language and theme
   Get.putAsync(() async => ThemeController());
+
+  await NotificationService.init();
+
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
   runApp(const MyApp());
 }

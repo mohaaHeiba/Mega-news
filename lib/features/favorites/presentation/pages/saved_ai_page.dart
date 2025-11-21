@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
-import 'package:mega_news/features/favorites/presentation/widgets/build_empty_state.dart'
-    show buildEmptyState;
-import 'package:mega_news/features/favorites/presentation/widgets/build_favorite_article_tile.dart';
+import 'package:mega_news/features/favorites/presentation/widgets/build_ai_summary_tile.dart';
+import 'package:mega_news/features/favorites/presentation/widgets/build_empty_state_ai.dart';
 
-class FavoritesPage extends GetView<FavoritesController> {
-  const FavoritesPage({super.key});
+class SavedAiPage extends GetView<FavoritesController> {
+  const SavedAiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +18,25 @@ class FavoritesPage extends GetView<FavoritesController> {
         backgroundColor: context.primary.withOpacity(0.5),
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          s.savedArticles,
-          style: context.textStyles.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.auto_awesome, size: 20),
+            AppGaps.w8,
+            Text(
+              s.saved_ai_title,
+              style: context.textStyles.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
       body: Container(
+        //gradient
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              context.primary.withOpacity(0.5),
-              context.background,
-              context.background,
-            ],
+            colors: [context.primary.withOpacity(0.5), context.background],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -45,28 +48,19 @@ class FavoritesPage extends GetView<FavoritesController> {
             );
           }
 
-          if (controller.normalArticles.isEmpty) {
-            return buildEmptyState(context, s);
+          if (controller.aiSummaries.isEmpty) {
+            return buildEmptyStateAi(context, s);
           }
 
           return RefreshIndicator(
-            color: context.primary,
-            onRefresh: () async {
-              await controller.loadFavorites();
-            },
+            onRefresh: () async => await controller.loadFavorites(),
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              itemCount: controller.normalArticles.length,
+              itemCount: controller.aiSummaries.length,
               separatorBuilder: (context, index) => AppGaps.h16,
               itemBuilder: (context, index) {
-                final article = controller.normalArticles[index];
-
-                return buildFavoriteArticleTile(
-                  context,
-                  article,
-                  controller,
-                  s,
-                );
+                final article = controller.aiSummaries[index];
+                return buildAiSummaryTile(context, article, controller, s);
               },
             ),
           );

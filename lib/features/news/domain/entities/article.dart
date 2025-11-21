@@ -9,6 +9,10 @@ class Article {
   final String sourceName;
   final String articleUrl;
   final DateTime publishedAt;
+  final String? author;
+
+  // ✅ 1. تمت الإضافة هنا (Nullable)
+  final String? content;
 
   const Article({
     required this.id,
@@ -18,6 +22,9 @@ class Article {
     required this.sourceName,
     required this.articleUrl,
     required this.publishedAt,
+    this.author,
+    // ✅ 2. تمت الإضافة للكونستركتور (اختياري عشان ميكسرش الكود)
+    this.content,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) {
@@ -29,6 +36,9 @@ class Article {
       sourceName: json['sourceName'] as String,
       articleUrl: json['articleUrl'] as String,
       publishedAt: DateTime.parse(json['publishedAt'] as String),
+      author: json['author'] as String?,
+      // ✅ 3. قراءة المحتوى من JSON
+      content: json['content'] as String?,
     );
   }
 
@@ -41,6 +51,9 @@ class Article {
       'sourceName': sourceName,
       'articleUrl': articleUrl,
       'publishedAt': publishedAt.toIso8601String(),
+      'author': author,
+      // ✅ 4. حفظ المحتوى في JSON
+      'content': content,
     };
   }
 

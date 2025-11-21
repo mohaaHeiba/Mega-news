@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_images.dart';
-import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
+import 'package:mega_news/core/custom/custom_snackbar.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
@@ -99,14 +99,11 @@ class AiBriefingController extends GetxController {
   // ==================================================
   //
   // ==================================================
-  // ... (باقي الكود)
 
-  // دالة الانتقال للتفاصيل (المعدلة للحفظ)
   void _navigateToDetails(Article fullArticle) {
     final isArabic = Get.locale?.languageCode == 'ar';
     String finalDescription = fullArticle.description ?? '';
 
-    // لو بتستخدم فصل اللغات، اختار اللغة المناسبة
     const separator = "###SPLIT###";
     if (finalDescription.contains(separator)) {
       final parts = finalDescription.split(separator);
@@ -115,14 +112,12 @@ class AiBriefingController extends GetxController {
       }
     }
 
-    // ✅ توليد ID فريد (عشان الحفظ المتكرر)
-    // الشكل: ai_briefing_sports_170123456789
     final String uniqueId =
         'ai_briefing_${fullArticle.title}_${DateTime.now().millisecondsSinceEpoch}';
 
     final articleToShow = Article(
-      id: uniqueId, // ✅ ID جديد وفريد
-      sourceName: "AI Briefing", // 👈 العلامة المميزة للفلترة
+      id: uniqueId,
+      sourceName: "AI Briefing",
       author: "Gemini AI",
       title: fullArticle.title,
       description: finalDescription,

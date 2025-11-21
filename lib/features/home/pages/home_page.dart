@@ -9,7 +9,8 @@ import 'package:mega_news/features/home/controller/home_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mega_news/features/home/widgets/build_articles_list.dart';
 import 'package:mega_news/features/home/widgets/build_carousel_shimmer.dart';
-import 'package:mega_news/features/search/presentations/pages/show_search_page.dart';
+import 'package:mega_news/features/notifications/presentation/pages/notifications_page.dart';
+import 'package:mega_news/features/search/pages/show_search_page.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -123,7 +124,9 @@ class HomePage extends GetView<HomeController> {
                               Icons.notifications_none,
                               color: context.onBackground,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => const NotificationsPage());
+                            },
                           ),
 
                           AppGaps.w8,

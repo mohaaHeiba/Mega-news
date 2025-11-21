@@ -250,7 +250,10 @@
   "action_settings": "الإعدادات",
   "action_cancel": "إلغاء",
   "search_recent": "عمليات البحث الأخيرة",
-  "search_clear_all": "مسح الكل"
+  "search_clear_all": "مسح الكل",
+  "saved_ai_title": "ملخصات الذكاء الاصطناعي",
+  "saved_ai_empty": "لا توجد ملخصات محفوظة بعد",
+  "saved_ai_badge": "توليد AI"
 
 
 

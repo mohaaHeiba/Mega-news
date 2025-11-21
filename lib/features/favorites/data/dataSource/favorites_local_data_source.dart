@@ -14,10 +14,9 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
 
   @override
   Future<void> cacheFavorites(List<Article> articles) async {
-    // GetStorage بيخزن JSON، فلازم نحول الليستة لـ Maps
     final List<Map<String, dynamic>> jsonList = articles
         .map((article) => article.toJson())
-        .toList(); // تأكد ان Article فيه toJson
+        .toList();
 
     await _box.write(_key, jsonList);
   }
@@ -29,9 +28,7 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
     if (jsonList == null) return [];
 
     return jsonList
-        .map(
-          (jsonItem) => Article.fromJson(jsonItem as Map<String, dynamic>),
-        ) // تأكد ان Article فيه fromJson
+        .map((jsonItem) => Article.fromJson(jsonItem as Map<String, dynamic>))
         .toList();
   }
 
@@ -39,9 +36,8 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
   Future<void> addFavoriteLocally(Article article) async {
     List<Article> currentFavorites = await getCachedFavorites();
 
-    // نتأكد انه مش موجود قبل كده
     if (!currentFavorites.any((element) => element.id == article.id)) {
-      currentFavorites.insert(0, article); // نضيفه في الأول
+      currentFavorites.insert(0, article);
       await cacheFavorites(currentFavorites);
     }
   }

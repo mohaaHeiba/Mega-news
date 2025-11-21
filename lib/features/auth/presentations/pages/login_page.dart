@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_images.dart';
-import 'package:mega_news/core/custom/inputs/custom_text_fields.dart';
+import 'package:mega_news/features/auth/presentations/widgets/custom_text_fields.dart';
 import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/core/utils/validator.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
+import 'package:mega_news/core/custom/custom_snackbar.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/errors/supabase_exception.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';

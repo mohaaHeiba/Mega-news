@@ -1,16 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- أذونات التطبيق -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:label="Mega News"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -22,42 +25,44 @@
             android:windowSoftInputMode="adjustResize">
 
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
 
-
-            <!-- فلتر ده عشان الايقون -->
+            <!-- Launcher Intent -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
-            <!-- ديب لينكينك بتعا سوبابيز-->
+            <!-- Deep Linking for Supabase -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <!-- بيانات Supabase -->
-                <data
-                    android:scheme="io.supabase.flutter"
-                    android:host="login-callback" />
-                <data
-                    android:scheme="io.supabase.flutter"
-                    android:host="reset-password" />
+                <data android:scheme="io.supabase.flutter" android:host="login-callback" />
+                <data android:scheme="io.supabase.flutter" android:host="reset-password" />
             </intent-filter>
-            
-
         </activity>
 
-        <!-- Background service -->
-       <service
-    android:name="com.example.mega_news.core.services.BackgroundService"
-    android:foregroundServiceType="dataSync|mediaPlayback"
-    android:exported="false"/>
+        <!-- Background Service (اختياري إذا تستخدمه) -->
+        <service
+            android:name="com.example.mega_news.core.services.BackgroundService"
+            android:foregroundServiceType="dataSync|mediaPlayback"
+            android:exported="false"/>
 
-        <!-- Notification Channel -->
+        <!-- Workmanager: إعادة جدولة المهام بعد Boot -->
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Notification Channel (Firebase) -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="news_channel"/>
@@ -67,12 +72,12 @@
             android:value="2" />
     </application>
 
+    <!-- Queries (optional) -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
-        <!-- optional for TTS -->
         <package android:name="com.google.android.tts"/>
     </queries>
 </manifest>

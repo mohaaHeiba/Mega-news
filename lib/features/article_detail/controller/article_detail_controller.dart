@@ -8,7 +8,6 @@ import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// ✅ 1. استيراد كونترولر المفضلة
 import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 
 enum TtsState { playing, stopped, paused, continued }
@@ -17,8 +16,6 @@ class ArticleDetailController extends GetxController {
   // ================= Variables & State =================
   Article? article;
 
-  // ✅ 2. الوصول لكونترولر المفضلة
-  // بنستخدم Get.find لأنه شغال بالفعل في الخلفية (في الـ Bindings أو main)
   final FavoritesController _favoritesController =
       Get.find<FavoritesController>();
 
@@ -31,7 +28,7 @@ class ArticleDetailController extends GetxController {
   var vibrantColor = Rx<Color>(Colors.transparent);
   var vibrantTextColor = Rx<Color>(Colors.white);
 
-  var isLiked = false.obs; // حالة الزرار
+  var isLiked = false.obs;
   var ttsState = TtsState.stopped.obs;
 
   // Services
@@ -47,13 +44,11 @@ class ArticleDetailController extends GetxController {
     if (args is Article) {
       article = args;
 
-      // ✅ 3. التحقق: هل المقال ده محفوظ عندي قبل كده؟
-      // لو محفوظ، خلي isLiked بـ true عشان القلب ينور أحمر
       if (article != null) {
         isLiked.value = _favoritesController.isFavorite(article!.id);
       }
 
-      Future.delayed(const Duration(milliseconds: 100), () {
+      Future.delayed(const Duration(milliseconds: 50), () {
         _generatePalette();
       });
     }
@@ -72,11 +67,8 @@ class ArticleDetailController extends GetxController {
   void toggleLike() {
     if (article == null) return;
 
-    // ✅ 4. الربط الحقيقي: بننادي دالة الحفظ في FavoritesController
-    // الدالة دي هتحفظ في Supabase وفي GetStorage
     _favoritesController.toggleFavorite(article!);
 
-    // تحديث حالة الزرار في الصفحة دي فوراً
     isLiked.value = _favoritesController.isFavorite(article!.id);
   }
 
@@ -176,7 +168,7 @@ class ArticleDetailController extends GetxController {
 
   void _graduallyChangeColor(Color from, Color to) {
     const int steps = 100;
-    const Duration stepDuration = Duration(milliseconds: 15);
+    const Duration stepDuration = Duration(milliseconds: 10);
 
     double r = from.red.toDouble();
     double g = from.green.toDouble();

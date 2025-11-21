@@ -8,7 +8,7 @@ class GetAiSummaryUseCase {
   GetAiSummaryUseCase(this._repository);
 
   // ============================================================
-  // 1. Search
+  // 1. Search Summary (تم التعديل هنا)
   // ============================================================
   Future<String> call({
     required String topic,
@@ -17,27 +17,48 @@ class GetAiSummaryUseCase {
     final currentLanguage = Get.locale?.languageCode ?? 'en';
     final isArabic = currentLanguage == 'ar';
 
-    final systemPrompt = isArabic
-        ? 'أنت خبير في تلخيص الأخبار...'
-        : 'You are an expert in news summarization...';
-
+    // 1. تجهيز محتوى المقالات
     final articlesContent = articles
         .map(
           (a) => isArabic
-              ? 'المصدر: ${a.sourceName}\nالعنوان: ${a.title}'
-              : 'Source: ${a.sourceName}\nTitle: ${a.title}',
+              ? '- المصدر: ${a.sourceName} | العنوان: ${a.title}'
+              : '- Source: ${a.sourceName} | Title: ${a.title}',
         )
         .join('\n');
 
-    final userQuery = isArabic
-        ? 'الموضوع: "$topic".\nالمقالات:\n$articlesContent\n...'
-        : 'Topic: "$topic".\nArticles:\n$articlesContent\n...';
+    // 2. تعليمات النظام (System Prompt) - معدلة لتكون صارمة
+    final prompt = isArabic
+        ? '''
+أنت مساعد ذكي لتلخيص الأخبار.
+المهمة: لخص المقالات التالية حول موضوع "$topic" في فقرة واحدة مركزة.
 
-    return await _repository.generateText('$systemPrompt\n\n$userQuery');
+تعليمات صارمة:
+1. ابدأ الملخص مباشرة. لا تكتب مقدمات مثل "إليك الملخص" أو "بناءً على ما سبق".
+2. لا تكرر نص التعليمات أو أسماء المقالات في البداية.
+3. اكتفِ بالمعلومات المهمة فقط.
+
+المقالات:
+$articlesContent
+'''
+        : '''
+You are an AI news summarizer.
+Task: Summarize the following articles about "$topic" into a single focused paragraph.
+
+Strict Instructions:
+1. Start the summary DIRECTLY. Do not say "Here is the summary" or "Based on the articles".
+2. Do NOT repeat the prompt or the instructions.
+3. Focus only on key insights.
+
+Articles:
+$articlesContent
+''';
+
+    // إرسال الـ Prompt مباشرة (دمجنا التعليمات مع الداتا لتقليل اللخبطة)
+    return await _repository.generateText(prompt);
   }
 
   // ============================================================
-  // 2.AI Briefing
+  // 2. AI Briefing (Dual Language)
   // ============================================================
   Future<String> callDualLang({
     required String topic,
@@ -57,9 +78,11 @@ class GetAiSummaryUseCase {
     $articlesContent
 
     Task:
-    1. Write a short summary in **ENGLISH** mentioning key sources.
+    1. Write a short summary in **ENGLISH**.
     2. Write exactly "$separator".
-    3. Write a short summary in **ARABIC** mentioning key sources.
+    3. Write a short summary in **ARABIC**.
+    
+    Constraint: Output ONLY the requested format. Do not add conversational text.
     ''';
 
     return await _repository.generateText(prompt);
