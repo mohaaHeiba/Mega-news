@@ -46,6 +46,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "ai_summary_error": MessageLookupByLibrary.simpleMessage(
       "Could not generate summary due to an error.",
     ),
+    "ai_summary_generation_error": MessageLookupByLibrary.simpleMessage(
+      "Failed to generate summary: ",
+    ),
     "ai_welcome_message": MessageLookupByLibrary.simpleMessage(
       "What would you like to\nsummarize today?",
     ),
@@ -241,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_no_connection_title": MessageLookupByLibrary.simpleMessage(
       "No Connection",
     ),
+    "error_title": MessageLookupByLibrary.simpleMessage("Error"),
     "error_unexpected_msg": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again later.",
     ),
@@ -301,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Try selecting a different category",
     ),
     "home_welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back,"),
+    "info_title": MessageLookupByLibrary.simpleMessage("Info"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email",
     ),
@@ -389,6 +394,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "science": MessageLookupByLibrary.simpleMessage("Science"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "Search for articles first to summarize them.",
+    ),
+    "search_articles_first_msg": MessageLookupByLibrary.simpleMessage(
+      "Search for articles first.",
     ),
     "search_discover": MessageLookupByLibrary.simpleMessage("Discover News"),
     "search_hint": MessageLookupByLibrary.simpleMessage(

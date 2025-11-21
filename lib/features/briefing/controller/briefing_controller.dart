@@ -19,10 +19,7 @@ class AiBriefingController extends GetxController {
 
   final s = Get.context!.s;
 
-  // 1. Caching:
   final RxMap<String, Article> cachedSummaries = <String, Article>{}.obs;
-
-  // 2. Concurrency:
   final RxSet<String> loadingTopicIds = <String>{}.obs;
 
   // --- Static Topics Data ---
@@ -62,44 +59,70 @@ class AiBriefingController extends GetxController {
     ];
   }
 
-  /// Main Action: Handles selection, caching, and refreshing
+  // ==================================================
+  // Main Action
+  // ==================================================
   Future<void> selectAndSummarizeTopic(
     Map<String, String> topic, {
     bool forceRefresh = false,
   }) async {
     final topicId = topic['value']!;
 
-    // 1. Check Loading:
     if (loadingTopicIds.contains(topicId)) return;
 
-    // 2. Check Cache Safe Retrieval:
     final cachedArticle = cachedSummaries[topicId];
     if (!forceRefresh && cachedArticle != null) {
-      Get.toNamed(AppPages.articleDetailPage, arguments: cachedArticle);
+      _navigateToDetails(cachedArticle);
       return;
     }
 
-    // 3. Start Loading
     loadingTopicIds.add(topicId);
 
     try {
       final Article result = await _fetchAndSummarizeTopic(topic);
 
-      // 4. Save to Cache
       cachedSummaries[topicId] = result;
 
       loadingTopicIds.remove(topicId);
 
-      Get.toNamed(AppPages.articleDetailPage, arguments: result);
+      _navigateToDetails(result);
     } catch (e) {
       loadingTopicIds.remove(topicId);
-
       customSnackbar(
         title: s.generation_failed_title,
         message: s.generation_failed_msg,
         color: AppColors.error,
       );
     }
+  }
+
+  // ==================================================
+  //
+  // ==================================================
+  void _navigateToDetails(Article fullArticle) {
+    final isArabic = Get.locale?.languageCode == 'ar';
+    String finalDescription = fullArticle.description ?? '';
+
+    const separator = "###SPLIT###";
+
+    if (finalDescription.contains(separator)) {
+      final parts = finalDescription.split(separator);
+      if (parts.length >= 2) {
+        finalDescription = isArabic ? parts[1].trim() : parts[0].trim();
+      }
+    }
+
+    final articleToShow = Article(
+      id: fullArticle.id,
+      sourceName: fullArticle.sourceName,
+      title: fullArticle.title,
+      description: finalDescription,
+      articleUrl: fullArticle.articleUrl,
+      imageUrl: fullArticle.imageUrl,
+      publishedAt: fullArticle.publishedAt,
+    );
+
+    Get.toNamed(AppPages.articleDetailPage, arguments: articleToShow);
   }
 
   Future<Article> _fetchAndSummarizeTopic(Map<String, String> topic) async {
@@ -115,15 +138,16 @@ class AiBriefingController extends GetxController {
 
       if (articles.isNotEmpty) {
         articleUrl = articles.first.articleUrl;
-        summaryText = await getAiSummaryUseCase(
+
+        summaryText = await getAiSummaryUseCase.callDualLang(
           topic: label,
-          articles: articles.take(5).toList(),
+          articles: articles.take(10).toList(),
         );
       } else {
-        summaryText = s.ai_summary_error;
+        summaryText = "${s.ai_summary_error} ###SPLIT### ${s.ai_summary_error}";
       }
     } catch (e) {
-      summaryText = s.ai_summary_error;
+      summaryText = "${s.ai_summary_error} ###SPLIT### ${s.ai_summary_error}";
     }
 
     return Article(

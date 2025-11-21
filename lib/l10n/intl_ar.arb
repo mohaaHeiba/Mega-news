@@ -239,7 +239,12 @@
   "search_results_for": "عن",
   "search_listening": "جاري الاستماع...",
   "search_listening_hint": "جرب قول 'رياضة' أو 'تكنولوجيا'",
-  "search_hint": "ابحث عن أخبار، مواضيع..."
+  "search_hint": "ابحث عن أخبار، مواضيع...",
+
+  "info_title": "تنبيه",
+"search_articles_first_msg": "يجب البحث عن مقالات أولاً.",
+"error_title": "خطأ",
+"ai_summary_generation_error": "فشل إنشاء الملخص: "
 
 
 

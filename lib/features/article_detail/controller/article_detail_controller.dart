@@ -39,7 +39,7 @@ class ArticleDetailController extends GetxController {
     if (args is Article) {
       article = args;
       // Delay slightly to ensure UI is ready before calculating colors
-      Future.delayed(const Duration(milliseconds: 250), () {
+      Future.delayed(const Duration(milliseconds: 100), () {
         _generatePalette();
       });
     }

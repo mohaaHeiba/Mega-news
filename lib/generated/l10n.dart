@@ -1853,6 +1853,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Info`
+  String get info_title {
+    return Intl.message('Info', name: 'info_title', desc: '', args: []);
+  }
+
+  /// `Search for articles first.`
+  String get search_articles_first_msg {
+    return Intl.message(
+      'Search for articles first.',
+      name: 'search_articles_first_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error_title {
+    return Intl.message('Error', name: 'error_title', desc: '', args: []);
+  }
+
+  /// `Failed to generate summary: `
+  String get ai_summary_generation_error {
+    return Intl.message(
+      'Failed to generate summary: ',
+      name: 'ai_summary_generation_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

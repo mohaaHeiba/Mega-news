@@ -4,6 +4,8 @@ import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import 'package:mega_news/features/settings/presentations/controller/theme_controller.dart';
+
 class HomeController extends GetxController {
   final INewsRepository newsRepository;
 
@@ -33,6 +35,7 @@ class HomeController extends GetxController {
     {'label': Get.context!.s.category_science, 'value': 'science'},
     {'label': Get.context!.s.category_entertainment, 'value': 'entertainment'},
   ];
+
   // ====================================================
   // On Init
   // ====================================================
@@ -45,6 +48,31 @@ class HomeController extends GetxController {
 
     currentLanguage = Get.locale?.languageCode ?? 'en';
 
+    if (Get.isRegistered<ThemeController>()) {
+      final themeController = Get.find<ThemeController>();
+
+      ever(themeController.language, (lang) {
+        onLanguageChanged();
+      });
+    }
+
+    fetchNews();
+  }
+
+  // ====================================================
+  // Call MenuView (Automatic Refresh Logic)
+  // ====================================================
+  void onLanguageChanged() {
+    if (Get.isRegistered<ThemeController>()) {
+      currentLanguage = Get.find<ThemeController>().language.value;
+    } else {
+      currentLanguage = Get.locale?.languageCode ?? 'en';
+    }
+
+    _currentPage = 1;
+    hasMorePages(true);
+    articles.clear();
+
     fetchNews();
   }
 
@@ -56,7 +84,9 @@ class HomeController extends GetxController {
       isLoading(true);
       _currentPage = 1;
 
-      currentLanguage = Get.locale?.languageCode ?? 'en';
+      if (Get.isRegistered<ThemeController>()) {
+        currentLanguage = Get.find<ThemeController>().language.value;
+      }
 
       final fetched = await newsRepository.getTopHeadlines(
         category: selectedCategory.value,
@@ -89,7 +119,7 @@ class HomeController extends GetxController {
         if (fetched.length < 20) hasMorePages(false);
       }
     } catch (e) {
-      _currentPage--; // revert page
+      _currentPage--;
     } finally {
       isLoadingMore(false);
     }
@@ -97,13 +127,9 @@ class HomeController extends GetxController {
 
   String getTimeAgo(DateTime dateTime) {
     final String currentAppLang = Get.locale?.languageCode ?? 'en';
-
     return timeago.format(dateTime, locale: currentAppLang);
   }
 
-  // ====================================================
-  // Change category
-  // ====================================================
   void changeCategory(String newCategory) {
     selectedCategory(newCategory);
     _currentPage = 1;

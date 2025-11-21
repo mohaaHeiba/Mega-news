@@ -243,7 +243,12 @@
   "search_results_for": "for",
   "search_listening": "Listening...",
   "search_listening_hint": "Try saying 'Sports' or 'Technology'",
-  "search_hint": "Search news, topics..."
+  "search_hint": "Search news, topics...",
+
+  "info_title": "Info",
+"search_articles_first_msg": "Search for articles first.",
+"error_title": "Error",
+"ai_summary_generation_error": "Failed to generate summary: "
   
 
 

@@ -48,6 +48,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "ai_summary_error": MessageLookupByLibrary.simpleMessage(
       "تعذر إنشاء الملخص بسبب خطأ ما.",
     ),
+    "ai_summary_generation_error": MessageLookupByLibrary.simpleMessage(
+      "فشل إنشاء الملخص: ",
+    ),
     "ai_welcome_message": MessageLookupByLibrary.simpleMessage(
       "ما الذي تود\nتلخيصه اليوم؟",
     ),
@@ -243,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_no_connection_title": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال",
     ),
+    "error_title": MessageLookupByLibrary.simpleMessage("خطأ"),
     "error_unexpected_msg": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما. يرجى المحاولة لاحقاً.",
     ),
@@ -301,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "جرب اختيار تصنيف آخر",
     ),
     "home_welcome_back": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك،"),
+    "info_title": MessageLookupByLibrary.simpleMessage("تنبيه"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "الرجاء إدخال بريد إلكتروني صالح",
     ),
@@ -387,6 +392,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "science": MessageLookupByLibrary.simpleMessage("العلوم"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "ابحث عن المقالات أولاً لتلخيصها.",
+    ),
+    "search_articles_first_msg": MessageLookupByLibrary.simpleMessage(
+      "يجب البحث عن مقالات أولاً.",
     ),
     "search_discover": MessageLookupByLibrary.simpleMessage("اكتشف الأخبار"),
     "search_hint": MessageLookupByLibrary.simpleMessage(

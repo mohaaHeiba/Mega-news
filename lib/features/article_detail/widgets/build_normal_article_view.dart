@@ -7,6 +7,7 @@ import 'package:mega_news/core/constants/app_gaps.dart';
 import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/article_detail/controller/article_detail_controller.dart';
 import 'package:mega_news/features/article_detail/widgets/build_tts_controls.dart';
+import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -16,6 +17,8 @@ Widget buildNormalArticleView(
   ArticleDetailController controller,
 ) {
   final article = controller.article!;
+
+  final favoritesController = Get.find<FavoritesController>();
 
   return CustomScrollView(
     physics: const BouncingScrollPhysics(),
@@ -57,15 +60,20 @@ Widget buildNormalArticleView(
             onTap: () => Share.share("${article.title}\n${article.articleUrl}"),
           ),
           AppGaps.h8,
-          Obx(
-            () => _buildGlassActionButton(
-              icon: controller.isLiked.value
+
+          Obx(() {
+            final isFav = favoritesController.isFavorite(article.id);
+
+            return _buildGlassActionButton(
+              icon: isFav
                   ? Icons.favorite_rounded
                   : Icons.favorite_border_rounded,
-              color: controller.isLiked.value ? Colors.redAccent : Colors.white,
-              onTap: () => controller.toggleLike(),
-            ),
-          ),
+              color: isFav ? Colors.redAccent : Colors.white,
+              onTap: () {
+                favoritesController.toggleFavorite(article);
+              },
+            );
+          }),
           AppGaps.h16,
         ],
 
@@ -78,7 +86,7 @@ Widget buildNormalArticleView(
           background: Stack(
             fit: StackFit.expand,
             children: [
-              // 1. The Main Image
+              // 1. The Main Image (Supports Network & Assets)
               Hero(
                 tag: article.imageUrl ?? article.title,
                 child: _buildSmartImage(context, article.imageUrl),
@@ -110,7 +118,7 @@ Widget buildNormalArticleView(
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: dynamicColor, // Uses the extracted vibrant color
+                    color: dynamicColor,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
@@ -162,7 +170,7 @@ Widget buildNormalArticleView(
                 ),
               ),
 
-              AppGaps.h16, // Using AppGaps
+              AppGaps.h16,
               // --- 2. Metadata Row (Time & TTS) ---
               Row(
                 children: [
@@ -180,7 +188,7 @@ Widget buildNormalArticleView(
                     ),
                   ),
                   const Spacer(),
-                  // TTS Widget (Passed from parameters)
+                  // TTS Widget
                   buildTtsControls(context, dynamicColor, controller),
                 ],
               ),
@@ -252,25 +260,38 @@ Widget _buildSmartImage(BuildContext context, String? imageUrl) {
     );
   }
 
-  return CachedNetworkImage(
-    imageUrl: imageUrl,
-    fit: BoxFit.cover,
-    memCacheWidth: 800,
-
-    // Loading placeholder
-    placeholder: (context, url) => Container(
-      color: context.surface.withOpacity(0.15),
-      child: const Center(child: CircularProgressIndicator(strokeWidth: 1.5)),
-    ),
-
-    // Error image
-    errorWidget: (context, url, error) => Container(
-      color: context.surface,
-      child: Icon(
-        Icons.broken_image_rounded,
-        color: context.onSurface.withOpacity(0.3),
-        size: 40,
+  if (imageUrl.startsWith('http') || imageUrl.startsWith('https')) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      fit: BoxFit.cover,
+      memCacheWidth: 800,
+      placeholder: (context, url) => Container(
+        color: context.surface.withOpacity(0.15),
+        child: const Center(child: CircularProgressIndicator(strokeWidth: 1.5)),
       ),
-    ),
+      errorWidget: (context, url, error) => Container(
+        color: context.surface,
+        child: Icon(
+          Icons.broken_image_rounded,
+          color: context.onSurface.withOpacity(0.3),
+          size: 40,
+        ),
+      ),
+    );
+  }
+
+  return Image.asset(
+    imageUrl,
+    fit: BoxFit.cover,
+    errorBuilder: (context, error, stackTrace) {
+      return Container(
+        color: context.surface,
+        child: Icon(
+          Icons.broken_image_rounded,
+          color: context.onSurface.withOpacity(0.3),
+          size: 40,
+        ),
+      );
+    },
   );
 }

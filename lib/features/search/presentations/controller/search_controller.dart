@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/constants/app_colors.dart';
+import 'package:mega_news/core/custom/snackbars/custom_snackbar.dart';
 import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:mega_news/generated/l10n.dart';
 
 class SearchController extends GetxController {
   final INewsRepository newsRepository;
@@ -17,12 +20,13 @@ class SearchController extends GetxController {
     required this.getAiSummaryUseCase,
   });
 
-  // Reactive State
+  // 2. Getter for Translation
+  S get s => S.of(Get.context!);
+
   final isLoading = false.obs;
   final isLoadingMore = false.obs;
   final hasMorePages = true.obs;
   final articles = <Article>[].obs;
-
   final isSummarizing = false.obs;
   final isListening = false.obs;
 
@@ -51,6 +55,14 @@ class SearchController extends GetxController {
     _debounce?.cancel();
     _speechToText.stop();
     super.onClose();
+  }
+
+  // ====================================================
+  //
+  // ====================================================
+  void onLanguageChanged() {
+    currentLanguage = Get.locale?.languageCode ?? 'en';
+    clearSearch();
   }
 
   void _onSearchChanged() {
@@ -119,7 +131,12 @@ class SearchController extends GetxController {
 
   Future<void> summarizeSearchResults() async {
     if (articles.isEmpty) {
-      Get.snackbar('Info', 'Search for articles first');
+      // 3. Use customSnackbar (Info/Warning)
+      customSnackbar(
+        title: s.info_title,
+        message: s.search_articles_first_msg,
+        color: AppColors.warning,
+      );
       return;
     }
     List<String> images = articles
@@ -157,7 +174,12 @@ class SearchController extends GetxController {
         },
       );
     } catch (e) {
-      Get.snackbar('Error', 'Failed to generate summary: $e');
+      // 4. Use customSnackbar (Error)
+      customSnackbar(
+        title: s.error_title,
+        message: '${s.ai_summary_generation_error} $e',
+        color: AppColors.error,
+      );
     } finally {
       isSummarizing(false);
     }
@@ -177,7 +199,6 @@ class SearchController extends GetxController {
     isListening(true);
 
     String localeId = Get.locale?.languageCode == 'ar' ? 'ar_EG' : 'en_US';
-
     currentLanguage = Get.locale?.languageCode ?? 'en';
 
     _speechToText.listen(
