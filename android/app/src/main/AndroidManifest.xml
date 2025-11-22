@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- أذونات التطبيق -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -15,7 +14,6 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,13 +28,11 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
 
-            <!-- Launcher Intent -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
-            <!-- Deep Linking for Supabase -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -47,13 +43,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Background Service (اختياري إذا تستخدمه) -->
         <service
             android:name="com.example.mega_news.core.services.BackgroundService"
             android:foregroundServiceType="dataSync|mediaPlayback"
             android:exported="false"/>
 
-        <!-- Workmanager: إعادة جدولة المهام بعد Boot -->
         <receiver
             android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
             android:enabled="true"
@@ -65,7 +59,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- Notification Channel (Firebase) -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="news_channel"/>
@@ -75,12 +68,20 @@
             android:value="2" />
     </application>
 
-    <!-- Queries (optional) -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
         <package android:name="com.google.android.tts"/>
+
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
     </queries>
 </manifest>
