@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mega_news/core/constants/app_colors.dart';
+import 'package:mega_news/core/custom/custom_snackbar.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:workmanager/workmanager.dart';
+
+// ************************************************
+// 💡 ملاحظة: يجب عليك توفير ملفات/إضافات AppLocalizations
+// في مشروعك للوصول إلى الترجمة بالطريقة التالية.
+// تم افتراض استخدام AppLocalizations.of(context)!
+// ************************************************
 
 class NotificationsController extends GetxController {
   var subscriptions = <Map<String, dynamic>>[].obs;
   final storage = GetStorage();
+
+  // 🗑️ تم حذف: final s = Get.context!.s; (لن نعتمد على GetX للترجمة)
 
   @override
   void onInit() {
@@ -20,9 +31,16 @@ class NotificationsController extends GetxController {
     }
   }
 
-  void addSubscription(String topic, String interval) {
+  void addSubscription(String topic, String interval, BuildContext context) {
+    // 💡 يجب تمرير الـ context لاستخدام الترجمة
+    final loc = context.s;
+
     if (subscriptions.any((element) => element['topic'] == topic)) {
-      Get.snackbar("تنبيه", "أنت مشترك بالفعل في هذا الموضوع");
+      customSnackbar(
+        title: loc.error, // 💡 تم التغيير
+        message: loc.u_in, // 💡 تم التغيير
+        color: AppColors.warning,
+      );
       return;
     }
 
@@ -40,21 +58,23 @@ class NotificationsController extends GetxController {
     subscriptions.add(newSub);
     storage.write('subs', subscriptions.toList());
 
-    // تحويل interval لنوع Duration
     final hours = int.tryParse(interval.replaceAll('h', '')) ?? 2;
     final frequency = Duration(hours: hours);
 
-    // تسجيل المهمة الدورية
     Workmanager().registerPeriodicTask(
       uniqueTaskName,
       "fetch_news_task",
-      frequency: frequency, // أقل مدة 15 دقيقة على Android
+      frequency: frequency,
       inputData: {'topic': topic, 'lang': Get.locale?.languageCode ?? 'en'},
       constraints: Constraints(networkType: NetworkType.connected),
       existingWorkPolicy: ExistingPeriodicWorkPolicy.replace,
     );
 
-    Get.snackbar("تم الاشتراك", "سيتم تلقي ملخصات $topic كل $hours ساعة");
+    // 💡 إصلاح الرسالة لتعكس المتغيرات بشكل صحيح:
+    Get.snackbar(
+      loc.subscription_success_title, // 💡 تم التغيير
+      "${loc.subscriptions_receive_summary} $topic ${loc.subscriptions_receive_summary2} $hours ${loc.hour}", // 💡 تم التغيير وإصلاح دمج النصوص
+    );
   }
 
   void removeSubscription(String id, String topic) {
@@ -64,9 +84,10 @@ class NotificationsController extends GetxController {
     );
 
     if (sub.isNotEmpty) {
-      // إلغاء المهمة من الخلفية
       Workmanager().cancelByUniqueName(sub['taskName']);
-      print("🛑 Task Cancelled: ${sub['taskName']}");
+      debugPrint(
+        "🛑 Task Cancelled: ${sub['taskName']}",
+      ); // استخدام debugPrint بدلاً من print
     }
 
     subscriptions.removeWhere((element) => element['id'] == id);
@@ -79,6 +100,18 @@ class NotificationsController extends GetxController {
 
   void showSubscribeDialog(BuildContext context, String topic) {
     final selectedInterval = "2h".obs;
+    final loc = context.s; // 💡 الوصول إلى الترجمة
+
+    // 💡 قائمة الخيارات مع مفاتيح الترجمة المقابلة
+    final intervalOptions = {
+      '2h': loc.interval_2h,
+      '4h': loc.interval_4h,
+      '8h': loc.interval_8h,
+      '12h': loc.interval_12h,
+      '16h': loc.interval_16h,
+      '20h': loc.interval_20h,
+      '24h': loc.interval_24h,
+    };
 
     Get.bottomSheet(
       Container(
@@ -91,7 +124,7 @@ class NotificationsController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "تنبيهات ذكية: $topic",
+              "${loc.smart_alerts_title} $topic", // 💡 تم التغيير
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -102,18 +135,11 @@ class NotificationsController extends GetxController {
                 runSpacing: 8,
                 alignment: WrapAlignment.center,
                 children: [
-                  for (final option in [
-                    '2h',
-                    '4h',
-                    '8h',
-                    '12h',
-                    '16h',
-                    '20h',
-                    '24h',
-                  ])
+                  for (final entry in intervalOptions.entries)
                     _buildChip(
-                      label: "كل ${option.replaceAll('h', '')} ساعة",
-                      value: option,
+                      // 💡 استخدام نص الترجمة المناسب مباشرة
+                      label: entry.value,
+                      value: entry.key,
                       groupValue: selectedInterval.value,
                       onSelect: (val) => selectedInterval.value = val,
                     ),
@@ -129,13 +155,14 @@ class NotificationsController extends GetxController {
                   backgroundColor: Theme.of(context).primaryColor,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                onPressed: () {
-                  addSubscription(topic, selectedInterval.value);
+                onPressed: () async {
                   Get.back();
+                  // 💡 تمرير الـ context للدالة
+                  addSubscription(topic, selectedInterval.value, context);
                 },
-                child: const Text(
-                  "تفعيل",
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  loc.action_activate, // 💡 تم التغيير
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),

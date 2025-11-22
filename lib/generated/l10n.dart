@@ -1968,6 +1968,226 @@ class S {
       args: [],
     );
   }
+
+  /// `You are already subscribed to this topic`
+  String get u_in {
+    return Intl.message(
+      'You are already subscribed to this topic',
+      name: 'u_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription Activated`
+  String get subscription_success_title {
+    return Intl.message(
+      'Subscription Activated',
+      name: 'subscription_success_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will receive summaries for`
+  String get subscriptions_receive_summary {
+    return Intl.message(
+      'You will receive summaries for',
+      name: 'subscriptions_receive_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `every`
+  String get subscriptions_receive_summary2 {
+    return Intl.message(
+      'every',
+      name: 'subscriptions_receive_summary2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour`
+  String get hour {
+    return Intl.message('hour', name: 'hour', desc: '', args: []);
+  }
+
+  /// `Smart Alerts`
+  String get smart_alerts_title {
+    return Intl.message(
+      'Smart Alerts',
+      name: 'smart_alerts_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activate`
+  String get action_activate {
+    return Intl.message(
+      'Activate',
+      name: 'action_activate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 2 hours`
+  String get interval_2h {
+    return Intl.message(
+      'Every 2 hours',
+      name: 'interval_2h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 4 hours`
+  String get interval_4h {
+    return Intl.message(
+      'Every 4 hours',
+      name: 'interval_4h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 8 hours`
+  String get interval_8h {
+    return Intl.message(
+      'Every 8 hours',
+      name: 'interval_8h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 12 hours`
+  String get interval_12h {
+    return Intl.message(
+      'Every 12 hours',
+      name: 'interval_12h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 16 hours`
+  String get interval_16h {
+    return Intl.message(
+      'Every 16 hours',
+      name: 'interval_16h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 20 hours`
+  String get interval_20h {
+    return Intl.message(
+      'Every 20 hours',
+      name: 'interval_20h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 24 hours`
+  String get interval_24h {
+    return Intl.message(
+      'Every 24 hours',
+      name: 'interval_24h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scheduled Alerts`
+  String get scheduled_alerts_title {
+    return Intl.message(
+      'Scheduled Alerts',
+      name: 'scheduled_alerts_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No active alerts`
+  String get no_active_alerts {
+    return Intl.message(
+      'No active alerts',
+      name: 'no_active_alerts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a topic and tap the bell icon to subscribe`
+  String get subscribe_instruction {
+    return Intl.message(
+      'Search for a topic and tap the bell icon to subscribe',
+      name: 'subscribe_instruction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeats`
+  String get repeats_every {
+    return Intl.message('Repeats', name: 'repeats_every', desc: '', args: []);
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message('Unknown', name: 'unknown', desc: '', args: []);
+  }
+
+  /// `Delete Alert`
+  String get delete_alert_title {
+    return Intl.message(
+      'Delete Alert',
+      name: 'delete_alert_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to stop following {topic}?`
+  String delete_alert_confirm(Object topic) {
+    return Intl.message(
+      'Do you want to stop following $topic?',
+      name: 'delete_alert_confirm',
+      desc: '',
+      args: [topic],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message('Yes', name: 'yes', desc: '', args: []);
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message('No', name: 'no', desc: '', args: []);
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message('Done', name: 'done', desc: '', args: []);
+  }
+
+  /// `Successfully unsubscribed from {topic}`
+  String subscription_cancelled(Object topic) {
+    return Intl.message(
+      'Successfully unsubscribed from $topic',
+      name: 'subscription_cancelled',
+      desc: '',
+      args: [topic],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

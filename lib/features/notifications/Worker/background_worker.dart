@@ -1,9 +1,7 @@
-import 'dart:convert'; // ✅ ضروري عشان jsonEncode
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:get/get.dart';
-// import 'package:get_storage/get_storage.dart'; // ❌ مش محتاجينه هنا خلاص
 import 'package:mega_news/core/network/api_cleint.dart';
 import 'package:mega_news/core/services/notification_service.dart';
 import 'package:mega_news/features/gemini/data/datasources/gemini_remote_datasource.dart';
@@ -22,17 +20,7 @@ import 'package:workmanager/workmanager.dart';
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     try {
-      print("🔥🔥 Background Task Started: Fetching & Summarizing...");
-
-      // 1. تهيئة البيئة
       await dotenv.load(fileName: ".env");
-
-      // ❌ ألغيت GetStorage من هنا عشان نبعت الداتا مباشرة (Payload Strategy)
-      /*
-      const String storageContainer = 'notification_data';
-      await GetStorage.init(storageContainer);
-      final storage = GetStorage(storageContainer);
-      */
 
       // تهيئة Gemini
       Gemini.init(apiKey: dotenv.env['GEMINI_API']!);
@@ -66,7 +54,6 @@ void callbackDispatcher() {
       final geminiRepository = GeminiRepositoryImpl(geminiDataSource);
       final getAiSummaryUseCase = GetAiSummaryUseCase(geminiRepository);
 
-      // 4. جلب الأخبار
       final articles = await newsRepository.searchNews(
         topic,
         language: lang,
@@ -74,8 +61,6 @@ void callbackDispatcher() {
       );
 
       if (articles.isNotEmpty) {
-        print("🤖 Generating AI Summary for $topic...");
-
         // 5. التلخيص
         final summary = await getAiSummaryUseCase(
           topic: topic,
@@ -122,8 +107,6 @@ void callbackDispatcher() {
         // ==========================================================
         final String jsonPayload = jsonEncode(articleMap);
 
-        print("📦 Payload Prepared (Length: ${jsonPayload.length})");
-
         // 8. إرسال الإشعار مع البيانات الكاملة
         await NotificationService.init();
 
@@ -131,15 +114,13 @@ void callbackDispatcher() {
           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
           title: "ملخصك جاهز عن $topic 🧠",
           body: "اضغط لقراءة ملخص الأحداث الذي أعده الذكاء الاصطناعي لك.",
-
-          // ✅ هنا بنبعت الـ JSON String مش المفتاح
+          imageUrl: mainImage,
           payload: jsonPayload,
         );
       }
 
       return Future.value(true);
     } catch (e) {
-      print("❌ Error in background task: $e");
       return Future.value(false);
     }
   });

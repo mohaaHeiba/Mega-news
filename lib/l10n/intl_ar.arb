@@ -253,7 +253,43 @@
   "search_clear_all": "مسح الكل",
   "saved_ai_title": "ملخصات الذكاء الاصطناعي",
   "saved_ai_empty": "لا توجد ملخصات محفوظة بعد",
-  "saved_ai_badge": "توليد AI"
+  "saved_ai_badge": "توليد AI",
+
+  "u_in":"أنت مشترك بالفعل في هذا الموضوع",
+"subscription_success_title":"تم تفعيل الاشتراك",
+"subscriptions_receive_summary":"سيتم تلقي ملخصات",
+"subscriptions_receive_summary2":"كل",
+"hour":"ساعة",
+"smart_alerts_title":"تنبيهات ذكية:",
+"action_activate":"تفعيل",
+
+  "interval_2h": "كل ساعتين",
+  "interval_4h": "كل 4 ساعات",
+  "interval_8h": "كل 8 ساعات",
+  "interval_12h": "كل 12 ساعة",
+  "interval_16h": "كل 16 ساعة",
+  "interval_20h": "كل 20 ساعة",
+  "interval_24h": "كل 24 ساعة",
+
+
+
+
+
+  "scheduled_alerts_title": "التنبيهات المجدولة",
+  "no_active_alerts": "لا توجد تنبيهات نشطة",
+  "subscribe_instruction": "ابحث عن موضوع واضغط على الجرس للاشتراك",
+  "repeats_every": "يتكرر",
+  "unknown": "غير معروف",
+  "delete_alert_title": "حذف التنبيه",
+  "delete_alert_confirm": "هل تريد إيقاف متابعة {topic}؟",
+  "yes": "نعم",
+  "no": "لا",
+  "done": "تم",
+  "subscription_cancelled": "تم إلغاء متابعة {topic} بنجاح"
+
+
+
+
 
 
 

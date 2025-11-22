@@ -257,8 +257,37 @@
   "search_clear_all": "Clear All",
   "saved_ai_title": "AI Summaries",
   "saved_ai_empty": "No AI Summaries yet",
-  "saved_ai_badge": "AI Generated"
-  
+  "saved_ai_badge": "AI Generated",
+
+"u_in": "You are already subscribed to this topic",
+"subscription_success_title":"Subscription Activated",
+"subscriptions_receive_summary":"You will receive summaries for",
+"subscriptions_receive_summary2":"every",
+"hour":"hour",
+"smart_alerts_title":"Smart Alerts",
+"action_activate":"Activate",
+"interval_2h": "Every 2 hours",
+  "interval_4h": "Every 4 hours",
+  "interval_8h": "Every 8 hours",
+  "interval_12h": "Every 12 hours",
+  "interval_16h": "Every 16 hours",
+  "interval_20h": "Every 20 hours",
+  "interval_24h": "Every 24 hours",
+  "scheduled_alerts_title": "Scheduled Alerts",
+  "no_active_alerts": "No active alerts",
+  "subscribe_instruction": "Search for a topic and tap the bell icon to subscribe",
+  "repeats_every": "Repeats",
+  "unknown": "Unknown",
+  "delete_alert_title": "Delete Alert",
+  "delete_alert_confirm": "Do you want to stop following {topic}?",
+  "yes": "Yes",
+  "no": "No",
+  "done": "Done",
+  "subscription_cancelled": "Successfully unsubscribed from {topic}"
+
+
+
+
 
 
 }

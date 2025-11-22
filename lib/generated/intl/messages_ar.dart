@@ -20,10 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(topic) => "هل تريد إيقاف متابعة ${topic}؟";
+
+  static String m1(topic) => "تم إلغاء متابعة ${topic} بنجاح";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "account_info": MessageLookupByLibrary.simpleMessage("معلومات الحساب"),
+    "action_activate": MessageLookupByLibrary.simpleMessage("تفعيل"),
     "action_cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "إنشاء ملخص",
@@ -207,6 +212,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "create": MessageLookupByLibrary.simpleMessage("إنشاء كلمة مرور جديدة"),
     "dark": MessageLookupByLibrary.simpleMessage("داكن"),
+    "delete_alert_confirm": m0,
+    "delete_alert_title": MessageLookupByLibrary.simpleMessage("حذف التنبيه"),
+    "done": MessageLookupByLibrary.simpleMessage("تم"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ ",
     ),
@@ -307,7 +315,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "جرب اختيار تصنيف آخر",
     ),
     "home_welcome_back": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك،"),
+    "hour": MessageLookupByLibrary.simpleMessage("ساعة"),
     "info_title": MessageLookupByLibrary.simpleMessage("تنبيه"),
+    "interval_12h": MessageLookupByLibrary.simpleMessage("كل 12 ساعة"),
+    "interval_16h": MessageLookupByLibrary.simpleMessage("كل 16 ساعة"),
+    "interval_20h": MessageLookupByLibrary.simpleMessage("كل 20 ساعة"),
+    "interval_24h": MessageLookupByLibrary.simpleMessage("كل 24 ساعة"),
+    "interval_2h": MessageLookupByLibrary.simpleMessage("كل ساعتين"),
+    "interval_4h": MessageLookupByLibrary.simpleMessage("كل 4 ساعات"),
+    "interval_8h": MessageLookupByLibrary.simpleMessage("كل 8 ساعات"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "الرجاء إدخال بريد إلكتروني صالح",
     ),
@@ -342,6 +358,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "new_password": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "no": MessageLookupByLibrary.simpleMessage("لا"),
     "noNewsFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على أخبار",
     ),
@@ -354,6 +371,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noUserDataFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على بيانات المستخدم",
+    ),
+    "no_active_alerts": MessageLookupByLibrary.simpleMessage(
+      "لا توجد تنبيهات نشطة",
     ),
     "notification_permission_msg": MessageLookupByLibrary.simpleMessage(
       "يجب تفعيل الإشعارات من إعدادات الهاتف لاستقبال الأخبار.",
@@ -396,6 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "removedFromFavorites": MessageLookupByLibrary.simpleMessage(
       "تمت الإزالة من المفضلة",
     ),
+    "repeats_every": MessageLookupByLibrary.simpleMessage("يتكرر"),
     "savedArticles": MessageLookupByLibrary.simpleMessage("المقالات المحفوظة"),
     "saved_ai_badge": MessageLookupByLibrary.simpleMessage("توليد AI"),
     "saved_ai_empty": MessageLookupByLibrary.simpleMessage(
@@ -403,6 +424,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "saved_ai_title": MessageLookupByLibrary.simpleMessage(
       "ملخصات الذكاء الاصطناعي",
+    ),
+    "scheduled_alerts_title": MessageLookupByLibrary.simpleMessage(
+      "التنبيهات المجدولة",
     ),
     "science": MessageLookupByLibrary.simpleMessage("العلوم"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
@@ -439,6 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "small": MessageLookupByLibrary.simpleMessage("صغير"),
+    "smart_alerts_title": MessageLookupByLibrary.simpleMessage("تنبيهات ذكية:"),
     "sports": MessageLookupByLibrary.simpleMessage("الرياضة"),
     "status_analyzing": MessageLookupByLibrary.simpleMessage("جاري التحليل..."),
     "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
@@ -446,6 +471,19 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "status_generating_summary": MessageLookupByLibrary.simpleMessage(
       "جاري إنشاء الملخص...",
+    ),
+    "subscribe_instruction": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن موضوع واضغط على الجرس للاشتراك",
+    ),
+    "subscription_cancelled": m1,
+    "subscription_success_title": MessageLookupByLibrary.simpleMessage(
+      "تم تفعيل الاشتراك",
+    ),
+    "subscriptions_receive_summary": MessageLookupByLibrary.simpleMessage(
+      "سيتم تلقي ملخصات",
+    ),
+    "subscriptions_receive_summary2": MessageLookupByLibrary.simpleMessage(
+      "كل",
     ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage("فشل التلخيص"),
     "system": MessageLookupByLibrary.simpleMessage("النظام"),
@@ -455,6 +493,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "title_ai_summary": MessageLookupByLibrary.simpleMessage(
       "ملخص الذكاء الاصطناعي",
     ),
+    "u_in": MessageLookupByLibrary.simpleMessage(
+      "أنت مشترك بالفعل في هذا الموضوع",
+    ),
+    "unknown": MessageLookupByLibrary.simpleMessage("غير معروف"),
     "update_password": MessageLookupByLibrary.simpleMessage(
       "تحديث كلمة المرور",
     ),
@@ -478,5 +520,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeTitle3": MessageLookupByLibrary.simpleMessage("احفظ ما يهمك"),
     "welcomeTitle4": MessageLookupByLibrary.simpleMessage("إشعارات لحظية"),
     "welcome_back": MessageLookupByLibrary.simpleMessage("مرحبًا بعودتك!"),
+    "yes": MessageLookupByLibrary.simpleMessage("نعم"),
   };
 }

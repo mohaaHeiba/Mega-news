@@ -20,10 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(topic) => "Do you want to stop following ${topic}?";
+
+  static String m1(topic) => "Successfully unsubscribed from ${topic}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "account_info": MessageLookupByLibrary.simpleMessage("Account Info"),
+    "action_activate": MessageLookupByLibrary.simpleMessage("Activate"),
     "action_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "action_generate_summary": MessageLookupByLibrary.simpleMessage(
       "Generate Summary",
@@ -205,6 +210,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "create": MessageLookupByLibrary.simpleMessage("Create New Password"),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "delete_alert_confirm": m0,
+    "delete_alert_title": MessageLookupByLibrary.simpleMessage("Delete Alert"),
+    "done": MessageLookupByLibrary.simpleMessage("Done"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account? ",
     ),
@@ -307,7 +315,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Try selecting a different category",
     ),
     "home_welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back,"),
+    "hour": MessageLookupByLibrary.simpleMessage("hour"),
     "info_title": MessageLookupByLibrary.simpleMessage("Info"),
+    "interval_12h": MessageLookupByLibrary.simpleMessage("Every 12 hours"),
+    "interval_16h": MessageLookupByLibrary.simpleMessage("Every 16 hours"),
+    "interval_20h": MessageLookupByLibrary.simpleMessage("Every 20 hours"),
+    "interval_24h": MessageLookupByLibrary.simpleMessage("Every 24 hours"),
+    "interval_2h": MessageLookupByLibrary.simpleMessage("Every 2 hours"),
+    "interval_4h": MessageLookupByLibrary.simpleMessage("Every 4 hours"),
+    "interval_8h": MessageLookupByLibrary.simpleMessage("Every 8 hours"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email",
     ),
@@ -344,6 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "no": MessageLookupByLibrary.simpleMessage("No"),
     "noNewsFound": MessageLookupByLibrary.simpleMessage("No news found"),
     "noRecentNewsFound": MessageLookupByLibrary.simpleMessage(
       "No recent news found to summarize for this topic.",
@@ -354,6 +371,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noUserDataFound": MessageLookupByLibrary.simpleMessage(
       "No user data found",
+    ),
+    "no_active_alerts": MessageLookupByLibrary.simpleMessage(
+      "No active alerts",
     ),
     "notification_permission_msg": MessageLookupByLibrary.simpleMessage(
       "Notifications are disabled. Please enable them in settings to receive news.",
@@ -398,12 +418,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "removedFromFavorites": MessageLookupByLibrary.simpleMessage(
       "Removed from Favorites",
     ),
+    "repeats_every": MessageLookupByLibrary.simpleMessage("Repeats"),
     "savedArticles": MessageLookupByLibrary.simpleMessage("Saved Articles"),
     "saved_ai_badge": MessageLookupByLibrary.simpleMessage("AI Generated"),
     "saved_ai_empty": MessageLookupByLibrary.simpleMessage(
       "No AI Summaries yet",
     ),
     "saved_ai_title": MessageLookupByLibrary.simpleMessage("AI Summaries"),
+    "scheduled_alerts_title": MessageLookupByLibrary.simpleMessage(
+      "Scheduled Alerts",
+    ),
     "science": MessageLookupByLibrary.simpleMessage("Science"),
     "searchForArticlesFirst": MessageLookupByLibrary.simpleMessage(
       "Search for articles first to summarize them.",
@@ -437,6 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "small": MessageLookupByLibrary.simpleMessage("Small"),
+    "smart_alerts_title": MessageLookupByLibrary.simpleMessage("Smart Alerts"),
     "sports": MessageLookupByLibrary.simpleMessage("Sports"),
     "status_analyzing": MessageLookupByLibrary.simpleMessage("Analyzing..."),
     "status_briefing_ready": MessageLookupByLibrary.simpleMessage(
@@ -444,6 +469,19 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "status_generating_summary": MessageLookupByLibrary.simpleMessage(
       "Generating summary...",
+    ),
+    "subscribe_instruction": MessageLookupByLibrary.simpleMessage(
+      "Search for a topic and tap the bell icon to subscribe",
+    ),
+    "subscription_cancelled": m1,
+    "subscription_success_title": MessageLookupByLibrary.simpleMessage(
+      "Subscription Activated",
+    ),
+    "subscriptions_receive_summary": MessageLookupByLibrary.simpleMessage(
+      "You will receive summaries for",
+    ),
+    "subscriptions_receive_summary2": MessageLookupByLibrary.simpleMessage(
+      "every",
     ),
     "summarizationFailed": MessageLookupByLibrary.simpleMessage(
       "Summarization Failed",
@@ -453,6 +491,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "title_ai_summary": MessageLookupByLibrary.simpleMessage("AI Summary"),
+    "u_in": MessageLookupByLibrary.simpleMessage(
+      "You are already subscribed to this topic",
+    ),
+    "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
     "update_password": MessageLookupByLibrary.simpleMessage("Update Password"),
     "viewAiSummary": MessageLookupByLibrary.simpleMessage("View AI Summary"),
     "welcomeSubtitle1": MessageLookupByLibrary.simpleMessage(
@@ -478,5 +520,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Real-time Notifications",
     ),
     "welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back!"),
+    "yes": MessageLookupByLibrary.simpleMessage("Yes"),
   };
 }

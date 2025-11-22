@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/notifications/presentation/controller/notifications_controller.dart';
 
 class NotificationsPage extends GetView<NotificationsController> {
   const NotificationsPage({super.key});
 
-  String formatInterval(String interval) {
+  // 💡 تم تعديل الدالة لاستخدام مفاتيح الترجمة (intl)
+  String formatInterval(BuildContext context, String interval) {
+    final loc = context.s;
     switch (interval) {
       case '2h':
-        return "كل ساعتين";
+        return loc.interval_2h;
       case '4h':
-        return "كل 4 ساعات";
+        return loc.interval_4h;
       case '8h':
-        return "كل 8 ساعات";
+        return loc.interval_8h;
       case '12h':
-        return "كل 12 ساعة";
+        return loc.interval_12h;
       case '16h':
-        return "كل 16 ساعة";
+        return loc.interval_16h;
       case '20h':
-        return "كل 20 ساعة";
+        return loc.interval_20h;
       case '24h':
-        return "يومياً";
+        return loc.interval_24h;
       default:
-        return "غير معروف";
+        return '';
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final loc = context.s;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("التنبيهات المجدولة"),
+        title: Text(loc.scheduled_alerts_title), // 💡 تم التعديل
         centerTitle: true,
       ),
       body: Obx(() {
@@ -46,11 +51,11 @@ class NotificationsPage extends GetView<NotificationsController> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "لا توجد تنبيهات نشطة",
+                  loc.no_active_alerts, // 💡 تم التعديل
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 10),
-                const Text("ابحث عن موضوع واضغط على الجرس للاشتراك"),
+                Text(loc.subscribe_instruction), // 💡 تم التعديل
               ],
             ),
           );
@@ -78,20 +83,30 @@ class NotificationsPage extends GetView<NotificationsController> {
                   sub['topic'],
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text("يتكرر: ${formatInterval(sub['interval'])}"),
+                subtitle: Text(
+                  // 💡 استخدام الترجمة للدالة
+                  "${loc.repeats_every}: ${formatInterval(context, sub['interval'])}",
+                ),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete_outline, color: Colors.red),
                   onPressed: () {
                     // تأكيد الحذف
                     Get.defaultDialog(
-                      title: "حذف التنبيه",
-                      middleText: "هل تريد إيقاف متابعة ${sub['topic']}؟",
-                      textConfirm: "نعم",
-                      textCancel: "لا",
+                      title: loc.delete_alert_title, // 💡 تم التعديل
+                      middleText: loc.delete_alert_confirm(
+                        sub['topic'],
+                      ), // 💡 استخدام دالة لتمرير المتغير
+                      textConfirm: loc.yes, // 💡 تم التعديل
+                      textCancel: loc.no, // 💡 تم التعديل
                       onConfirm: () {
                         controller.removeSubscription(sub['id'], sub['topic']);
                         Get.back();
-                        Get.snackbar("تم", "تم إلغاء متابعة ${sub['topic']}");
+                        Get.snackbar(
+                          loc.done, // 💡 تم التعديل
+                          loc.subscription_cancelled(
+                            sub['topic'],
+                          ), // 💡 استخدام دالة لتمرير المتغير
+                        );
                       },
                     );
                   },
