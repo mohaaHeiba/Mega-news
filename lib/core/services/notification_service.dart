@@ -2,55 +2,82 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:mega_news/core/routes/app_pages.dart';
-import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+
+import 'package:mega_news/core/routes/app_pages.dart';
+import 'package:mega_news/features/news/domain/entities/article.dart';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
+    // 1. إعدادات الأندرويد (تأكد أن أيقونة التطبيق موجودة في مجلد mipmap)
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
+    // إعدادات التهيئة العامة
     const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
 
+    // 2. تهيئة البلاجن
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) async {
-        final payload = response.payload;
-
-        if (payload != null && payload.isNotEmpty) {
-          try {
-            final Map<String, dynamic> data = jsonDecode(payload);
-            final article = Article(
-              id: data['id'] ?? '',
-              sourceName: data['sourceName'] ?? 'Unknown',
-              author: data['author'] ?? 'Gemini',
-              title: data['title'] ?? 'No Title',
-              description: data['description'] ?? '',
-              articleUrl: data['articleUrl'] ?? '',
-              imageUrl: data['imageUrl'] ?? '',
-              publishedAt:
-                  DateTime.tryParse(data['publishedAt'] ?? '') ??
-                  DateTime.now(),
-              content: data['content'] ?? '',
-            );
-            Get.toNamed(AppPages.articleDetailPage, arguments: article);
-          } catch (e) {
-            print("❌ Error parsing notification payload: $e");
-          }
-        } else {
-          print("⚠️ Notification payload is null or empty");
-        }
+        // الحالة الأولى: التطبيق شغال (Foreground أو Background)
+        _handleNotificationTap(response.payload);
       },
     );
+
+    // 3. الحالة الثانية: التطبيق مقفول تماماً (Terminated)
+    // بنسأل التطبيق: هل تم فتحه بسبب ضغطة على إشعار؟
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+      final payload =
+          notificationAppLaunchDetails!.notificationResponse?.payload;
+
+      if (payload != null && payload.isNotEmpty) {
+        Future.delayed(const Duration(seconds: 1), () {
+          _handleNotificationTap(payload);
+        });
+      }
+    }
   }
 
-  // 💡 دالة جديدة: لتحميل الصورة وتخزينها مؤقتاً
+  // 💡 دالة مركزية لمعالجة الضغط وتوجيه المستخدم
+  static void _handleNotificationTap(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      try {
+        final Map<String, dynamic> data = jsonDecode(payload);
+
+        // تحويل البيانات لـ Article Model
+        final article = Article(
+          id: data['id'] ?? '',
+          sourceName: data['sourceName'] ?? 'Unknown',
+          author: data['author'] ?? 'Gemini',
+          title: data['title'] ?? 'No Title',
+          description: data['description'] ?? '',
+          articleUrl: data['articleUrl'] ?? '',
+          imageUrl: data['imageUrl'] ?? '',
+          publishedAt:
+              DateTime.tryParse(data['publishedAt'] ?? '') ?? DateTime.now(),
+          content: data['content'] ?? '',
+        );
+
+        // التوجيه لصفحة التفاصيل
+        Get.toNamed(AppPages.articleDetailPage, arguments: article);
+      } catch (e) {
+        print("❌ Error parsing notification payload: $e");
+      }
+    } else {
+      print("⚠️ Notification payload is null or empty");
+    }
+  }
+
+  // تحميل الصورة وتخزينها مؤقتاً لعرضها في الإشعار
   static Future<String?> _downloadAndSaveImage(String url) async {
     try {
       final response = await http.get(Uri.parse(url));
@@ -69,6 +96,7 @@ class NotificationService {
     return null;
   }
 
+  // دالة عرض الإشعار
   static Future<void> showNotification({
     required int id,
     required String title,
@@ -78,28 +106,26 @@ class NotificationService {
   }) async {
     NotificationDetails notificationDetails;
 
-    // 1. الحالة الافتراضية: بدون صورة كبيرة
+    // الإعدادات الافتراضية للأندرويد
     const defaultAndroidDetails = AndroidNotificationDetails(
-      'news_channel_id',
+      'news_channel_id', // نفس الـ ID في AndroidManifest لو مستخدمه
       'Smart Summaries',
       channelDescription: 'AI Generated News Summaries',
       importance: Importance.max,
       priority: Priority.high,
     );
 
-    // 2. محاولة تحميل الصورة إذا كان الرابط موجودًا
+    // محاولة تحميل وعرض الصورة الكبيرة
     if (imageUrl.isNotEmpty) {
       final String? bigPicturePath = await _downloadAndSaveImage(imageUrl);
 
       if (bigPicturePath != null) {
-        // 3. إعداد نمط الصورة الكبيرة (Big Picture Style)
         final bigPictureStyle = BigPictureStyleInformation(
           FilePathAndroidBitmap(bigPicturePath),
           contentTitle: title,
           summaryText: body,
         );
 
-        // 4. تهيئة تفاصيل الإشعار بنمط الصورة الكبيرة
         final pictureAndroidDetails = AndroidNotificationDetails(
           'news_channel_id',
           'Smart Summaries',
@@ -113,17 +139,19 @@ class NotificationService {
           android: pictureAndroidDetails,
         );
       } else {
+        // فشل تحميل الصورة، نعرض الإشعار بدونها
         notificationDetails = const NotificationDetails(
           android: defaultAndroidDetails,
         );
       }
     } else {
+      // لا توجد صورة أصلاً
       notificationDetails = const NotificationDetails(
         android: defaultAndroidDetails,
       );
     }
 
-    // 5. عرض الإشعار
+    // إظهار الإشعار
     await flutterLocalNotificationsPlugin.show(
       id,
       title,

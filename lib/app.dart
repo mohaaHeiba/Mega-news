@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       // Fix Get.snackbar overlay
       builder: (context, child) =>
           Overlay(initialEntries: [OverlayEntry(builder: (context) => child!)]),
