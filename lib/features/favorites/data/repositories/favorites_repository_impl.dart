@@ -20,6 +20,10 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     }
 
     if (await NetworkService.isConnected) {
+      await syncPendingOperations(userId);
+    }
+
+    if (await NetworkService.isConnected) {
       try {
         final remoteFavorites = await remoteDataSource.getFavorites(userId);
         await localDataSource.cacheFavorites(remoteFavorites);
@@ -56,13 +60,38 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
 
   @override
   Future<void> clearAllFavorites(String userId) async {
-    // 1. Always clear local cache first
     await localDataSource.clearFavoritesCache();
 
     if (userId == 'guest') return;
 
     if (await NetworkService.isConnected) {
-      await remoteDataSource.clearAllFavorites(userId);
+      try {
+        await remoteDataSource.clearAllFavorites(userId);
+        await localDataSource.setClearAllPending(false);
+      } catch (e) {
+        await localDataSource.setClearAllPending(true);
+        rethrow;
+      }
+    } else {
+      await localDataSource.setClearAllPending(true);
+    }
+  }
+
+  @override
+  Future<void> syncPendingOperations(String userId) async {
+    if (userId == 'guest') return;
+
+    if (localDataSource.isClearAllPending) {
+      if (await NetworkService.isConnected) {
+        try {
+          print("Syncing: Clearing remote favorites...");
+          await remoteDataSource.clearAllFavorites(userId);
+          await localDataSource.setClearAllPending(false);
+          print("Syncing: Success");
+        } catch (e) {
+          print("Syncing failed: $e");
+        }
+      }
     }
   }
 }

@@ -10,6 +10,7 @@ import 'package:mega_news/features/favorites/data/repositories/favorites_reposit
 import 'package:mega_news/features/favorites/domain/usecases/clear_all_favorites_use_case.dart';
 import 'package:mega_news/features/settings/controller/theme_controller.dart';
 import 'package:mega_news/core/services/permission_service.dart';
+import 'package:mega_news/core/services/network_service.dart';
 
 class MenuViewController extends GetxController {
   final storage = GetStorage();
@@ -45,8 +46,23 @@ class MenuViewController extends GetxController {
     super.onInit();
     _loadOtherSettings();
     _initializeUser();
-
     _checkSystemPermissions();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _attemptSync();
+    });
+  }
+
+  Future<void> _attemptSync() async {
+    final currentUser = user.value;
+    if (currentUser != null && await NetworkService.isConnected) {
+      try {
+        final favoritesRepo = Get.find<FavoritesRepository>();
+        await favoritesRepo.syncPendingOperations(currentUser.id);
+      } catch (e) {
+        print("Sync failed silently: $e");
+      }
+    }
   }
 
   Future<void> _checkSystemPermissions() async {
@@ -67,6 +83,7 @@ class MenuViewController extends GetxController {
         if (authUser != null) {
           user.value = authUser;
           Future.delayed(const Duration(milliseconds: 100), () => loadUser());
+          _attemptSync();
         } else {
           user.value = null;
         }
@@ -170,10 +187,8 @@ class MenuViewController extends GetxController {
 
     try {
       final favoritesRepo = Get.find<FavoritesRepository>();
-
       final clearUseCase = ClearAllFavoritesUseCase(favoritesRepo);
 
-      // Call the use case with userId
       await clearUseCase.call(userId);
 
       Get.snackbar(
@@ -183,7 +198,6 @@ class MenuViewController extends GetxController {
         colorText: Colors.white,
       );
     } catch (e) {
-      print('Error clearing favorites: $e'); // Debug print
       Get.snackbar(
         'Error',
         'Failed to clear favorites',

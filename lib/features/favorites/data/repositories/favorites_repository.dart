@@ -6,4 +6,5 @@ abstract class FavoritesRepository {
   Future<void> removeFavorite(String userId, String articleId);
   // New method added
   Future<void> clearAllFavorites(String userId);
+  Future<void> syncPendingOperations(String userId);
 }

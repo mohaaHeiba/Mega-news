@@ -6,13 +6,16 @@ abstract class FavoritesLocalDataSource {
   Future<List<Article>> getCachedFavorites();
   Future<void> addFavoriteLocally(Article article);
   Future<void> removeFavoriteLocally(String articleId);
-  // New method added
   Future<void> clearFavoritesCache();
+
+  bool get isClearAllPending;
+  Future<void> setClearAllPending(bool value);
 }
 
 class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
   final GetStorage _box = GetStorage();
   final String _key = 'favorites_cache';
+  final String _pendingClearKey = 'pending_clear_all_favorites';
 
   @override
   Future<void> cacheFavorites(List<Article> articles) async {
@@ -56,5 +59,14 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
   @override
   Future<void> clearFavoritesCache() async {
     await _box.remove(_key);
+  }
+
+  // Implementation of Sync Flags
+  @override
+  bool get isClearAllPending => _box.read(_pendingClearKey) ?? false;
+
+  @override
+  Future<void> setClearAllPending(bool value) async {
+    await _box.write(_pendingClearKey, value);
   }
 }
