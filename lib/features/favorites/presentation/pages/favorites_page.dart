@@ -16,7 +16,7 @@ class FavoritesPage extends GetView<FavoritesController> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.primary.withOpacity(0.5),
+        backgroundColor: context.background,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -26,52 +26,34 @@ class FavoritesPage extends GetView<FavoritesController> {
           ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.primary.withOpacity(0.5),
-              context.background,
-              context.background,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return Center(
-              child: CircularProgressIndicator(color: context.primary),
-            );
-          }
-
-          if (controller.normalArticles.isEmpty) {
-            return buildEmptyState(context, s);
-          }
-
-          return RefreshIndicator(
-            color: context.primary,
-            onRefresh: () async {
-              await controller.loadFavorites();
-            },
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              itemCount: controller.normalArticles.length,
-              separatorBuilder: (context, index) => AppGaps.h16,
-              itemBuilder: (context, index) {
-                final article = controller.normalArticles[index];
-
-                return buildFavoriteArticleTile(
-                  context,
-                  article,
-                  controller,
-                  s,
-                );
-              },
-            ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(
+            child: CircularProgressIndicator(color: context.primary),
           );
-        }),
-      ),
+        }
+
+        if (controller.normalArticles.isEmpty) {
+          return buildEmptyState(context, s);
+        }
+
+        return RefreshIndicator(
+          color: context.primary,
+          onRefresh: () async {
+            await controller.loadFavorites();
+          },
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            itemCount: controller.normalArticles.length,
+            separatorBuilder: (context, index) => AppGaps.h16,
+            itemBuilder: (context, index) {
+              final article = controller.normalArticles[index];
+
+              return buildFavoriteArticleTile(context, article, controller, s);
+            },
+          ),
+        );
+      }),
     );
   }
 }

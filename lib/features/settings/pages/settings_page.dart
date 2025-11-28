@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.primary.withOpacity(0.5),
+        backgroundColor: context.background,
 
         elevation: 0,
         title: Text(
@@ -28,35 +28,22 @@ class SettingsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.primary.withOpacity(0.5),
-              context.background,
-              context.background,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          children: [
-            const ThemeSection(),
-            AppGaps.h24,
-            const LanguageSection(),
-            AppGaps.h24,
-            const NotificationsSection(),
-            AppGaps.h24,
-            const StorageSection(),
-            AppGaps.h24,
-            const AboutSection(),
-            AppGaps.h32,
-            const LogoutButton(),
-            AppGaps.h32,
-          ],
-        ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        children: [
+          const ThemeSection(),
+          AppGaps.h24,
+          const LanguageSection(),
+          AppGaps.h24,
+          const NotificationsSection(),
+          AppGaps.h24,
+          const StorageSection(),
+          AppGaps.h24,
+          const AboutSection(),
+          AppGaps.h32,
+          const LogoutButton(),
+          AppGaps.h32,
+        ],
       ),
     );
   }

@@ -149,10 +149,7 @@ class MenuViewController extends GetxController {
 
   Future<void> clearCache() async {
     final keptData = <String, dynamic>{
-      'savedTheme': storage.read('savedTheme'),
-      'language': storage.read('language'),
-      'notifications': storage.read('notifications'),
-      'breakingNews': storage.read('breakingNews'),
+      'favorites_cache': storage.read('favorites_cache'),
     };
 
     await storage.erase();

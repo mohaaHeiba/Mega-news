@@ -18,99 +18,86 @@ class CreateNewPasswordPage extends GetView<AuthController> {
 
     return Scaffold(
       // Gradient
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.primary.withOpacity(0.5),
-              context.background,
-              context.background,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              //  Header Icon
-              Icon(
-                Icons.lock_reset_rounded,
-                color: appTheme.primary,
-                size: appTheme.screenWidth * 0.18,
-              ),
-              AppGaps.h24,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            //  Header Icon
+            Icon(
+              Icons.lock_reset_rounded,
+              color: appTheme.primary,
+              size: appTheme.screenWidth * 0.18,
+            ),
+            AppGaps.h24,
 
-              // Title
-              Text(
-                s.create,
-                textAlign: TextAlign.center,
-                style: appTheme.textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            // Title
+            Text(
+              s.create,
+              textAlign: TextAlign.center,
+              style: appTheme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
-              AppGaps.h12,
+            ),
+            AppGaps.h12,
 
-              // Description
-              Text(
-                s.set_strong_password,
-                textAlign: TextAlign.center,
-                style: appTheme.textTheme.bodyMedium?.copyWith(
-                  color: appTheme.textTheme.bodyMedium?.color?.withOpacity(0.8),
-                ),
+            // Description
+            Text(
+              s.set_strong_password,
+              textAlign: TextAlign.center,
+              style: appTheme.textTheme.bodyMedium?.copyWith(
+                color: appTheme.textTheme.bodyMedium?.color?.withOpacity(0.8),
               ),
-              AppGaps.h32,
+            ),
+            AppGaps.h32,
 
-              // New Password
-              textFieldPasswordWidget(
-                controller: controller.passController,
-                hint: s.new_password,
-                icon: Icons.lock_outline,
-                isObsure: controller.isPasswordObscure,
-                validator: (value) => Validator.password(context, value ?? ''),
+            // New Password
+            textFieldPasswordWidget(
+              controller: controller.passController,
+              hint: s.new_password,
+              icon: Icons.lock_outline,
+              isObsure: controller.isPasswordObscure,
+              validator: (value) => Validator.password(context, value ?? ''),
+            ),
+            AppGaps.h16,
+
+            // Confirm New Password
+            textFieldPasswordWidget(
+              controller: controller.confirmPassController,
+              hint: s.confirm_new_password,
+              icon: Icons.lock_outline,
+              isObsure: controller.isConfirmPasswordObscure,
+              validator: (value) => Validator.confirmPassword(
+                context,
+                controller.passController.text,
+                controller.confirmPassController.text,
               ),
-              AppGaps.h16,
+            ),
+            AppGaps.h24,
 
-              // Confirm New Password
-              textFieldPasswordWidget(
-                controller: controller.confirmPassController,
-                hint: s.confirm_new_password,
-                icon: Icons.lock_outline,
-                isObsure: controller.isConfirmPasswordObscure,
-                validator: (value) => Validator.confirmPassword(
-                  context,
-                  controller.passController.text,
-                  controller.confirmPassController.text,
-                ),
-              ),
-              AppGaps.h24,
+            // Submit button
+            buildSubmitButton(
+              context: context,
+              controller: controller,
+              buttonText: s.update_password,
+              onPressed: () async {
+                if (controller.formKey.currentState!.validate()) {
+                  final newPassword = controller.passController.text.trim();
+                  await controller.updatePassword(newPassword);
+                }
+              },
+            ),
 
-              // Submit button
-              buildSubmitButton(
-                context: context,
-                controller: controller,
-                buttonText: s.update_password,
-                onPressed: () async {
-                  if (controller.formKey.currentState!.validate()) {
-                    final newPassword = controller.passController.text.trim();
-                    await controller.updatePassword(newPassword);
-                  }
-                },
-              ),
+            AppGaps.h32,
 
-              AppGaps.h32,
-
-              // Back to Login
-              buildAuthNavigation(
-                context: context,
-                text: s.remembered_password,
-                actionText: s.log_in,
-                onTap: controller.goToLogin,
-              ),
-            ],
-          ),
+            // Back to Login
+            buildAuthNavigation(
+              context: context,
+              text: s.remembered_password,
+              actionText: s.log_in,
+              onTap: controller.goToLogin,
+            ),
+          ],
         ),
       ),
     );

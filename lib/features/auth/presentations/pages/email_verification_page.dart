@@ -14,51 +14,37 @@ class EmailVerificationPage extends GetView<AuthController> {
     final appTheme = context;
 
     return Scaffold(
-      body: Container(
-        // Gradient
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.primary.withOpacity(0.5),
-              context.background,
-              context.background,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(color: appTheme.primary),
-                  AppGaps.h24,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(color: appTheme.primary),
+                AppGaps.h24,
 
-                  // Verification message
-                  Text(
-                    '${s.emailVerificationMessage} $email',
-                    textAlign: TextAlign.center,
-                    style: appTheme.textTheme.bodyLarge?.copyWith(
-                      color: appTheme.onBackground,
-                    ),
+                // Verification message
+                Text(
+                  '${s.emailVerificationMessage} $email',
+                  textAlign: TextAlign.center,
+                  style: appTheme.textTheme.bodyLarge?.copyWith(
+                    color: appTheme.onBackground,
                   ),
-                  AppGaps.h12,
+                ),
+                AppGaps.h12,
 
-                  // Instruction text
-                  Text(
-                    '${s.emailVerificationInstruction} $email',
-                    textAlign: TextAlign.center,
-                    style: appTheme.textTheme.bodyMedium?.copyWith(
-                      color: appTheme.onBackground.withOpacity(0.7),
-                    ),
+                // Instruction text
+                Text(
+                  '${s.emailVerificationInstruction} $email',
+                  textAlign: TextAlign.center,
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
+                    color: appTheme.onBackground.withOpacity(0.7),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

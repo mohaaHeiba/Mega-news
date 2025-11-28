@@ -58,44 +58,31 @@ class AiBriefingPage extends GetView<AiBriefingController> {
                   ),
                 ],
               ),
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      context.primary.withOpacity(0.5),
-                      context.primary.withOpacity(0.5),
-                      context.background,
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 60, 20, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        todayDate.toUpperCase(),
-                        style: context.textStyles.labelMedium?.copyWith(
-                          color: context.primary,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1.2,
-                        ),
+              background: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 60, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      todayDate.toUpperCase(),
+                      style: context.textStyles.labelMedium?.copyWith(
+                        color: context.primary,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.2,
                       ),
-                      AppGaps.h8,
+                    ),
+                    AppGaps.h8,
 
-                      Text(
-                        s.ai_welcome_message,
-                        style: context.textStyles.headlineMedium?.copyWith(
-                          height: 1.1,
-                          fontWeight: FontWeight.w900,
-                          color: context.onBackground.withOpacity(0.8),
-                          fontSize: 24,
-                        ),
+                    Text(
+                      s.ai_welcome_message,
+                      style: context.textStyles.headlineMedium?.copyWith(
+                        height: 1.1,
+                        fontWeight: FontWeight.w900,
+                        color: context.onBackground.withOpacity(0.8),
+                        fontSize: 24,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

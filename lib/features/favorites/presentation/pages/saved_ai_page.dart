@@ -15,7 +15,7 @@ class SavedAiPage extends GetView<FavoritesController> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.primary.withOpacity(0.5),
+        backgroundColor: context.background,
         elevation: 0,
         centerTitle: true,
         title: Row(
@@ -32,40 +32,30 @@ class SavedAiPage extends GetView<FavoritesController> {
           ],
         ),
       ),
-      body: Container(
-        //gradient
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [context.primary.withOpacity(0.5), context.background],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return Center(
-              child: CircularProgressIndicator(color: context.primary),
-            );
-          }
-
-          if (controller.aiSummaries.isEmpty) {
-            return buildEmptyStateAi(context, s);
-          }
-
-          return RefreshIndicator(
-            onRefresh: () async => await controller.loadFavorites(),
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              itemCount: controller.aiSummaries.length,
-              separatorBuilder: (context, index) => AppGaps.h16,
-              itemBuilder: (context, index) {
-                final article = controller.aiSummaries[index];
-                return buildAiSummaryTile(context, article, controller, s);
-              },
-            ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(
+            child: CircularProgressIndicator(color: context.primary),
           );
-        }),
-      ),
+        }
+
+        if (controller.aiSummaries.isEmpty) {
+          return buildEmptyStateAi(context, s);
+        }
+
+        return RefreshIndicator(
+          onRefresh: () async => await controller.loadFavorites(),
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            itemCount: controller.aiSummaries.length,
+            separatorBuilder: (context, index) => AppGaps.h16,
+            itemBuilder: (context, index) {
+              final article = controller.aiSummaries[index];
+              return buildAiSummaryTile(context, article, controller, s);
+            },
+          ),
+        );
+      }),
     );
   }
 }

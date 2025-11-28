@@ -16,93 +16,79 @@ class ForgotPasswordPage extends GetView<AuthController> {
     final s = context.s;
     final appTheme = context;
 
-    return Container(
-      // Gradient
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            context.primary.withOpacity(0.5),
-            context.background,
-            context.background,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Icon
-                Icon(
-                  Icons.lock_reset_rounded,
-                  color: appTheme.primary,
-                  size: appTheme.screenWidth * 0.18,
-                ),
-                AppGaps.h24,
+    return SingleChildScrollView(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Icon
+              Icon(
+                Icons.lock_reset_rounded,
+                color: appTheme.primary,
+                size: appTheme.screenWidth * 0.18,
+              ),
+              AppGaps.h24,
 
-                // Title
-                Text(
-                  s.forgotPasswordTitle,
-                  textAlign: TextAlign.center,
-                  style: appTheme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                    color: appTheme.onBackground,
-                  ),
+              // Title
+              Text(
+                s.forgotPasswordTitle,
+                textAlign: TextAlign.center,
+                style: appTheme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                  color: appTheme.onBackground,
                 ),
-                AppGaps.h12,
+              ),
+              AppGaps.h12,
 
-                // Description
-                Text(
-                  s.forgotPasswordSubtitle,
-                  textAlign: TextAlign.center,
-                  style: appTheme.textTheme.bodyMedium?.copyWith(
-                    color: appTheme.onSurface.withOpacity(0.8),
-                  ),
+              // Description
+              Text(
+                s.forgotPasswordSubtitle,
+                textAlign: TextAlign.center,
+                style: appTheme.textTheme.bodyMedium?.copyWith(
+                  color: appTheme.onSurface.withOpacity(0.8),
                 ),
-                AppGaps.h32,
+              ),
+              AppGaps.h32,
 
-                // Email Field
-                textFieldWidget(
-                  controller: controller.emailController,
-                  label: s.labelEmail,
-                  hint: s.hintEmail,
-                  icon: Icons.email_outlined,
-                  inputType: TextInputType.emailAddress,
-                  validator: (value) => Validator.email(context, value ?? ''),
-                ),
-                AppGaps.h24,
+              // Email Field
+              textFieldWidget(
+                controller: controller.emailController,
+                label: s.labelEmail,
+                hint: s.hintEmail,
+                icon: Icons.email_outlined,
+                inputType: TextInputType.emailAddress,
+                validator: (value) => Validator.email(context, value ?? ''),
+              ),
+              AppGaps.h24,
 
-                // Send Reset Link Button
-                buildSubmitButton(
-                  context: context,
-                  controller: controller,
-                  buttonText: s.buttonSendResetLink,
-                  onPressed: () async {
-                    if (controller.formKey.currentState!.validate()) {
-                      controller.isLoading.value = true;
-                      await controller.resetPassword();
-                      controller.isLoading.value = false;
-                    }
-                  },
-                ),
+              // Send Reset Link Button
+              buildSubmitButton(
+                context: context,
+                controller: controller,
+                buttonText: s.buttonSendResetLink,
+                onPressed: () async {
+                  if (controller.formKey.currentState!.validate()) {
+                    controller.isLoading.value = true;
+                    await controller.resetPassword();
+                    controller.isLoading.value = false;
+                  }
+                },
+              ),
 
-                AppGaps.h24,
+              AppGaps.h24,
 
-                // Back to Login
-                buildAuthNavigation(
-                  context: context,
-                  text: s.rememberPassword,
-                  actionText: s.buttonLogin,
-                  onTap: controller.backFromForgotPass,
-                ),
-              ],
-            ),
+              // Back to Login
+              buildAuthNavigation(
+                context: context,
+                text: s.rememberPassword,
+                actionText: s.buttonLogin,
+                onTap: controller.backFromForgotPass,
+              ),
+            ],
           ),
         ),
       ),

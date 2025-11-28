@@ -5,7 +5,6 @@ import 'package:mega_news/core/helper/context_extensions.dart';
 import 'package:mega_news/features/settings/controller/menu_view_controller.dart';
 import 'package:mega_news/features/settings/widgets/profile_widgets/info_section.dart';
 import 'package:mega_news/features/settings/widgets/profile_widgets/profile_section.dart';
-import 'package:mega_news/features/settings/widgets/profile_widgets/quick_actions.dart';
 import 'package:mega_news/features/settings/widgets/profile_widgets/stats_row.dart';
 
 class ProfilePage extends GetView<MenuViewController> {
@@ -19,7 +18,7 @@ class ProfilePage extends GetView<MenuViewController> {
     return Scaffold(
       // backgroundColor: context.background,
       appBar: AppBar(
-        backgroundColor: context.primary.withOpacity(0.5),
+        backgroundColor: context.background,
 
         elevation: 0,
         centerTitle: true,
@@ -59,34 +58,19 @@ class ProfilePage extends GetView<MenuViewController> {
           );
         }
 
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                context.primary.withOpacity(0.5),
-                context.background,
-                context.background,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              children: [
-                ProfileHeader(theme, s, controller.user.value!),
-                AppGaps.h24,
-                StatsRow(theme, s),
-                AppGaps.h24,
-                QuickActions(theme, s),
-                AppGaps.h24,
-                InfoSection(theme, s, controller.user.value!),
-                AppGaps.h24,
-                AppGaps.h24,
-              ],
-            ),
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              ProfileHeader(theme, s, controller.user.value!),
+              AppGaps.h24,
+              StatsRow(theme, s),
+              AppGaps.h24,
+              InfoSection(theme, s, controller.user.value!),
+              AppGaps.h24,
+              AppGaps.h24,
+            ],
           ),
         );
       }),

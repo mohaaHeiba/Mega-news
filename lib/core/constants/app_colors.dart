@@ -7,7 +7,7 @@ class AppColors {
   static const Color primaryDark = Color(0xFF1565C0);
 
   //  Dark Mode Backgrounds
-  static const Color background = Color(0xFF212121);
+  static const Color background = Color.fromARGB(255, 24, 24, 24);
   static const Color surface = Color(0xFF1E1E1E);
   static const Color overlay = Color(0xFF262626);
 

@@ -148,107 +148,94 @@ class HomePage extends GetView<HomeController> {
 
                     return FlexibleSpaceBar(
                       titlePadding: EdgeInsets.zero,
-                      background: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              context.primary.withOpacity(0.5),
-                              context.primary.withOpacity(0.5),
-                              context.background,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                        child: SafeArea(
-                          bottom: false,
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: collapsed ? 0 : 1,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppGaps.h12,
+                      background: SafeArea(
+                        bottom: false,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: collapsed ? 0 : 1,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppGaps.h12,
 
-                                  // Greeting
-                                  Text(
-                                    s.home_welcome_back,
-                                    style: context.textStyles.labelSmall
-                                        ?.copyWith(
-                                          color: context.onBackground
-                                              .withOpacity(0.6),
-                                          fontWeight: FontWeight.w500,
+                                // Greeting
+                                Text(
+                                  s.home_welcome_back,
+                                  style: context.textStyles.labelSmall
+                                      ?.copyWith(
+                                        color: context.onBackground.withOpacity(
+                                          0.6,
                                         ),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                AppGaps.h4,
+                                Text(
+                                  s.app_name,
+                                  style: context.textStyles.headlineLarge
+                                      ?.copyWith(
+                                        color: context.onBackground,
+                                        fontWeight: FontWeight.w800,
+                                        letterSpacing: -0.8,
+                                      ),
+                                ),
+
+                                AppGaps.h16,
+
+                                // BIG Search Bar
+                                Container(
+                                  height: 46,
+                                  decoration: BoxDecoration(
+                                    color: context.surface,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: context.onBackground.withOpacity(
+                                          0.08,
+                                        ),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
                                   ),
-                                  AppGaps.h4,
-                                  Text(
-                                    s.app_name,
-                                    style: context.textStyles.headlineLarge
-                                        ?.copyWith(
-                                          color: context.onBackground,
-                                          fontWeight: FontWeight.w800,
-                                          letterSpacing: -0.8,
-                                        ),
-                                  ),
-
-                                  AppGaps.h16,
-
-                                  // BIG Search Bar
-                                  Container(
-                                    height: 46,
-                                    decoration: BoxDecoration(
-                                      color: context.surface,
-                                      borderRadius: BorderRadius.circular(12),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: context.onBackground
-                                              .withOpacity(0.08),
-                                          blurRadius: 10,
-                                          offset: const Offset(0, 4),
-                                        ),
-                                      ],
-                                    ),
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(12),
-                                      onTap: () {
-                                        Get.to(() => const ShowSearchPage());
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.search_rounded,
-                                              color: context.primary
-                                                  .withOpacity(0.8),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(12),
+                                    onTap: () {
+                                      Get.to(() => const ShowSearchPage());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.search_rounded,
+                                            color: context.primary.withOpacity(
+                                              0.8,
                                             ),
-                                            AppGaps.w12,
-                                            Expanded(
-                                              child: Text(
-                                                s.home_search_hint,
-                                                style: context
-                                                    .textStyles
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                      color: context
-                                                          .onBackground
-                                                          .withOpacity(0.6),
-                                                    ),
-                                              ),
+                                          ),
+                                          AppGaps.w12,
+                                          Expanded(
+                                            child: Text(
+                                              s.home_search_hint,
+                                              style: context
+                                                  .textStyles
+                                                  .bodyMedium
+                                                  ?.copyWith(
+                                                    color: context.onBackground
+                                                        .withOpacity(0.6),
+                                                  ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),

@@ -40,8 +40,8 @@ class AppPages {
       name: articleDetailPage,
       page: () => ArticleDetailPage(),
       binding: ArticleDetailBinding(),
-      transition: Transition.rightToLeft,
-      transitionDuration: Duration(milliseconds: 100),
+      // transition: Transition.rightToLeft,
+      // transitionDuration: Duration(milliseconds: 100),
     ),
   ];
 }

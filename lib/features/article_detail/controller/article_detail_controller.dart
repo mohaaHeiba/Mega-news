@@ -196,4 +196,10 @@ class ArticleDetailController extends GetxController {
       }
     });
   }
+
+  @override
+  void onClose() {
+    _flutterTts.stop();
+    super.onClose();
+  }
 }
