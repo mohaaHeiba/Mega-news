@@ -427,6 +427,32 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> resendForgotPasswordEmail(String email) async {
+    final s = Get.context!.s;
+    try {
+      if (!await NetworkService.isConnected) {
+        throw const NetworkException('No internet connection.');
+      }
+
+      // Reuse existing resetPassword from repo
+      await repo.resetPassword(email);
+
+      customSnackbar(
+        title: "Email Resent",
+        message: "Password reset link sent again successfully.",
+        color: AppColors.success,
+      );
+    } catch (e) {
+      // Handle silently or simple error, user can try again
+      print("Resend failed: $e");
+      customSnackbar(
+        title: "Error",
+        message: "Failed to resend email. Please try again.",
+        color: AppColors.error,
+      );
+    }
+  }
+
   void loginGuest() {
     final s = Get.context!.s;
     user.value = AuthEntity(

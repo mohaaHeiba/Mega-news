@@ -3,8 +3,10 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/features/favorites/data/dataSource/favorites_local_data_source.dart';
 import 'package:mega_news/features/favorites/data/dataSource/favorites_remote_datasource.dart';
+import 'package:mega_news/features/favorites/data/repositories/favorites_repository.dart';
 import 'package:mega_news/features/favorites/data/repositories/favorites_repository_impl.dart';
 import 'package:mega_news/features/favorites/domain/usecases/add_favorites_use_case.dart';
+import 'package:mega_news/features/favorites/domain/usecases/clear_all_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/get_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/remove_favorites_use_case.dart';
 import 'package:mega_news/features/notifications/presentation/controller/notifications_controller.dart';
@@ -69,7 +71,7 @@ class LayoutBinding extends Bindings {
     final getAiSummaryUseCase = GetAiSummaryUseCase(geminiRepository);
 
     // ==========================================================
-    // 3. Setup Favorites Dependencies (NEW ADDITION)
+    // 3. Setup Favorites Dependencies
     // ==========================================================
 
     // Data Sources
@@ -79,15 +81,21 @@ class LayoutBinding extends Bindings {
     final favoritesLocalDS = FavoritesLocalDataSourceImpl();
 
     // Repository
-    final favoritesRepository = FavoritesRepositoryImpl(
-      remoteDataSource: favoritesRemoteDS,
-      localDataSource: favoritesLocalDS,
+    final favoritesRepository = Get.put<FavoritesRepository>(
+      FavoritesRepositoryImpl(
+        remoteDataSource: favoritesRemoteDS,
+        localDataSource: favoritesLocalDS,
+      ),
     );
 
     // Use Cases
     final getFavoritesUseCase = GetFavoritesUseCase(favoritesRepository);
     final addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository);
     final removeFavoriteUseCase = RemoveFavoriteUseCase(favoritesRepository);
+
+    final clearAllFavoritesUseCase = ClearAllFavoritesUseCase(
+      favoritesRepository,
+    );
 
     // ==========================================================
     // 4. Inject Controllers
@@ -121,12 +129,14 @@ class LayoutBinding extends Bindings {
       () => NotificationsController(),
       fenix: true,
     );
+
     // Favorites Controller
     Get.lazyPut<FavoritesController>(
       () => FavoritesController(
         getFavoritesUseCase: getFavoritesUseCase,
         addFavoriteUseCase: addFavoriteUseCase,
         removeFavoriteUseCase: removeFavoriteUseCase,
+        clearAllFavoritesUseCase: clearAllFavoritesUseCase,
       ),
     );
   }

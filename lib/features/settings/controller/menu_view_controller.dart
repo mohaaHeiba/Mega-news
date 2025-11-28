@@ -7,7 +7,7 @@ import 'package:mega_news/features/auth/data/model/auth_model.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
 import 'package:mega_news/features/favorites/data/repositories/favorites_repository.dart';
-import 'package:mega_news/features/favorites/domain/usecases/clear_all_favorites_use_case.dart';
+import 'package:mega_news/features/favorites/presentation/controller/favorites_controller.dart';
 import 'package:mega_news/features/settings/controller/theme_controller.dart';
 import 'package:mega_news/core/services/permission_service.dart';
 import 'package:mega_news/core/services/network_service.dart';
@@ -171,36 +171,26 @@ class MenuViewController extends GetxController {
       'favorites_cache': storage.read('favorites_cache'),
     };
 
-    await storage.erase();
+    // await storage.erase();
 
     keptData.forEach((key, value) {
       if (value != null) storage.write(key, value);
     });
 
-    themeController.loadTheme();
-    themeController.loadLanguage();
+    // themeController.loadTheme();
+    // themeController.loadLanguage();
   }
 
+  //  FavoritesController
   Future<void> deleteAllFavorites() async {
-    final currentUser = user.value;
-    final userId = currentUser?.id ?? 'guest';
-
     try {
-      final favoritesRepo = Get.find<FavoritesRepository>();
-      final clearUseCase = ClearAllFavoritesUseCase(favoritesRepo);
-
-      await clearUseCase.call(userId);
-
-      Get.snackbar(
-        'Success',
-        'All favorites cleared successfully',
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
+      final favoritesController = Get.find<FavoritesController>();
+      await favoritesController.clearAllFavorites();
     } catch (e) {
+      print("Error in MenuViewController deleting favorites: $e");
       Get.snackbar(
         'Error',
-        'Failed to clear favorites',
+        'Could not access favorites controller',
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

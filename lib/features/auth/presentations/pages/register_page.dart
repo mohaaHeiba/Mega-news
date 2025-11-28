@@ -17,7 +17,6 @@ class RegisterPage extends GetView<AuthController> {
 
     // Cleaned up: Removed outer decoration, now just content
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

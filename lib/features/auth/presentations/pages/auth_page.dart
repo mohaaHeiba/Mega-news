@@ -17,227 +17,116 @@ class AuthPage extends GetView<AuthController> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    // للحصول على ارتفاع الكيبورد
-    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
-
     return Scaffold(
-      backgroundColor: colorScheme.primary,
-      // 1. منع تغيير حجم الصفحة عند فتح الكيبورد
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          // 1. الخلفية الثابتة
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    colorScheme.primary,
-                    colorScheme.primary.withOpacity(0.8),
-                  ],
-                ),
-              ),
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: SafeArea(
+        child: SizedBox(
+          height: context.screenHeight,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 20.0,
             ),
-          ),
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 1. زر الزائر
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: controller.loginGuest,
+                    style: TextButton.styleFrom(
+                      // 2. لون النص والأيقونة يتغير حسب الخلفية
+                      foregroundColor: colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                    icon: const Icon(Icons.person_outline_rounded, size: 20),
+                    label: const Text('Guest'),
+                  ),
+                ),
 
-          // 2. الهيدر المتغير (النصوص والأيقونات)
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: context.screenHeight * 0.35,
-            child: SafeArea(
-              child: Center(
-                child: Obx(() {
-                  final index = controller.currentPageIndex.value;
+                AppGaps.h24,
 
-                  IconData icon;
+                // 2. العنوان والترحيب
+                Obx(() {
                   String title;
                   String subtitle;
 
-                  switch (index) {
+                  switch (controller.currentPageIndex.value) {
                     case 0: // Login
-                      icon = Icons.newspaper_rounded;
-                      title = s.welcome_back;
-                      subtitle = s.login_to_continue;
+                      title = "Let's sign you in.";
+                      subtitle = "Welcome back.\nYou've been missed!";
                       break;
                     case 1: // Register
-                      icon = Icons.person_add_rounded;
-                      title = s.registerTitle;
-                      subtitle = s.registerSubtitle;
+                      title = "Create an account.";
+                      subtitle =
+                          "Join us & start exploring\nall the breaking news.";
                       break;
                     case 2: // Forgot Password
-                      icon = Icons.lock_reset_rounded;
-                      title = s.forgotPasswordTitle;
-                      subtitle = s.forgotPasswordSubtitle;
+                      title = "Forgot Password?";
+                      subtitle =
+                          "Don't worry! It happens.\nPlease enter your email.";
                       break;
                     case 3: // Create Password
-                      icon = Icons.lock_outline_rounded;
-                      title = s.create;
-                      subtitle = s.set_strong_password;
+                      title = "New Password";
+                      subtitle =
+                          "Your new password must be different\nfrom previously used passwords.";
                       break;
                     default:
-                      icon = Icons.newspaper_rounded;
-                      title = "";
+                      title = "Welcome";
                       subtitle = "";
                   }
 
-                  return Padding(
-                    // إضافة مسافة جانبية للنصوص عشان متلزقش في الحواف
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          transitionBuilder: (child, animation) =>
-                              ScaleTransition(scale: animation, child: child),
-                          child: Icon(
-                            icon,
-                            key: ValueKey<int>(index),
-                            color: Colors.white,
-                            size: 60,
-                          ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          // 3. النص الأساسي يأخذ لون "فوق السطح" (أسود/أبيض)
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
                         ),
-                        AppGaps.h12,
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          child: Text(
-                            title,
-                            key: ValueKey<String>(title),
-                            textAlign:
-                                TextAlign.center, // محاذاة النص في المنتصف
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                      AppGaps.h12,
+                      Text(
+                        subtitle,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          // 4. النص الفرعي يكون باهتاً قليلاً ليعطي إيحاء الرمادي
+                          color: colorScheme.onSurface.withOpacity(0.6),
+                          height: 1.5,
+                          fontSize: 16,
                         ),
-                        AppGaps.h4,
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          child: Text(
-                            subtitle,
-                            key: ValueKey<String>(subtitle),
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white.withOpacity(0.8),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 }),
-              ),
-            ),
-          ),
 
-          // 3. زر الزائر
-          Positioned(
-            top: 0,
-            right: 0,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: controller.loginGuest,
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
-                          width: 1,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.person_outline_rounded,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Guest',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // 4. البطاقة البيضاء (Sheet) + المحتوى
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              // 2. تثبيت الارتفاع ليكون 70% لإعطاء مساحة للهيدر
-              height: context.screenHeight * 0.70,
-              // 3. إضافة padding سفلي بقيمة ارتفاع الكيبورد للسماح بالسكرول
-              padding: EdgeInsets.only(
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: bottomPadding, // هذا هو السر
-              ),
-              decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 20,
-                    offset: const Offset(0, -5),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32),
-                ),
-                child: Form(
+                AppGaps.h32,
+                Form(
                   key: controller.formKey,
-                  child: PageView(
-                    physics: const BouncingScrollPhysics(),
-                    controller: controller.pageController,
-                    onPageChanged: controller.onPageChanged,
-                    children: const [
-                      LoginPage(),
-                      RegisterPage(),
-                      ForgotPasswordPage(),
-                      CreateNewPasswordPage(),
-                    ],
-                  ),
+                  child: Obx(() {
+                    switch (controller.currentPageIndex.value) {
+                      case 0:
+                        return const LoginPage();
+                      case 1:
+                        return const RegisterPage();
+                      case 2:
+                        return const ForgotPasswordPage();
+                      case 3:
+                        return const CreateNewPasswordPage();
+                      default:
+                        return const LoginPage();
+                    }
+                  }),
                 ),
-              ),
+
+                AppGaps.h32,
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -18,7 +18,6 @@ class CreateNewPasswordPage extends GetView<AuthController> {
     // Refactored: Removed Scaffold/Stack. Now behaves as a child page.
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

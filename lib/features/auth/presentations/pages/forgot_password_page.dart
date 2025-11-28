@@ -18,41 +18,10 @@ class ForgotPasswordPage extends GetView<AuthController> {
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(28, 48, 28, 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Info Card with icon and instructions
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: theme.colorScheme.primary.withOpacity(0.1),
-              ),
-            ),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.info_outline_rounded,
-                  color: theme.colorScheme.primary,
-                  size: 32,
-                ),
-                AppGaps.h12,
-                Text(
-                  // s.forgotPasswordInstruction ??
-                  'Enter your email address and we\'ll send you a link to reset your password.',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[700],
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
           AppGaps.h32,
 
           // Email Field
@@ -79,7 +48,38 @@ class ForgotPasswordPage extends GetView<AuthController> {
             },
           ),
 
-          AppGaps.h32,
+          AppGaps.h16,
+
+          // Resend Link Button (Added Here)
+          Align(
+            alignment: Alignment.center,
+            child: TextButton.icon(
+              onPressed: () async {
+                if (controller.emailController.text.isNotEmpty &&
+                    GetUtils.isEmail(controller.emailController.text)) {
+                  await controller.resendForgotPasswordEmail(
+                    controller.emailController.text.trim(),
+                  );
+                } else {
+                  controller.formKey.currentState?.validate();
+                }
+              },
+              icon: Icon(
+                Icons.refresh_rounded,
+                size: 18,
+                color: theme.colorScheme.primary,
+              ),
+              label: Text(
+                "Resend Link",
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+
+          AppGaps.h24,
 
           // Back to Login
           Center(

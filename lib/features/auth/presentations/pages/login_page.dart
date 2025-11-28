@@ -19,7 +19,6 @@ class LoginPage extends GetView<AuthController> {
 
     // Removed Container decoration. This is now transparent content.
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

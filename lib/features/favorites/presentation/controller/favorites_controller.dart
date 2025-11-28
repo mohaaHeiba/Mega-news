@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/custom/custom_snackbar.dart';
 import 'package:mega_news/features/favorites/domain/usecases/add_favorites_use_case.dart';
+import 'package:mega_news/features/favorites/domain/usecases/clear_all_favorites_use_case.dart'; // تأكد من استيراد هذا الملف
 import 'package:mega_news/features/favorites/domain/usecases/get_favorites_use_case.dart';
 import 'package:mega_news/features/favorites/domain/usecases/remove_favorites_use_case.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
@@ -13,11 +15,13 @@ class FavoritesController extends GetxController {
   final GetFavoritesUseCase getFavoritesUseCase;
   final AddFavoriteUseCase addFavoriteUseCase;
   final RemoveFavoriteUseCase removeFavoriteUseCase;
+  final ClearAllFavoritesUseCase clearAllFavoritesUseCase;
 
   FavoritesController({
     required this.getFavoritesUseCase,
     required this.addFavoriteUseCase,
     required this.removeFavoriteUseCase,
+    required this.clearAllFavoritesUseCase, // مطلوب في الـ Constructor
   });
 
   // State
@@ -121,6 +125,49 @@ class FavoritesController extends GetxController {
       customSnackbar(
         title: 'Error',
         message: 'Failed to remove favorites: ${e.toString()}',
+        color: AppColors.error,
+      );
+    }
+  }
+
+  /// Clear All Favorites (Function to fix the UI issue and Guest Error)
+  Future<void> clearAllFavorites() async {
+    // 1. حفظ نسخة احتياطية في حال الفشل الحقيقي
+    final previousFavorites = List<Article>.from(favorites);
+
+    // 2. تحديث الواجهة فوراً (Optimistic UI Update)
+    favorites.clear();
+
+    try {
+      // 3. استدعاء الدالة لحذف البيانات
+      await clearAllFavoritesUseCase(_userId);
+
+      Get.snackbar(
+        'Success',
+        'All favorites cleared successfully',
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      // 4. معالجة الأخطاء الذكية
+      final errorMsg = e.toString().toLowerCase();
+
+      // إذا كان الخطأ بسبب أن الـ ID هو "guest" (ليس UUID صالح)،
+      // فهذا يعني أننا نجحنا في الحذف المحلي (لأننا نظفنا القائمة فوق)،
+      // وفشلنا فقط في محاولة الاتصال بـ Supabase، وهذا متوقع للضيف.
+      if (_userId.contains('guest') &&
+          (errorMsg.contains('uuid') || errorMsg.contains('invalid input'))) {
+        print("Guest local clear successful, ignored remote error.");
+        return; // لا تظهر رسالة خطأ، ولا تقم باسترجاع البيانات
+      }
+
+      // 5. إذا كان خطأ حقيقي (مثل انقطاع نت لمستخدم مسجل)، نعيد البيانات
+      print("Error clearing favorites: $e");
+      favorites.assignAll(previousFavorites);
+
+      customSnackbar(
+        title: 'Error',
+        message: 'Failed to clear favorites',
         color: AppColors.error,
       );
     }

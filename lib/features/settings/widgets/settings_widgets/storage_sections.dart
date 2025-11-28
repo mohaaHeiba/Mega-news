@@ -98,6 +98,8 @@ class StorageSection extends StatelessWidget {
               );
               if (confirmed == true) {
                 await controller.clearCache();
+                await controller.deleteAllFavorites();
+
                 customSnackbar(
                   title: Get.context!.s.cache_cleared_title,
                   message: Get.context!.s.cache_cleared_msg,
