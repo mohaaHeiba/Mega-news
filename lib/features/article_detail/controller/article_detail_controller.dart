@@ -34,24 +34,22 @@ class ArticleDetailController extends GetxController {
   // Services
   final FlutterTts _flutterTts = FlutterTts();
 
+  // 1. تعريف متغير للـ Timer عشان نقدر نوقفه
+  Timer? _colorTimer;
+
   // ================= Initialization =================
   @override
   void onInit() {
     super.onInit();
     final args = Get.arguments;
 
-    // Handle Standard Article (And AI Summary converted to Article)
     if (args is Article) {
       article = args;
-
       if (article != null) {
         isLiked.value = _favoritesController.isFavorite(article!.id);
       }
-
       _generatePalette();
-    }
-    // Handle AI Generated Content (Legacy Map)
-    else if (args is Map<String, dynamic>) {
+    } else if (args is Map<String, dynamic>) {
       aiTopic = args['topic'];
       aiSummary = args['summary'];
       aiImages = args['images'];
@@ -64,16 +62,13 @@ class ArticleDetailController extends GetxController {
   // ================= User Actions =================
   void toggleLike() {
     if (article == null) return;
-
     _favoritesController.toggleFavorite(article!);
-
     isLiked.value = _favoritesController.isFavorite(article!.id);
   }
 
   // ================= Text-to-Speech (TTS) Logic =================
   void _initTts() {
     _flutterTts.setSpeechRate(0.5);
-
     _flutterTts.setStartHandler(() => ttsState.value = TtsState.playing);
     _flutterTts.setCompletionHandler(() => ttsState.value = TtsState.stopped);
     _flutterTts.setCancelHandler(() => ttsState.value = TtsState.stopped);
@@ -96,7 +91,6 @@ class ArticleDetailController extends GetxController {
         await _flutterTts.setLanguage("en-US");
         await _flutterTts.setSpeechRate(0.45);
       }
-
       await _flutterTts.speak(textToSpeak);
     }
   }
@@ -133,7 +127,14 @@ class ArticleDetailController extends GetxController {
         imageBytes = byteData.buffer.asUint8List();
       }
 
+      // 2. فحص مهم: لو الكنترولر اتقفل واحنا بنحمل الصورة، نوقف وميكملش
+      if (isClosed) return;
+
       final color = await compute(_extractDominantColor, imageBytes);
+
+      // 3. فحص تاني بعد الـ compute
+      if (isClosed) return;
+
       _graduallyChangeColor(vibrantColor.value, color);
 
       vibrantTextColor.value = color.computeLuminance() > 0.5
@@ -145,22 +146,18 @@ class ArticleDetailController extends GetxController {
   }
 
   static Color _extractDominantColor(Uint8List bytes) {
+    // ... (الكود زي ما هو)
     final img.Image? decoded = img.decodeImage(bytes);
-
     if (decoded == null) return Colors.grey;
-
     int r = 0, g = 0, b = 0;
     int count = 0;
-
     for (final pixel in decoded) {
       r += pixel.r.toInt();
       g += pixel.g.toInt();
       b += pixel.b.toInt();
       count++;
     }
-
     if (count == 0) return Colors.grey;
-
     return Color.fromRGBO(r ~/ count, g ~/ count, b ~/ count, 1);
   }
 
@@ -180,7 +177,17 @@ class ArticleDetailController extends GetxController {
 
     int currentStep = 0;
 
-    Timer.periodic(stepDuration, (timer) {
+    // 4. إلغاء أي تايمر قديم قبل ما نبدأ واحد جديد
+    _colorTimer?.cancel();
+
+    // 5. تخزين الـ Timer في المتغير
+    _colorTimer = Timer.periodic(stepDuration, (timer) {
+      // 6. أهم نقطة: لو الصفحة اتقفلت، وقف التايمر فوراً
+      if (isClosed) {
+        timer.cancel();
+        return;
+      }
+
       if (currentStep >= steps) {
         timer.cancel();
         vibrantColor.value = to;
@@ -197,7 +204,9 @@ class ArticleDetailController extends GetxController {
 
   @override
   void onClose() {
-    _flutterTts.stop();
+    // 7. تنظيف شامل عند الخروج
+    _colorTimer?.cancel(); // وقف التايمر
+    _flutterTts.stop(); // وقف الصوت
     super.onClose();
   }
 }
