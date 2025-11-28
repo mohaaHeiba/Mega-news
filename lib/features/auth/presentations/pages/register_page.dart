@@ -13,49 +13,21 @@ class RegisterPage extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = context;
     final s = context.s;
 
+    // Cleaned up: Removed outer decoration, now just content
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Header Icon
-          Icon(
-            Icons.person_add_alt_1_rounded,
-            color: appTheme.primary.withOpacity(0.9),
-            size: appTheme.screenWidth * 0.18,
-          ),
-          AppGaps.h24,
-
-          // Title
-          Text(
-            s.registerTitle,
-            textAlign: TextAlign.center,
-            style: appTheme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: appTheme.onBackground,
-            ),
-          ),
-          AppGaps.h12,
-
-          // Description
-          Text(
-            s.registerSubtitle,
-            textAlign: TextAlign.center,
-            style: appTheme.textTheme.bodyMedium?.copyWith(
-              color: appTheme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-            ),
-          ),
-          AppGaps.h32,
-
           // Full Name
           textFieldWidget(
             controller: controller.nameController,
             hint: s.hintFullName,
             label: s.labelFullName,
-            icon: Icons.person_outline,
+            icon: Icons.person_outline_rounded,
             validator: (value) =>
                 Validator.name(context, controller.nameController.text),
           ),
@@ -78,7 +50,7 @@ class RegisterPage extends GetView<AuthController> {
             controller: controller.passController,
             hint: s.hintPassword,
             label: s.labelPassword,
-            icon: Icons.lock_outline,
+            icon: Icons.lock_outline_rounded,
             isObsure: controller.isPasswordObscure,
             validator: (value) =>
                 Validator.password(context, controller.passController.text),
@@ -90,7 +62,7 @@ class RegisterPage extends GetView<AuthController> {
             controller: controller.confirmPassController,
             hint: s.hintConfirmPassword,
             label: s.labelConfirmPassword,
-            icon: Icons.lock_outline,
+            icon: Icons.lock_outline_rounded,
             isObsure: controller.isConfirmPasswordObscure,
             validator: (value) => Validator.confirmPassword(
               context,
@@ -98,7 +70,7 @@ class RegisterPage extends GetView<AuthController> {
               controller.confirmPassController.text,
             ),
           ),
-          AppGaps.h24,
+          AppGaps.h32,
 
           // Sign Up button
           buildSubmitButton(
@@ -118,13 +90,16 @@ class RegisterPage extends GetView<AuthController> {
 
           AppGaps.h32,
 
-          // Already have an account
-          buildAuthNavigation(
-            context: context,
-            text: s.alreadyHaveAccount,
-            actionText: s.buttonLogin,
-            onTap: controller.goToLogin,
+          // Already have an account Link
+          Center(
+            child: buildAuthNavigation(
+              context: context,
+              text: s.alreadyHaveAccount,
+              actionText: s.buttonLogin,
+              onTap: controller.goToLogin,
+            ),
           ),
+          AppGaps.h24,
         ],
       ),
     );

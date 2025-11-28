@@ -20,9 +20,11 @@ class AuthController extends GetxController {
   // ------------------ Form & Page ------------------
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController pageController = PageController(initialPage: 0);
-  final currentPage = 0.obs;
 
-  void onPageChanged(int index) => currentPage.value = index;
+  // قمنا بتغيير الاسم هنا ليتطابق مع AuthPage
+  final currentPageIndex = 0.obs;
+
+  void onPageChanged(int index) => currentPageIndex.value = index;
 
   // ------------------ Text Controllers ------------------
   final nameController = TextEditingController();
@@ -35,6 +37,8 @@ class AuthController extends GetxController {
 
   // ================= Page Navigation =================
   Future<void> goToRegister() async {
+    // تحديث المؤشر يدوياً لسرعة الاستجابة في UI
+    currentPageIndex.value = 1;
     pageController.animateToPage(
       1,
       duration: const Duration(milliseconds: 400),
@@ -44,6 +48,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> goToLogin() async {
+    currentPageIndex.value = 0;
     pageController.animateToPage(
       0,
       duration: const Duration(milliseconds: 400),
@@ -53,25 +58,28 @@ class AuthController extends GetxController {
   }
 
   Future<void> goToForgotPass() async {
-    currentPage.value = 2;
+    currentPageIndex.value = 2;
     await Future.delayed(const Duration(milliseconds: 100));
     pageController.jumpToPage(2);
     await clearControllers();
   }
 
   Future<void> backFromForgotPass() async {
+    currentPageIndex.value = 0;
     await Future.delayed(const Duration(milliseconds: 100));
     pageController.jumpToPage(0);
     await clearControllers();
   }
 
   Future<void> goToNewPass() async {
+    currentPageIndex.value = 3;
     await Future.delayed(const Duration(milliseconds: 100));
     pageController.jumpToPage(3);
     await clearControllers();
   }
 
   Future<void> backToLogin() async {
+    currentPageIndex.value = 0;
     await Future.delayed(const Duration(milliseconds: 100));
     pageController.jumpToPage(0);
     await clearControllers();
@@ -80,9 +88,8 @@ class AuthController extends GetxController {
   /// ------------------ Auth Actions ------------------
   final Rxn<AuthEntity> user = Rxn<AuthEntity>();
 
-  final s = Get.context!.s;
-
   Future<void> signUp(String name, String email, String password) async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       if (!await NetworkService.isConnected) {
@@ -106,7 +113,11 @@ class AuthController extends GetxController {
         message: s.auth_signup_success_msg,
         color: AppColors.success,
       );
-      Get.to(EmailVerificationPage(), transition: Transition.fadeIn);
+      Get.to(
+        () => const EmailVerificationPage(),
+        transition: Transition.fadeIn,
+        arguments: email,
+      );
     } on NetworkException {
       customSnackbar(
         title: s.error_no_connection_title,
@@ -137,6 +148,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> signIn({required String email, required String password}) async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       if (!await NetworkService.isConnected) {
@@ -186,6 +198,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> googleSignIn() async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       if (!await NetworkService.isConnected) {
@@ -229,6 +242,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       // --- check net first ---
@@ -274,6 +288,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> deleteAccount() async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       if (!await NetworkService.isConnected) {
@@ -323,6 +338,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> updatePassword(String newPassword) async {
+    final s = Get.context!.s;
     try {
       isLoading.value = true;
       // --- check net first ---
@@ -364,10 +380,10 @@ class AuthController extends GetxController {
   }
 
   Future<void> resetPassword() async {
+    final s = Get.context!.s;
     final email = emailController.text.trim();
 
     try {
-      // This check is fine here before loading
       if (!await NetworkService.isConnected) {
         throw const NetworkException('No internet connection.');
       }
@@ -412,6 +428,7 @@ class AuthController extends GetxController {
   }
 
   void loginGuest() {
+    final s = Get.context!.s;
     user.value = AuthEntity(
       id: 'guest_${DateTime.now().millisecondsSinceEpoch}',
       name: 'Guest',
@@ -441,10 +458,6 @@ class AuthController extends GetxController {
       'createdAt': authEntity.createdAt,
     };
     GetStorage().write('auth_data', userMap);
-    // print('User saved to storage: ${authEntity.name}');
-    // } catch (e) {
-    //   print('Error saving user to storage: $e');
-    // }
   }
 
   final supabase = Supabase.instance.client;

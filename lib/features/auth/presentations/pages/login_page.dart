@@ -15,45 +15,15 @@ class LoginPage extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     final s = context.s;
-    final appTheme = context;
+    final theme = Theme.of(context);
 
+    // Removed Container decoration. This is now transparent content.
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Logo / Header
-          Icon(
-            Icons.lock_outline_rounded,
-            color: appTheme.primary,
-            size: appTheme.screenWidth * 0.18,
-          ),
-          AppGaps.h24,
-
-          // Title
-          Text(
-            s.welcome_back,
-            textAlign: TextAlign.center,
-            style: appTheme.textTheme.headlineSmall?.copyWith(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-              color: appTheme.onBackground,
-            ),
-          ),
-          AppGaps.h12,
-
-          // Subtitle
-          Text(
-            s.login_to_continue,
-            textAlign: TextAlign.center,
-            style: appTheme.textTheme.bodyMedium?.copyWith(
-              fontSize: 15,
-              color: appTheme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-            ),
-          ),
-          AppGaps.h32,
-
           // Email Field
           textFieldWidget(
             controller: controller.emailController,
@@ -63,35 +33,36 @@ class LoginPage extends GetView<AuthController> {
             inputType: TextInputType.emailAddress,
             validator: (value) => Validator.email(context, value ?? ''),
           ),
-          AppGaps.h16,
+          AppGaps.h24,
 
           // Password Field
           textFieldPasswordWidget(
             controller: controller.passController,
             label: s.password,
             hint: s.enter_password,
-            icon: Icons.lock_outline,
+            icon: Icons.lock_outline_rounded,
             isObsure: controller.isPasswordObscure,
             validator: (value) => Validator.password(context, value ?? ''),
           ),
 
           // Forgot Password
           Align(
-            alignment: Alignment.centerRight,
+            alignment: AlignmentDirectional.centerEnd,
             child: TextButton(
               onPressed: controller.goToForgotPass,
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+              ),
               child: Text(
                 s.forgot_password,
-                style: appTheme.textTheme.bodySmall?.copyWith(
-                  color: appTheme.primary,
-                  decoration: TextDecoration.underline,
-                  decorationColor: appTheme.primary,
-                  fontSize: 13,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
-          AppGaps.h12,
+          AppGaps.h24,
 
           // Log In Button
           buildSubmitButton(
@@ -113,66 +84,68 @@ class LoginPage extends GetView<AuthController> {
           // Divider
           Row(
             children: [
-              Expanded(
-                child: Divider(
-                  color: appTheme.onSurface.withOpacity(0.4),
-                  thickness: 1,
-                ),
-              ),
+              Expanded(child: Divider(color: Colors.grey.shade300)),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
                   s.or_continue_with,
-                  style: appTheme.textTheme.bodySmall?.copyWith(
-                    fontSize: 14,
-                    color: appTheme.textTheme.bodySmall?.color?.withOpacity(
-                      0.8,
-                    ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: Colors.grey.shade500,
                   ),
                 ),
               ),
-              Expanded(
-                child: Divider(
-                  color: appTheme.onSurface.withOpacity(0.4),
-                  thickness: 1,
-                ),
-              ),
+              Expanded(child: Divider(color: Colors.grey.shade300)),
             ],
           ),
           AppGaps.h24,
 
-          // Google Sign-In
-          SizedBox(
-            height: 52,
-            child: OutlinedButton.icon(
-              onPressed: controller.googleSignIn,
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: appTheme.onSurface.withOpacity(0.3)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+          // Google Sign-In Button
+          Container(
+            height: 56,
+            decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.grey.shade300),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
                 ),
-                backgroundColor: appTheme.onSurface.withOpacity(0.08),
-              ),
-              icon: Image.asset(AppImages.logoGoogle, height: 24, width: 24),
-              label: Text(
-                s.sign_in_with_google,
-                style: appTheme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: appTheme.onSurface,
-                ),
+              ],
+            ),
+            child: InkWell(
+              onTap: controller.googleSignIn,
+              borderRadius: BorderRadius.circular(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(AppImages.logoGoogle, height: 24),
+                  const SizedBox(width: 12),
+                  Text(
+                    s.sign_in_with_google,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          AppGaps.h24,
+
+          AppGaps.h32,
 
           // Sign Up Link
-          buildAuthNavigation(
-            context: context,
-            text: s.dont_have_account,
-            actionText: s.sign_up,
-            onTap: controller.goToRegister,
+          Center(
+            child: buildAuthNavigation(
+              context: context,
+              text: s.dont_have_account,
+              actionText: s.sign_up,
+              onTap: controller.goToRegister,
+            ),
           ),
+          AppGaps.h24,
         ],
       ),
     );
