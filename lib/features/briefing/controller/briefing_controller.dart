@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart'; // for debugPrint
 import 'package:mega_news/core/constants/app_colors.dart';
 import 'package:mega_news/core/constants/app_images.dart';
 import 'package:mega_news/core/custom/custom_snackbar.dart';
@@ -7,6 +8,7 @@ import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/gemini/domain/usecases/get_ai_summary_usecase.dart';
 import 'package:mega_news/features/news/domain/entities/article.dart';
 import 'package:mega_news/features/news/domain/repositories/i_news_repository.dart';
+import 'package:vibration/vibration.dart';
 
 class AiBriefingController extends GetxController {
   final INewsRepository newsRepository;
@@ -68,10 +70,17 @@ class AiBriefingController extends GetxController {
   }) async {
     final topicId = topic['value']!;
 
-    if (loadingTopicIds.contains(topicId)) return;
+    // Debug: Start of function
+    debugPrint("--- [DEBUG] selectAndSummarizeTopic called for: $topicId ---");
+
+    if (loadingTopicIds.contains(topicId)) {
+      debugPrint("--- [DEBUG] Topic is already loading. Skipping. ---");
+      return;
+    }
 
     final cachedArticle = cachedSummaries[topicId];
     if (!forceRefresh && cachedArticle != null) {
+      debugPrint("--- [DEBUG] Found cached summary. Navigating directly. ---");
       _navigateToDetails(cachedArticle);
       return;
     }
@@ -79,14 +88,27 @@ class AiBriefingController extends GetxController {
     loadingTopicIds.add(topicId);
 
     try {
+      debugPrint("--- [DEBUG] Starting fetchAndSummarizeTopic... ---");
       final Article result = await _fetchAndSummarizeTopic(topic);
+      debugPrint("--- [DEBUG] Summary fetched successfully. ---");
 
       cachedSummaries[topicId] = result;
 
       loadingTopicIds.remove(topicId);
 
-      _navigateToDetails(result);
+      if (await Vibration.hasVibrator()) {
+        Vibration.vibrate(duration: 400);
+        debugPrint(">>> [DEBUG] Forced Vibration executed via plugin. <<<");
+      }
+      debugPrint(">>> [DEBUG] HapticFeedback command executed. <<<");
+
+      customSnackbar(
+        title: s.done,
+        message: "${topic['label']} summary is ready",
+        color: AppColors.success,
+      );
     } catch (e) {
+      debugPrint("!!! [DEBUG] Error occurred: $e !!!");
       loadingTopicIds.remove(topicId);
       customSnackbar(
         title: s.generation_failed_title,
