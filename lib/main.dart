@@ -29,7 +29,7 @@ Future<void> main() async {
   await GetStorage.init();
 
   // for language and theme
-  Get.putAsync(() async => ThemeController());
+  Get.putAsync(() async => ThemeController(), permanent: true);
 
   await NotificationService.init();
 

@@ -53,4 +53,16 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
       await remoteDataSource.removeFavorite(userId, articleId);
     }
   }
+
+  @override
+  Future<void> clearAllFavorites(String userId) async {
+    // 1. Always clear local cache first
+    await localDataSource.clearFavoritesCache();
+
+    if (userId == 'guest') return;
+
+    if (await NetworkService.isConnected) {
+      await remoteDataSource.clearAllFavorites(userId);
+    }
+  }
 }

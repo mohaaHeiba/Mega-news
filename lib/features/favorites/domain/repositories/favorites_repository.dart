@@ -4,4 +4,6 @@ abstract class FavoritesRepository {
   Future<List<Article>> getFavorites(String userId);
   Future<void> addFavorite(String userId, Article article);
   Future<void> removeFavorite(String userId, String articleId);
+
+  Future<void> clearAllFavorites(String userId);
 }

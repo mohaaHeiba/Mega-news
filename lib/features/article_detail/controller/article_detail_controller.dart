@@ -48,9 +48,7 @@ class ArticleDetailController extends GetxController {
         isLiked.value = _favoritesController.isFavorite(article!.id);
       }
 
-      Future.delayed(const Duration(milliseconds: 50), () {
-        _generatePalette();
-      });
+      _generatePalette();
     }
     // Handle AI Generated Content (Legacy Map)
     else if (args is Map<String, dynamic>) {

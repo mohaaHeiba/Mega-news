@@ -6,6 +6,8 @@ abstract class FavoritesLocalDataSource {
   Future<List<Article>> getCachedFavorites();
   Future<void> addFavoriteLocally(Article article);
   Future<void> removeFavoriteLocally(String articleId);
+  // New method added
+  Future<void> clearFavoritesCache();
 }
 
 class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
@@ -49,5 +51,10 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
     currentFavorites.removeWhere((article) => article.id == articleId);
 
     await cacheFavorites(currentFavorites);
+  }
+
+  @override
+  Future<void> clearFavoritesCache() async {
+    await _box.remove(_key);
   }
 }

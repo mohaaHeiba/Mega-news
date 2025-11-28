@@ -6,6 +6,8 @@ import 'package:mega_news/core/routes/app_pages.dart';
 import 'package:mega_news/features/auth/data/model/auth_model.dart';
 import 'package:mega_news/features/auth/domain/entity/auth_entity.dart';
 import 'package:mega_news/features/auth/presentations/controller/auth_controller.dart';
+import 'package:mega_news/features/favorites/data/repositories/favorites_repository.dart';
+import 'package:mega_news/features/favorites/domain/usecases/clear_all_favorites_use_case.dart';
 import 'package:mega_news/features/settings/controller/theme_controller.dart';
 import 'package:mega_news/core/services/permission_service.dart';
 
@@ -160,6 +162,35 @@ class MenuViewController extends GetxController {
 
     themeController.loadTheme();
     themeController.loadLanguage();
+  }
+
+  Future<void> deleteAllFavorites() async {
+    final currentUser = user.value;
+    final userId = currentUser?.id ?? 'guest';
+
+    try {
+      final favoritesRepo = Get.find<FavoritesRepository>();
+
+      final clearUseCase = ClearAllFavoritesUseCase(favoritesRepo);
+
+      // Call the use case with userId
+      await clearUseCase.call(userId);
+
+      Get.snackbar(
+        'Success',
+        'All favorites cleared successfully',
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      print('Error clearing favorites: $e'); // Debug print
+      Get.snackbar(
+        'Error',
+        'Failed to clear favorites',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   Future<void> logout() async {
