@@ -385,7 +385,52 @@ Localization files are generated using `flutter_intl` and stored in `lib/l10n/`.
 
 ## 📱 Screenshots
 
-*(Add screenshots of your app here)*
+### - Welcome Page
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cb6729a8-8060-4e5f-b2c0-7c0b6cc19752" width="260"/>
+  <img src="https://github.com/user-attachments/assets/02caa8e5-b9f8-43a1-b919-143af18231f2" width="260"/>
+  <img src="https://github.com/user-attachments/assets/312eea48-2273-428e-ba75-eb1f777782ae" width="260"/>
+  <img src="https://github.com/user-attachments/assets/e0311613-03e9-48c4-9326-3e5a9043d453" width="260"/>
+</p>
+
+
+### - Auth Pages
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0c89b6a2-72b6-4266-9f62-8b128b2b9827" width="260"/>
+  <img src="https://github.com/user-attachments/assets/cb80b79d-d4a0-493e-8aee-b50f530a480e" width="260"/>
+  <img src="https://github.com/user-attachments/assets/dc6c7a39-314b-472a-9554-c981b5593afb" width="260"/>
+  <img src="https://github.com/user-attachments/assets/872cfe8a-cecb-40bf-91e2-ab07d4f02331" width="260"/>
+</p>
+
+
+### - Main Pages
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/495c7c19-7126-4a70-b094-e79d07469888" width="260"/>
+  <img src="https://github.com/user-attachments/assets/28e457b3-fe35-484d-b4ff-92e679a069bc" width="260"/>
+  <img src="https://github.com/user-attachments/assets/d9d29a02-17f6-4ab2-b5d4-807d1ac0f7ba" width="260"/>
+  <img src="https://github.com/user-attachments/assets/bd54a0b0-e768-4799-a3f0-0c844e962606" width="260"/>
+  <img src="https://github.com/user-attachments/assets/b030a650-ad98-4e1f-b675-252dca60f6ec" width="260"/>
+  <img src="https://github.com/user-attachments/assets/a60f8aa2-a957-4a28-b220-5c0c2a2c6666" width="260"/>
+</p>
+
+
+### - Articles Details Page
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e7a50f6f-3a49-44ec-8b14-30a0bef24bb1" width="260"/>
+  <img src="https://github.com/user-attachments/assets/0d8047fe-4e75-47ee-88f2-88bed4af53bf" width="260"/>
+</p>
+
+
+### - Search Page
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c7193110-bb67-4dfc-a4c7-ef8eb1440262" width="260"/>
+  <img src="https://github.com/user-attachments/assets/d196860f-00f4-48d7-b1bb-f27e1c6372eb" width="260"/>
+  <img src="https://github.com/user-attachments/assets/babfe62a-f3d5-4436-9a32-17cd1e057ba5" width="260"/>
+  <img src="https://github.com/user-attachments/assets/d2322e42-287f-4efe-832e-25452065329b" width="260"/>
+  <img src="https://github.com/user-attachments/assets/eb3ceadf-4dd0-494c-a682-9c9c07f5a8c2" width="260"/>
+</p>
+
+
 
 ## 🧪 Testing
 
